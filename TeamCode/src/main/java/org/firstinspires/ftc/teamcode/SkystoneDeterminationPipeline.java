@@ -123,7 +123,6 @@ public class SkystoneDeterminationPipeline extends OpenCvPipeline {
          * Draw a rectangle showing sample region 3 on the screen.
          * Simply a visual aid. Serves no functional purpose.
          */
-
         /*
          * Now that we found the max, we actually need to go and
          * figure out which sample region that value was from

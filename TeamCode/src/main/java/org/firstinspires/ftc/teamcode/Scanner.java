@@ -36,7 +36,6 @@ public class Scanner {
         String signalPosition;
         int aprilID = 0;
 
-
         int cameraMonitorViewId = theOpMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id",
                 theOpMode.hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(theOpMode.hardwareMap.get(WebcamName.class, ""),

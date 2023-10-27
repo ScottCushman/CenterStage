@@ -29,7 +29,6 @@ public class Teleop extends OpMode {
         //  armAndClaw = new Arm_and_Claw(hardwareMap, this);
 
     }
-
     @Override
     public void loop() {
         drivetrain.UpdateDriveTrain();
