@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class R1Auto extends LinearOpMode {
 
     private int codePosition;
+    private int markPosition;
 
     public void runOpMode() {
         String tempString = "";
@@ -19,15 +20,20 @@ public class R1Auto extends LinearOpMode {
         liftHeights.add(26.5);
         liftHeights.add(0.5);
         liftHeights.add(33.0);
-        Lift lift = new Lift(hardwareMap, this, liftHeights);
+        //  Lift lift = new Lift(hardwareMap, this, liftHeights);
         Scanner scanner = new Scanner(hardwareMap, this);
-        Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
+       // Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
+        SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
         int counter = 0;
-
+        markPosition = spikeMarkDetection.detectPosition();
+        telemetry.addData("Current Pos", tempString);
+        telemetry.addData(tempString, markPosition);
+        telemetry.update();
         waitForStart();
-        driveTrain.turnToPID(90, 2);
-        sleep(1000);
-        driveTrain.turnToPID(0, 2);
+
+//        driveTrain.turnToPID(90, 2);
+//        sleep(1000);
+//        driveTrain.turnToPID(0, 2);
 
         codePosition = scanner.scanSignal();
         telemetry.addData("Current Signal Zone", tempString);

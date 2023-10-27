@@ -69,12 +69,12 @@ public class Drivetrain {
         theOpMode.telemetry.addData("Running to", "here");
         theOpMode.telemetry.update();
         // theOpMode.sleep(2000);
-        leftDrive = hardwareMap.dcMotor.get("left_drive");
-        rightDrive = hardwareMap.dcMotor.get("right_drive");
-        leftBackDrive = hardwareMap.dcMotor.get("left_back_drive");
-        rightBackDrive = hardwareMap.dcMotor.get("right_back_drive");
+        leftDrive = hardwareMap.dcMotor.get("leftDrive");
+        rightDrive = hardwareMap.dcMotor.get("rightDrive");
+        leftBackDrive = hardwareMap.dcMotor.get("leftBackDrive");
+        rightBackDrive = hardwareMap.dcMotor.get("rightBackDrive");
 
-        distanceSensor = theOpMode.hardwareMap.get(DistanceSensor.class, "distanceSensor");
+      //  distanceSensor = theOpMode.hardwareMap.get(DistanceSensor.class, "distanceSensor");
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
