@@ -16,25 +16,88 @@ public class Lift {
     private DistanceSensor sensorRange;
     private ElapsedTime runtime = new ElapsedTime();
     private OpMode theOpMode;
-    private ArrayList<Double> liftHeights = new ArrayList<Double>();
+    private ArrayList<Double> liftHeights;
     private int teleopLiftHeight = 0;
     private double targetHeight = 0;
     double countsPerInch;
 
 
-    public Lift(HardwareMap hardwareMap, OpMode opMode, double encoderTicksPerRev, double gearRatio, double wheelDiameter) {
+    public Lift(HardwareMap hardwareMap, OpMode opMode, double encoderTicksPerRev, double gearRatio, double wheelDiameter, ArrayList<Double> LiftHeights) {
+        liftHeights = LiftHeights;
         countsPerInch = (encoderTicksPerRev * gearRatio) / (wheelDiameter * 3.14);
         theOpMode = opMode;
-        leftMotor = hardwareMap.get(DcMotor.class, "left_motor");
+        leftMotor = hardwareMap.get(DcMotor.class, "leftMotor");
       //  rightMotor = hardwareMap.get(DcMotor.class, "right_motor");
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+      //  rightMotor.setDirection(DcMotor.Direction.REVERSE);
      //   sensorRange = hardwareMap.get(DistanceSensor.class, "sensor_range");
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
     public void teleLift() {
+        /*
+        if (theOpMode.gamepad2.x) {
+            leftMotor.setPower(-.2);
+        }
+        else {
+        leftMotor.setPower(0);
 
+        if (theOpMode.gamepad2.b) {
+            teleopLiftHeight = 1;
+            targetHeight = liftHeights.get(teleopLiftHeight);
+        }
+        if (theOpMode.gamepad2.a) {
+            teleopLiftHeight = 2;
+            targetHeight = liftHeights.get(teleopLiftHeight);
+        }
+        if (theOpMode.gamepad2.y) {
+            leftMotor.setPower(.7);
+            if (leftMotor.getCurrentPosition() > 50) {
+                leftMotor.setPower(0);
+            }
+        }
+
+         */
+
+        leftMotor.setPower(theOpMode.gamepad2.left_stick_y * .7);
+
+/*
+        targetHeight = leftMotor.getCurrentPosition() + (int) ((teleopLiftHeight * countsPerInch));
+        leftMotor.setTargetPosition(((int) targetHeight));
+        double rangeErrorOfLiftHeight = ((targetHeight) - leftMotor.getCurrentPosition());
+        double speedOfLiftForDesignatedPosition = (rangeErrorOfLiftHeight / 3);
+        speedOfLiftForDesignatedPosition = Math.max(-.2, Math.min(1, speedOfLiftForDesignatedPosition));
+        leftMotor.setPower(speedOfLiftForDesignatedPosition);
+        if (leftMotor.getCurrentPosition() > 400) {
+            leftMotor.setPower(0);
+        }
+
+
+        /*
+        if (Math.abs(theOpMode.gamepad2.right_stick_y) > .1) {
+            targetHeight = leftMotor.getCurrentPosition() - (theOpMode.gamepad2.right_stick_y * 3);
+        }
+        if ((targetHeight) > (leftMotor.getCurrentPosition())) {
+            double rangeErrorOfLiftHeight = (targetHeight) - leftMotor.getCurrentPosition();
+            double speedOfLiftForDesignatedPosition = (rangeErrorOfLiftHeight / 10);
+            speedOfLiftForDesignatedPosition = Math.max(-.2, Math.min(1, speedOfLiftForDesignatedPosition));
+            leftMotor.setPower(speedOfLiftForDesignatedPosition);
+
+            //theOpMode.telemetry.addData("range", String.format("%.2f", speedOfLiftForDesignatedPosition));
+            //theOpMode.telemetry.update();
+
+        } else {
+            //Moving lift down
+            //    theOpMode.telemetry.addData("Moving", "down");
+            double rangeErrorOfLiftHeight = (targetHeight) - leftMotor.getCurrentPosition();
+            double speedOfLiftForDesignatedPosition = (rangeErrorOfLiftHeight / 40);
+            speedOfLiftForDesignatedPosition = Math.max(-1, Math.min(1, speedOfLiftForDesignatedPosition));
+            leftMotor.setPower(speedOfLiftForDesignatedPosition);
+
+
+        }
+
+         */
     }
     public void liftAuto(double speed, double distance, double timeoutS) {
         int target;

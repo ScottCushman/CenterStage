@@ -7,19 +7,17 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
+import java.util.ArrayList;
 
-/*
- * This sample demonstrates a basic (but battle-tested and essentially
- * 100% accurate) method of detecting the skystone when lined up with
- * the sample regions over the first 3 stones.
- */
 public class SpikeMarkDetection {
     public enum spikeMarkPositions {
         LEFT,
         MIDDLE,
-        RIGHT
+        RIGHT,
+        NOTHING
     }
-    private volatile SpikeMarkDetection.spikeMarkPositions position = spikeMarkPositions.LEFT;
+    String something;
+    private volatile SpikeMarkDetection.spikeMarkPositions positions;
     OpenCvCamera webcam;
     SkystoneDeterminationPipeline pipeline;
     private LinearOpMode theOpMode;
@@ -29,8 +27,8 @@ public class SpikeMarkDetection {
     }
 
 
-    public String detectPosition() {
-       String position = spikeMarkPositions.LEFT;
+    public spikeMarkPositions detectPosition() {
+       spikeMarkPositions positions = spikeMarkPositions.NOTHING;
 
         int cameraMonitorViewId = theOpMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", theOpMode.hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(theOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
@@ -51,16 +49,18 @@ public class SpikeMarkDetection {
             theOpMode.telemetry.addData("Can you see this?", 0);
             theOpMode.telemetry.update();
             if (SkystoneDeterminationPipeline.square1Activated) {
-                position = SpikeMarkDetection.spikeMarkPositions.MIDDLE;
+                positions = SpikeMarkDetection.spikeMarkPositions.MIDDLE;
             }
             else if (SkystoneDeterminationPipeline.square2Activated) {
-                position = SpikeMarkDetection.spikeMarkPositions.RIGHT;
+                positions = SpikeMarkDetection.spikeMarkPositions.RIGHT;
             }
             else {
-                position = SpikeMarkDetection.spikeMarkPositions.LEFT;
+                positions = SpikeMarkDetection.spikeMarkPositions.LEFT;
             }
         }
-        return position;
+        theOpMode.telemetry.addData("Hello?", 0);
+        theOpMode.telemetry.update();
+        return positions;
     }
 
 

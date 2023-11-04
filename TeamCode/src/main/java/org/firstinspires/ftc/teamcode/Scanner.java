@@ -38,7 +38,7 @@ public class Scanner {
 
         int cameraMonitorViewId = theOpMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id",
                 theOpMode.hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(theOpMode.hardwareMap.get(WebcamName.class, ""),
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(theOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"),
                 cameraMonitorViewId);
         AprilTagDetectionPipeline aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
         webcam.setPipeline(aprilTagDetectionPipeline);
@@ -59,7 +59,7 @@ public class Scanner {
         });
         signalPosition = "";
         int counter = 0;
-        while ((theOpMode.opModeIsActive())) {
+        while ((theOpMode.opModeInInit())) {
             ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
             currentDetections.size();
             theOpMode.telemetry.addData("April ID", aprilID);

@@ -64,9 +64,9 @@ public class Collection {
 
     public void setCollectionPosition() {
         if (theOpMode.gamepad2.left_bumper) {
-            rotatorServo.setPosition(.6);
+            rotatorServo.setPosition(.4);
         } else if (theOpMode.gamepad2.right_bumper) {
-            rotatorServo.setPosition(0.9);
+            rotatorServo.setPosition(0.6);
         }
         if (theOpMode.gamepad2.dpad_left) {
             rotServo.setPosition(.35);
@@ -79,7 +79,47 @@ public class Collection {
         else if (theOpMode.gamepad2.dpad_down) {
             imAboutToDie.setPosition(.9);
         }
+    }
+    public void moveClaw(double clawPos, double timeoutS) {
+        while (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS)) {
+            imAboutToDie.setPosition(clawPos);
+        }
 
-
+    }
+    public void rotateArm(double armPos, double timeoutS) {
+        while (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {
+            rotatorServo.setPosition(armPos);
+        }
+    }
+    public void rotateArmStart(double armPos, double timeoutS) {
+        rotatorServo.setPosition(armPos);
+    }
+    public boolean rotateArmCheck(double armPos, double timeoutS) {
+        if (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {
+            rotatorServo.setPosition(armPos);
+            return true;
+        }
+        rotateArmEnd();
+        return false;
+    }
+    public void rotateArmEnd() {
+    }
+    public void rotateClaw(double position, double timeoutS) {
+        while (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {
+            rotServo.setPosition(position);
+        }
+    }
+    public void rotateClawStart(double position, double timeoutS) {
+        rotServo.setPosition(position);
+    }
+    public boolean rotateClawCheck(double position, double timeoutS) {
+        if (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {
+            rotServo.setPosition(position);
+            return true;
+        }
+        rotateClawEnd();
+        return false;
+    }
+    public void rotateClawEnd() {
     }
 }
