@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import java.util.ArrayList;
 
 @Autonomous
-public class R1Auto extends LinearOpMode {
+public class R1AutoBlueRight extends LinearOpMode {
 
     private int codePosition;
     public void runOpMode() {

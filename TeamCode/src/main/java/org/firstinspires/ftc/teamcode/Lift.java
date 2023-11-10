@@ -20,6 +20,14 @@ public class Lift {
     private int teleopLiftHeight = 0;
     private double targetHeight = 0;
     double countsPerInch;
+    private double kp = 0.1;
+    private double ki = 0.01;
+    private double kd = 0.001;
+
+    // Variables for PID control
+    private double integral = 0;
+    private double previousError = 0;
+
 
 
     public Lift(HardwareMap hardwareMap, OpMode opMode, double encoderTicksPerRev, double gearRatio, double wheelDiameter, ArrayList<Double> LiftHeights) {
@@ -33,46 +41,82 @@ public class Lift {
      //   sensorRange = hardwareMap.get(DistanceSensor.class, "sensor_range");
       //  rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public void teleLift() {
-        /*
+/*
         if (theOpMode.gamepad2.x) {
             leftMotor.setPower(-.2);
         }
         else {
-        leftMotor.setPower(0);
+            leftMotor.setPower(0);
 
-        if (theOpMode.gamepad2.b) {
-            teleopLiftHeight = 1;
-            targetHeight = liftHeights.get(teleopLiftHeight);
-        }
-        if (theOpMode.gamepad2.a) {
-            teleopLiftHeight = 2;
-            targetHeight = liftHeights.get(teleopLiftHeight);
-        }
-        if (theOpMode.gamepad2.y) {
-            leftMotor.setPower(.7);
-            if (leftMotor.getCurrentPosition() > 50) {
-                leftMotor.setPower(0);
+            if (theOpMode.gamepad2.b) {
+                leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                leftMotor.setPower(.7);
+                leftMotor.setTargetPosition(400);
+                if (leftMotor.getCurrentPosition() < 400) {
+                    leftMotor.setPower(.7);
+                }
+                else {
+                    leftMotor.setPower(0);
+                    leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                }
             }
-        }
+            /*
+            if (theOpMode.gamepad2.a) {
+               leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+               leftMotor.setPower(-.3);
+               leftMotor.setTargetPosition(5);
+               if (leftMotor.getCurrentPosition() < 5) {
+                   leftMotor.setPower(-.3);
+               }
+               else {
+                   leftMotor.setPower(0);
+                   leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+               }
 
-         */
-
-        leftMotor.setPower(theOpMode.gamepad2.left_stick_y * .7);
+             */
+           // }
+    //        if (theOpMode.gamepad2.y) {
+        leftMotor.setPower((theOpMode.gamepad2.left_stick_y) * .7);
+       //     }
 
 /*
-        targetHeight = leftMotor.getCurrentPosition() + (int) ((teleopLiftHeight * countsPerInch));
-        leftMotor.setTargetPosition(((int) targetHeight));
-        double rangeErrorOfLiftHeight = ((targetHeight) - leftMotor.getCurrentPosition());
-        double speedOfLiftForDesignatedPosition = (rangeErrorOfLiftHeight / 3);
-        speedOfLiftForDesignatedPosition = Math.max(-.2, Math.min(1, speedOfLiftForDesignatedPosition));
-        leftMotor.setPower(speedOfLiftForDesignatedPosition);
-        if (leftMotor.getCurrentPosition() > 400) {
-            leftMotor.setPower(0);
+            if (theOpMode.gamepad2.a) {
+                int target;
+                target = leftMotor.getCurrentPosition() + (int) (500 * countsPerInch);
+                leftMotor.setTargetPosition(target);
+                leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                leftMotor.setPower(Math.abs(.7));
+
+                while (((LinearOpMode) theOpMode).opModeIsActive() && (leftMotor.isBusy())) {
+                    leftMotor.setPower(Math.abs(.7));
+                }
+                leftMotor.setPower(0);
+                leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            }
+
+
+
+            // leftMotor.setPower(theOpMode.gamepad2.left_stick_y * .7);
+
+/*
+            targetHeight = leftMotor.getCurrentPosition() + (int) ((teleopLiftHeight * countsPerInch));
+            leftMotor.setTargetPosition(((int) targetHeight));
+            double rangeErrorOfLiftHeight = ((targetHeight) - leftMotor.getCurrentPosition());
+            double speedOfLiftForDesignatedPosition = (rangeErrorOfLiftHeight / 3);
+            speedOfLiftForDesignatedPosition = Math.max(-.2, Math.min(1, speedOfLiftForDesignatedPosition));
+            leftMotor.setPower(speedOfLiftForDesignatedPosition);
+            if (leftMotor.getCurrentPosition() > 400) {
+                leftMotor.setPower(0);
+            }
+
+ */
+
         }
-
-
         /*
         if (Math.abs(theOpMode.gamepad2.right_stick_y) > .1) {
             targetHeight = leftMotor.getCurrentPosition() - (theOpMode.gamepad2.right_stick_y * 3);
@@ -98,7 +142,7 @@ public class Lift {
         }
 
          */
-    }
+  //  }
     public void liftAuto(double speed, double distance, double timeoutS) {
         int target;
         target = leftMotor.getCurrentPosition() + (int) (distance * countsPerInch);
@@ -109,10 +153,10 @@ public class Lift {
         while (((LinearOpMode) theOpMode).opModeIsActive() &&
                 (runtime.seconds() < timeoutS) && (leftMotor.isBusy())) {
             leftMotor.setPower(Math.abs(speed));
-            leftMotor.setPower(0);
-            leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
+        leftMotor.setPower(0);
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
     public void liftAutoStart(double speed, double distance, double timeoutS) {

@@ -46,20 +46,23 @@ public class SpikeMarkDetection {
             }
         });
         while (theOpMode.opModeInInit()) {
-            theOpMode.telemetry.addData("Can you see this?", 0);
-            theOpMode.telemetry.update();
-            if (SkystoneDeterminationPipeline.square1Activated) {
+            if (pipeline.square1Activated) {
                 positions = SpikeMarkDetection.spikeMarkPositions.MIDDLE;
+                theOpMode.telemetry.addData("Position 1?","");
+                theOpMode.telemetry.update();
+
             }
-            else if (SkystoneDeterminationPipeline.square2Activated) {
+            else if (pipeline.square2Activated) {
                 positions = SpikeMarkDetection.spikeMarkPositions.RIGHT;
+                theOpMode.telemetry.addData("Position 2?","");
+                theOpMode.telemetry.update();
             }
             else {
                 positions = SpikeMarkDetection.spikeMarkPositions.LEFT;
+                theOpMode.telemetry.addData("Position 3?","");
+                theOpMode.telemetry.update();
             }
         }
-        theOpMode.telemetry.addData("Hello?", 0);
-        theOpMode.telemetry.update();
         return positions;
     }
 

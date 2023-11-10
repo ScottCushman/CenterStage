@@ -33,8 +33,9 @@ public class Teleop extends OpMode {
     public void loop() {
         drivetrain.UpdateDriveTrain();
       //  lift.raiseLiftToDesignatedPositionTeleop();
-        drivetrain.DriverControls();
+       drivetrain.DriverControls();
         //   rubberBandSpinner.rotateSpinnersTeleop();
+      //  drivetrain.testDrivetrain();
         collection.collectionTeleop();
         collection.setCollectionPosition();
         lift.teleLift();

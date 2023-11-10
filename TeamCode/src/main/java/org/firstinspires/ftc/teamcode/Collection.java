@@ -17,6 +17,7 @@ public class Collection {
     Servo rotatorServo;
     Servo rotServo;
     Servo imAboutToDie;
+    Servo imGoingToDie;
     NormalizedColorSensor colorSensor;
     private OpMode theOpMode;
     double armSpeed = 0;
@@ -26,8 +27,10 @@ public class Collection {
         rotatorServo = hardwareMap.get(Servo.class, "rotatorServo");
         rotServo = hardwareMap.get(Servo.class, "rotServo");
         imAboutToDie = hardwareMap.get(Servo.class, "armServo");
+        imGoingToDie = hardwareMap.get(Servo.class, "arm");
 
         rotatorServo.setDirection(Servo.Direction.FORWARD);
+        imGoingToDie.setDirection(Servo.Direction.REVERSE);
      //   colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
     }
 
@@ -63,32 +66,41 @@ public class Collection {
     }
 
     public void setCollectionPosition() {
-        if (theOpMode.gamepad2.left_bumper) {
+        if (theOpMode.gamepad1.left_bumper || theOpMode.gamepad2.left_bumper) {
             rotatorServo.setPosition(.4);
-        } else if (theOpMode.gamepad2.right_bumper) {
-            rotatorServo.setPosition(0.6);
+        } else if (theOpMode.gamepad1.right_bumper || theOpMode.gamepad2.right_bumper) {
+            rotatorServo.setPosition(0.7);
         }
+
         if (theOpMode.gamepad2.dpad_left) {
-            rotServo.setPosition(.35);
+            rotServo.setPosition(.3);
         } else if (theOpMode.gamepad2.dpad_right) {
-            rotServo.setPosition(0.05);
+            rotServo.setPosition(0.1);
         }
         if (theOpMode.gamepad2.dpad_up) {
-            imAboutToDie.setPosition(0);
+            imAboutToDie.setPosition(.69);
+            imGoingToDie.setPosition(.69);
         }
         else if (theOpMode.gamepad2.dpad_down) {
-            imAboutToDie.setPosition(.9);
+            imAboutToDie.setPosition(.15);
+            imGoingToDie.setPosition(.15);
+        }
+        if (theOpMode.gamepad2.y) {
+            imAboutToDie.setPosition(.4);
+        }
+        if (theOpMode.gamepad2.x) {
+            imAboutToDie.setPosition(.2);
         }
     }
     public void moveClaw(double clawPos, double timeoutS) {
         while (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS)) {
-            imAboutToDie.setPosition(clawPos);
+            rotatorServo.setPosition(clawPos);
         }
 
     }
     public void rotateArm(double armPos, double timeoutS) {
         while (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {
-            rotatorServo.setPosition(armPos);
+            imAboutToDie.setPosition(armPos);
         }
     }
     public void rotateArmStart(double armPos, double timeoutS) {

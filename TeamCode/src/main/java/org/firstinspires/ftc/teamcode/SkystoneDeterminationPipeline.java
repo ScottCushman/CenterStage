@@ -12,8 +12,8 @@ public class SkystoneDeterminationPipeline extends OpenCvPipeline {
     /*
      * An enum to define the skystone position
      */
-    static boolean square1Activated = false;
-    static boolean square2Activated = false;
+     boolean square1Activated = false;
+     boolean square2Activated = false;
 
     /*
      * Some color constants
@@ -21,11 +21,12 @@ public class SkystoneDeterminationPipeline extends OpenCvPipeline {
     static final Scalar BLUE = new Scalar(0, 0, 255);
     static final Scalar GREEN = new Scalar(0, 255, 0);
 
+
     /*
      * The core values which define the location and size of the sample regions
      */
-    static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(109, 200);
-    static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(390, 300);
+    static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(400, 700);
+    static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(500, 300);
     //  static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(630,98);
     static final int REGION_WIDTH = 150;
     static final int REGION_HEIGHT = 150;
