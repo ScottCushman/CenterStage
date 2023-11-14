@@ -21,7 +21,11 @@ public class Collection {
     NormalizedColorSensor colorSensor;
     private OpMode theOpMode;
     double armSpeed = 0;
+    double imGoingToDie1;
+    static final double imGoingToDie2 = .2;
 
+    double imAboutToDie1;
+    static final double imAboutToDie2 = .2;
     public Collection(HardwareMap hardwareMap, OpMode opMode) {
         theOpMode = opMode;
         rotatorServo = hardwareMap.get(Servo.class, "rotatorServo");
@@ -31,34 +35,9 @@ public class Collection {
 
         rotatorServo.setDirection(Servo.Direction.FORWARD);
         imGoingToDie.setDirection(Servo.Direction.REVERSE);
+        imGoingToDie1 = imGoingToDie2;
+        imAboutToDie1 = imAboutToDie2;
      //   colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
-    }
-
-    public void rotateCollection(double position, double timeoutS) {
-
-        while (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS)) {
-            rotatorServo.setPosition(position);
-        }
-    }
-
-    public void rotateCollectionStart(double position, double timeoutS) {
-        rotatorServo.setPosition(position);
-    }
-
-    public boolean rotateCollectionCheck(double position, double timeoutS) {
-
-        if (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS)) {
-            rotatorServo.setPosition(position);
-            return true;
-
-        }
-        else {
-            rotateCollectionEnd();
-            return false;
-        }
-
-    }
-    public void rotateCollectionEnd() {
     }
 
     public void collectionTeleop() {
@@ -66,10 +45,10 @@ public class Collection {
     }
 
     public void setCollectionPosition() {
-        if (theOpMode.gamepad1.left_bumper || theOpMode.gamepad2.left_bumper) {
-            rotatorServo.setPosition(.4);
-        } else if (theOpMode.gamepad1.right_bumper || theOpMode.gamepad2.right_bumper) {
-            rotatorServo.setPosition(0.7);
+        if (theOpMode.gamepad1.left_bumper || theOpMode.gamepad2.right_bumper) {
+            rotatorServo.setPosition(.5);
+        } else if (theOpMode.gamepad1.right_bumper || theOpMode.gamepad2.left_bumper) {
+            rotatorServo.setPosition(0.8);
         }
 
         if (theOpMode.gamepad2.dpad_left) {
@@ -78,18 +57,22 @@ public class Collection {
             rotServo.setPosition(0.1);
         }
         if (theOpMode.gamepad2.dpad_up) {
-            imAboutToDie.setPosition(.69);
-            imGoingToDie.setPosition(.69);
+            imAboutToDie.setPosition(.77);
+            imGoingToDie.setPosition(.8);
         }
         else if (theOpMode.gamepad2.dpad_down) {
             imAboutToDie.setPosition(.15);
-            imGoingToDie.setPosition(.15);
+            imGoingToDie.setPosition(.18);
         }
         if (theOpMode.gamepad2.y) {
-            imAboutToDie.setPosition(.4);
+            imAboutToDie.setPosition(.5);
+            imGoingToDie.setPosition(.5);
+
         }
         if (theOpMode.gamepad2.x) {
-            imAboutToDie.setPosition(.2);
+            imAboutToDie.setPosition(imAboutToDie1);
+            imGoingToDie.setPosition(imGoingToDie2);
+
         }
     }
     public void moveClaw(double clawPos, double timeoutS) {
@@ -99,12 +82,13 @@ public class Collection {
 
     }
     public void rotateArm(double armPos, double timeoutS) {
-        while (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {
             imAboutToDie.setPosition(armPos);
-        }
+            imGoingToDie.setPosition(armPos);
+
     }
     public void rotateArmStart(double armPos, double timeoutS) {
-        rotatorServo.setPosition(armPos);
+       imGoingToDie.setPosition(armPos);
+       imAboutToDie.setPosition(armPos);
     }
     public boolean rotateArmCheck(double armPos, double timeoutS) {
         if (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {

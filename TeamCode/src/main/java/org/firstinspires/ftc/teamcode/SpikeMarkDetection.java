@@ -27,13 +27,15 @@ public class SpikeMarkDetection {
     }
 
 
-    public spikeMarkPositions detectPosition() {
+    public spikeMarkPositions detectPosition(boolean isRed) {
        spikeMarkPositions positions = spikeMarkPositions.NOTHING;
 
         int cameraMonitorViewId = theOpMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", theOpMode.hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(theOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         pipeline = new SkystoneDeterminationPipeline();
+        pipeline.isRed = isRed;
         webcam.setPipeline(pipeline);
+
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override

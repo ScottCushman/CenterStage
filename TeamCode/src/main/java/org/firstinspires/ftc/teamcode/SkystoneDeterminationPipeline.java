@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -9,6 +12,7 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 public class SkystoneDeterminationPipeline extends OpenCvPipeline {
+  //  public SkystoneDeterminationPipeline(HardwareMap hardwareMap, OpMode opMode) {}
     /*
      * An enum to define the skystone position
      */
@@ -30,7 +34,7 @@ public class SkystoneDeterminationPipeline extends OpenCvPipeline {
     //  static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(630,98);
     static final int REGION_WIDTH = 150;
     static final int REGION_HEIGHT = 150;
-
+    boolean isRed;
     Point region1_pointA = new Point(
             REGION1_TOPLEFT_ANCHOR_POINT.x,
             REGION1_TOPLEFT_ANCHOR_POINT.y);
@@ -65,8 +69,13 @@ public class SkystoneDeterminationPipeline extends OpenCvPipeline {
      * and extracts the Cb channel to the 'Cb' variable
      */
     void inputToCb(Mat input) {
-        Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-        Core.extractChannel(YCrCb, Cb, 1);
+        if (isRed) {
+            Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
+            Core.extractChannel(YCrCb, Cb, 1);
+        } else {
+            Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
+            Core.extractChannel(YCrCb, Cb, 2);
+        }
     }
 
     @Override

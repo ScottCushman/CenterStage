@@ -41,147 +41,56 @@ public class Lift {
      //   sensorRange = hardwareMap.get(DistanceSensor.class, "sensor_range");
       //  rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public void teleLift() {
-/*
-        if (theOpMode.gamepad2.x) {
-            leftMotor.setPower(-.2);
-        }
-        else {
-            leftMotor.setPower(0);
 
-            if (theOpMode.gamepad2.b) {
-                leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if (theOpMode.gamepad2.b && !theOpMode.gamepad2.a) {
                 leftMotor.setPower(.7);
-                leftMotor.setTargetPosition(400);
-                if (leftMotor.getCurrentPosition() < 400) {
-                    leftMotor.setPower(.7);
+                leftMotor.setTargetPosition(700);
+                leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            }
+                else if (!theOpMode.gamepad2.b && theOpMode.gamepad2.a) {
+                    leftMotor.setPower(-.3);
+                    leftMotor.setTargetPosition(5);
+
                 }
                 else {
-                    leftMotor.setPower(0);
-                    leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                }
+                    leftMotor.setTargetPosition(leftMotor.getCurrentPosition());
             }
-            /*
-            if (theOpMode.gamepad2.a) {
-               leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-               leftMotor.setPower(-.3);
-               leftMotor.setTargetPosition(5);
-               if (leftMotor.getCurrentPosition() < 5) {
-                   leftMotor.setPower(-.3);
-               }
-               else {
-                   leftMotor.setPower(0);
-                   leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-               }
-
-             */
-           // }
-    //        if (theOpMode.gamepad2.y) {
-        leftMotor.setPower((theOpMode.gamepad2.left_stick_y) * .7);
-       //     }
-
-/*
-            if (theOpMode.gamepad2.a) {
-                int target;
-                target = leftMotor.getCurrentPosition() + (int) (500 * countsPerInch);
-                leftMotor.setTargetPosition(target);
-                leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                leftMotor.setPower(Math.abs(.7));
-
-                while (((LinearOpMode) theOpMode).opModeIsActive() && (leftMotor.isBusy())) {
-                    leftMotor.setPower(Math.abs(.7));
-                }
-                leftMotor.setPower(0);
-                leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-            }
-
-
-
-            // leftMotor.setPower(theOpMode.gamepad2.left_stick_y * .7);
-
-/*
-            targetHeight = leftMotor.getCurrentPosition() + (int) ((teleopLiftHeight * countsPerInch));
-            leftMotor.setTargetPosition(((int) targetHeight));
-            double rangeErrorOfLiftHeight = ((targetHeight) - leftMotor.getCurrentPosition());
-            double speedOfLiftForDesignatedPosition = (rangeErrorOfLiftHeight / 3);
-            speedOfLiftForDesignatedPosition = Math.max(-.2, Math.min(1, speedOfLiftForDesignatedPosition));
-            leftMotor.setPower(speedOfLiftForDesignatedPosition);
-            if (leftMotor.getCurrentPosition() > 400) {
-                leftMotor.setPower(0);
-            }
-
- */
-
-        }
-        /*
-        if (Math.abs(theOpMode.gamepad2.right_stick_y) > .1) {
-            targetHeight = leftMotor.getCurrentPosition() - (theOpMode.gamepad2.right_stick_y * 3);
-        }
-        if ((targetHeight) > (leftMotor.getCurrentPosition())) {
-            double rangeErrorOfLiftHeight = (targetHeight) - leftMotor.getCurrentPosition();
-            double speedOfLiftForDesignatedPosition = (rangeErrorOfLiftHeight / 10);
-            speedOfLiftForDesignatedPosition = Math.max(-.2, Math.min(1, speedOfLiftForDesignatedPosition));
-            leftMotor.setPower(speedOfLiftForDesignatedPosition);
-
-            //theOpMode.telemetry.addData("range", String.format("%.2f", speedOfLiftForDesignatedPosition));
-            //theOpMode.telemetry.update();
-
-        } else {
-            //Moving lift down
-            //    theOpMode.telemetry.addData("Moving", "down");
-            double rangeErrorOfLiftHeight = (targetHeight) - leftMotor.getCurrentPosition();
-            double speedOfLiftForDesignatedPosition = (rangeErrorOfLiftHeight / 40);
-            speedOfLiftForDesignatedPosition = Math.max(-1, Math.min(1, speedOfLiftForDesignatedPosition));
-            leftMotor.setPower(speedOfLiftForDesignatedPosition);
-
-
-        }
-
-         */
-  //  }
-    public void liftAuto(double speed, double distance, double timeoutS) {
-        int target;
-        target = leftMotor.getCurrentPosition() + (int) (distance * countsPerInch);
+    }
+    public void liftAuto(double power, int target, double timeoutS) {
+        runtime.reset();
+        leftMotor.setPower(Math.abs(power));
         leftMotor.setTargetPosition(target);
         leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftMotor.setPower(Math.abs(speed));
 
-        while (((LinearOpMode) theOpMode).opModeIsActive() &&
-                (runtime.seconds() < timeoutS) && (leftMotor.isBusy())) {
-            leftMotor.setPower(Math.abs(speed));
+        while (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS && leftMotor.isBusy()) {
+//            leftMotor.setPower(power);
+//            leftMotor.setTargetPosition(leftMotor.getCurrentPosition());
+//            theOpMode.telemetry.addData("power", power);
+//            theOpMode.telemetry.update();
+
         }
-        leftMotor.setPower(0);
-        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
     }
-    public void liftAutoStart(double speed, double distance, double timeoutS) {
-        int target;
-        target = leftMotor.getCurrentPosition() + (int) (distance * countsPerInch);
+
+    public void liftAutoStart(double power, int target, double timeoutS) {
+        leftMotor.setPower(power);
         leftMotor.setTargetPosition(target);
         leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftMotor.setPower(Math.abs(speed));
     }
-    public boolean liftAutoCheck(double speed, double distance, double timeoutS) {
+    public boolean liftAutoCheck(double power, int target, double timeoutS) {
         if (((LinearOpMode) theOpMode).opModeIsActive() &&
                 (runtime.seconds() < timeoutS) && (leftMotor.isBusy())) {
-            leftMotor.setPower(Math.abs(speed));
             return true;
         }
         else {
-            liftAutoEnd();
             return false;
         }
     }
 
     public void liftAutoEnd() {
-        leftMotor.setPower(0);
-        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 
 
