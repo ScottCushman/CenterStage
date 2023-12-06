@@ -28,6 +28,12 @@ import java.util.ArrayList;
             waitForStart();
             driveTrain.encoderDrive(.7, 24, 3);
             driveTrain.turnToPID(90, 2);
+            driveTrain.encoderDrive(.7,36,3);
+            //score_on_backdrop
+            driveTrain.strafeEncoderDrive(.7,24,3);
+            driveTrain.encoderDrive(.7, 24, 2);
+
+
 
             //collection.moveClaw(.4, 3);
            /* if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {

@@ -1,3 +1,4 @@
+
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -5,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import java.util.ArrayList;
 
 @Autonomous
-public class BlueRight_Meet2 extends LinearOpMode {
-
+public class RedLeft_Meet2 extends LinearOpMode {
+//        ^RedLeft_Meet2.java^
     private int codePosition;
     private SpikeMarkDetection.spikeMarkPositions position;
 
@@ -23,32 +24,35 @@ public class BlueRight_Meet2 extends LinearOpMode {
         Collection collection = new Collection(hardwareMap, this);
         SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
         int counter = 0;
-        position = spikeMarkDetection.detectPosition(false);
+        position = spikeMarkDetection.detectPosition(true);
         waitForStart();
+
         driveTrain.encoderDrive(.7, 36, 3);
         //score_on_spikemark
-        driveTrain.strafeEncoderDrive(.7,-24,3);
-        driveTrain.encoderDrive(.7,48,4);
-        driveTrain.turnToPID(90, 2);
-        driveTrain.encoderDrive(1, 120, 6);
-        driveTrain.encoderDrive(.7, 24, 3);
-        //score_on_spikemark
-        driveTrain.encoderDrive(.7, -12, 3);
+        driveTrain.encoderDrive(.7, 36, 3);
+        driveTrain.turnToPID(270, 2);
+        driveTrain.encoderDrive(1, 72, 4);
+        driveTrain.strafeEncoderDrive(.7, -24, 3);
+        driveTrain.encoderDrive(.7, 12, 2);
+        //score_on_backdrop
+        driveTrain.strafeEncoderDrive(.7, 24, 3);
         driveTrain.encoderDrive(.7, 24, 2);
-
-
         /*
         //collection.moveClaw(.4, 3);
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
             collection.rotatorServo.setPosition(.4);
             sleep(1000);
-            driveTrain.encoderDrive(.7, 24, 3);
-            driveTrain.turnToPID(90, 2);
-            driveTrain.encoderDrive(.5, 6, 3);
-            driveTrain.encoderDrive(.8, -10, 3);
-            driveTrain.strafeEncoderDrive(.6, 28, 3);
-            driveTrain.strafeEncoderDrive(.4, -5, 3);
-            driveTrain.encoderDrive(.8, 86, 5);
+            driveTrain.diagonalDriveLeft(.7, -20, 3);
+            driveTrain.encoderDrive(-.7, 15, 3);
+            driveTrain.encoderDrive(.7, -10, 3);
+            driveTrain.turnToPID(-89, 1.5);
+            driveTrain.encoderDrive(.5, 7, 3);
+            driveTrain.strafeEncoderDrive(.6, -25, 3);
+            driveTrain.strafeEncoderDrive(.4, 5, 3);
+            driveTrain.encoderDrive(.8, 90, 3);
+
+            // armClawLift(.8, .1, .7, 700, 3, collection, lift);
+
             // lift.liftAuto(.7, 700, 4);
         }
 
@@ -56,28 +60,34 @@ public class BlueRight_Meet2 extends LinearOpMode {
             collection.rotatorServo.setPosition(.4);
             sleep(1000);
             driveTrain.encoderDrive(.7, 30, 3);
-            driveTrain.encoderDrive(.4, -12, 3);
+            driveTrain.encoderDrive(.4, -10, 3);
             driveTrain.turnToPID(-89, 2);
-            driveTrain.strafeEncoderDrive(.6, -22, 3);
+            driveTrain.encoderDrive(.5, -5, 3);
+            driveTrain.strafeEncoderDrive(.8, -30, 3);
             driveTrain.strafeEncoderDrive(.4, 5, 3);
-            driveTrain.encoderDrive(.8, -90, 5);
+            //Change this for alliance partners
+            driveTrain.encoderDrive(.9, 85, 5);
+            //  driveTrain.strafeEncoderDrive();
+
         }
         else if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
             collection.rotatorServo.setPosition(.4);
             sleep(1000);
-            driveTrain.diagonalDriveRight(.7, -20, 3);
-            driveTrain.encoderDrive(-.7, 15, 3);
-            driveTrain.encoderDrive(.7, -20, 3);
-            driveTrain.turnToPID(-89, 1.5);
-            driveTrain.strafeEncoderDrive(.6, -12, 3);
+            driveTrain.encoderDrive(.7, 24, 3);
+            driveTrain.turnToPID(-89, 2);
+            driveTrain.encoderDrive(.5, -6, 3);
+            driveTrain.encoderDrive(.5, 8, 3);
+            driveTrain.strafeEncoderDrive(.6, -30, 4);
             driveTrain.strafeEncoderDrive(.4, 5, 3);
-            driveTrain.encoderDrive(.8, -90, 5);
+            driveTrain.encoderDrive(.8, 90, 3);
+
         }
+
 
 //        driveTrain.turnToPID(90, 2);
 //        sleep(1000);
 //        driveTrain.turnToPID(0, 2);
-    */
+
     }
 
     public void driveScan(double speed, double inches, double timeoutS, Drivetrain givenDriveTrain, Scanner givenScanner) {
@@ -108,5 +118,6 @@ public class BlueRight_Meet2 extends LinearOpMode {
         while(opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || (givenCollection.rotateClawCheck(position, timeoutS)));
     }
 
-
+   */
+    }
 }
