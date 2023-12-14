@@ -43,7 +43,7 @@ import java.util.ArrayList;
             driveTrain.turnToPID(90, 2);
             driveTrain.encoderDrive(.7,36,3);
             //Rotate_arm 180°
-            //Rotate-arm -180°
+            //Rotate_arm -180°
             driveTrain.strafeEncoderDrive(.7,24,3);
             driveTrain.encoderDrive(.7, 24, 2);
 
@@ -52,7 +52,7 @@ import java.util.ArrayList;
             driveTrain.turnToPID(90, 2);
             driveTrain.encoderDrive(.7,36,3);
             //Rotate_arm 180°
-            //Rotate-arm -180°
+            //Rotate_arm -180°
             driveTrain.strafeEncoderDrive(.7,24,3);
             driveTrain.encoderDrive(.7, 24, 2);
 
@@ -61,7 +61,7 @@ import java.util.ArrayList;
             driveTrain.turnToPID(90, 2);
             driveTrain.encoderDrive(.7,36,3);
             //Rotate_arm 180°
-            //Rotate-arm -180°
+            //Rotate_arm -180°
             driveTrain.strafeEncoderDrive(.7,24,3);
             driveTrain.encoderDrive(.7, 24, 2);
 
