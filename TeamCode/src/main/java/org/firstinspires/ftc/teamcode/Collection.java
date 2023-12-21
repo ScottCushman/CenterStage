@@ -18,6 +18,7 @@ public class Collection {
     Servo rotServo;
     Servo imAboutToDie;
     Servo imGoingToDie;
+    DcMotor hangMotor;
     NormalizedColorSensor colorSensor;
     private OpMode theOpMode;
     double armSpeed = 0;
@@ -32,9 +33,11 @@ public class Collection {
         rotServo = hardwareMap.get(Servo.class, "rotServo");
         imAboutToDie = hardwareMap.get(Servo.class, "armServo");
         imGoingToDie = hardwareMap.get(Servo.class, "arm");
+        hangMotor = hardwareMap.get(DcMotor.class, "hang");
 
         rotatorServo.setDirection(Servo.Direction.FORWARD);
         imGoingToDie.setDirection(Servo.Direction.REVERSE);
+        hangMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         imGoingToDie1 = imGoingToDie2;
         imAboutToDie1 = imAboutToDie2;
      //   colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
@@ -52,16 +55,16 @@ public class Collection {
         }
 
         if (theOpMode.gamepad2.dpad_left) {
-            rotServo.setPosition(.3);
+            rotServo.setPosition(0);
         } else if (theOpMode.gamepad2.dpad_right) {
-            rotServo.setPosition(0.1);
+            rotServo.setPosition(0.2);
         }
         if (theOpMode.gamepad2.dpad_up) {
-            imAboutToDie.setPosition(.77);
+            imAboutToDie.setPosition(.8);
             imGoingToDie.setPosition(.8);
         }
         else if (theOpMode.gamepad2.dpad_down) {
-            imAboutToDie.setPosition(.15);
+            imAboutToDie.setPosition(.18);
             imGoingToDie.setPosition(.18);
         }
         if (theOpMode.gamepad2.y) {
@@ -70,8 +73,8 @@ public class Collection {
 
         }
         if (theOpMode.gamepad2.x) {
-            imAboutToDie.setPosition(imAboutToDie1);
-            imGoingToDie.setPosition(imGoingToDie2);
+            imAboutToDie.setPosition(.25);
+            imGoingToDie.setPosition(.25);
 
         }
     }

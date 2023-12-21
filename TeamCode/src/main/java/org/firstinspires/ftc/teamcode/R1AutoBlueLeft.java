@@ -11,90 +11,77 @@ public class R1AutoBlueLeft extends LinearOpMode {
     private SpikeMarkDetection.spikeMarkPositions position;
 
     public void runOpMode() {
-      //  String tempString = "";
-        ArrayList<Double> liftHeights = new ArrayList<>();
+        //  String tempString = "";
+        ArrayList<Double> liftHeights = new ArrayList<Double>();
         liftHeights.add(3.0);
         liftHeights.add(16.5);
         liftHeights.add(3.0);
         liftHeights.add(16.5);
         Lift lift = new Lift(hardwareMap, this, 537.5, 1, 2, liftHeights);
         Scanner scanner = new Scanner(hardwareMap, this);
-        Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
+        Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 537.6, .5, 4.0);
         Collection collection = new Collection(hardwareMap, this);
         SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
-       // int counter = 0;
+        //   int counter = 0;
         position = spikeMarkDetection.detectPosition(false);
         waitForStart();
-        //collection.moveClaw(.4, 3);
-        if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
-            driveTrain.encoderDrive(.7, 24, 3);
-            driveTrain.turnToPID(90, 2);
-            driveTrain.encoderDrive(.5, 6, 3);
-            driveTrain.encoderDrive(.8, -6, 3);
-            driveTrain.strafeEncoderDrive(.7, -30, 3);
-
-        }
-
-        else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
-            collection.moveClaw(.42, 3);
-            sleep(1000);
-            driveTrain.encoderDrive(.7, 35, 3);
-            driveTrain.encoderDrive(.4, -15, 3);
+        if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
+            driveTrain.turnToPID(0, 2);
+            driveTrain.encoderDrive(-.1, 13.8, 2);
+            driveTrain.strafeEncoderDrive(.2,8.5,2);
+            driveTrain.encoderDrive(.1, -4.1, 2);
             driveTrain.turnToPID(90, 1.5);
-            driveTrain.strafeEncoderDrive(.4, -38, 3);
+            driveTrain.encoderDrive(.1, 16, 2);
+
+            collection.rotateArm(.86, 3);
+            sleep(2000);
+            driveTrain.encoderDrive(.1, -3.5, 2);
+            collection.rotateArm(.2, 3);
+            driveTrain.strafeEncoderDrive(.2, -20, 2);
+            driveTrain.encoderDrive(.1, 8, 2);
+            //            driveTrain.encoderDrive(.1, 8, 2);
         }
+
         else if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
-            collection.moveClaw(.42, 3);
-            sleep(1000);
-            driveTrain.diagonalDriveRight(.7, -20, 3);
-            driveTrain.encoderDrive(-.7, 15, 3);
-            driveTrain.encoderDrive(.7, -10, 3);
-            driveTrain.diagonalDriveRight(.7, 20, 3);
-            driveTrain.turnToPID(90, 1.5);
-            driveTrain.strafeEncoderDrive(.7, -10, 3);
+            driveTrain.turnToPID(0, 2);
+            driveTrain.encoderDrive(.1, 15, 2);
+            driveTrain.encoderDrive(.1, -3, 2);
+            driveTrain.turnToPID(90, 2);
+            driveTrain.encoderDrive(.1, 30, 2);
+            driveTrain.strafeEncoderDrive(.1, -7, 2);
+            driveTrain.encoderDrive(.07, 3.1, 1);
+            collection.rotateArm(.86, 2);
+            sleep(2000);
+            driveTrain.encoderDrive(.2, -4, 2);
+            collection.rotateArm(.2, 3);
+            driveTrain.strafeEncoderDrive(.2, -17, 2);
+            driveTrain.encoderDrive(.1, 9, 2);
         }
-        driveTrain.strafeEncoderDrive(.5, 4, 3);
-        driveTrain.encoderDrive(.9, 55, 3);
+        else if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
+            driveTrain.turnToPID(0, 2);
 
-
-        collection.rotatorServo.setPosition(.4);
-        sleep(1000);
-        rotateClaw(.8, .3, 3, collection);
-        sleep(1000);
-        lift.liftAuto(.7, 20, 3);
-        collection.rotatorServo.setPosition(.7);
-        scanner.scanSignal();
-        if (codePosition == 1) {
-            collection.rotatorServo.setPosition(.4);
-            sleep(1000);
-            rotateClaw(.8, .3, 3, collection);
-            sleep(1000);
-            lift.liftAuto(.7, 20, 3);
-            collection.rotatorServo.setPosition(.7);
+            driveTrain.encoderDrive(.1, 10, 2);
+            driveTrain.turnToPID(-90, 2);
+            driveTrain.encoderDrive(.1, 3, 2);
+            driveTrain.encoderDrive(.1, -10, 2);
+            driveTrain.turnToPID(90, 3);
+            driveTrain.encoderDrive(.1, 9, 2);
+            driveTrain.strafeEncoderDrive(.1, -8, 2);
+            driveTrain.encoderDrive(.1, 2.5, 2);
+            collection.rotateArm(.86, 3);
+            sleep(2000);
+            driveTrain.encoderDrive(.1, -3, 2);
+            collection.rotateArm(.2, 3);
+            driveTrain.strafeEncoderDrive(.1, -12, 2);
+            driveTrain.encoderDrive(.1, 6, 2);
         }
-        else {
-            driveTrain.strafeEncoderDrive(.4, -8, 3);
-        }
-        scanner.scanSignal();
-        if (codePosition == 2) {
-            collection.rotatorServo.setPosition(.4);
-            sleep(1000);
-            rotateClaw(.8, .3, 3, collection);
-            sleep(1000);
-            lift.liftAuto(.7, 20, 3);
-            collection.rotatorServo.setPosition(.7);
-        }
-        else {
-            driveTrain.strafeEncoderDrive(.4, -8, 3);
-        }
-    }
 
 
 //        driveTrain.turnToPID(90, 2);
 //        sleep(1000);
 //        driveTrain.turnToPID(0, 2);
 
-
+    }
 
     public void driveScan(double speed, double inches, double timeoutS, Drivetrain givenDriveTrain, Scanner givenScanner) {
         givenDriveTrain.strafeEncoderDriveStart(speed, inches, timeoutS);
@@ -102,7 +89,6 @@ public class R1AutoBlueLeft extends LinearOpMode {
         while(opModeIsActive() && givenDriveTrain.strafeEncoderDriveCheck(speed, inches, timeoutS)) {
             codePosition = givenScanner.scanSignal();
             if (codePosition >= 3) {
-                givenDriveTrain.encoderDrive(.6, 3, 3);
             }
         }
     }
