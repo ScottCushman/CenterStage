@@ -36,7 +36,7 @@ public class TurnPIDController {
         integral = integral + error * dT;
         derivative = ((error - lastError) / dT);
         double motorPower = (kP * error + kI *integral + kD * derivative);
-        motorPower = Math.max(-.5, Math.min(motorPower, .5));
+        motorPower = Math.max(-.35, Math.min(motorPower, .35));
         // I
    /*     accumulatedError *= Math.signum(error);
         accumulatedError += error;

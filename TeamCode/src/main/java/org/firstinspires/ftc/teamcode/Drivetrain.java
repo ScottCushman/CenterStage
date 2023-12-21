@@ -753,7 +753,7 @@ public class Drivetrain {
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        TurnPIDController pid = new TurnPIDController(targetAngle, 0.08, 0.000001, 0.0001);
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.00000000008, 0.000001);
         //theOpMode.telemetry.setMsTransmissionInterval(50);
         double degreeCount = 0;
         runtime.reset();
@@ -790,7 +790,7 @@ public class Drivetrain {
         double degreeCount = 0;
         TurnPIDController pid = new TurnPIDController(targetAngle, 0.05, 0.00000019, 0.00001);
 
-        while (Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) {
+        if (Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) {
             if (Math.abs(targetAngle - getAbsoluteAngle()) < 1) {
                 degreeCount += 1;
             }
@@ -818,6 +818,77 @@ public class Drivetrain {
         leftBackDrive.setPower(0);
         rightBackDrive.setPower(0);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    void driveWithPID(double targetAngle, double timeoutS) {
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.00000000008, 0.000001);
+        //theOpMode.telemetry.setMsTransmissionInterval(50);
+        double degreeCount = 0;
+        runtime.reset();
+        // Checking lastSlope to make sure that it's not oscillating when it quits
+        while ((Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) && runtime.seconds() < timeoutS) {
+            if (Math.abs(targetAngle - getAbsoluteAngle()) < 1){
+                degreeCount +=1;
+            }
+            double motorSpeed = pid.update(getAbsoluteAngle());
+            leftDrive.setPower(motorSpeed);
+            rightDrive.setPower(motorSpeed);
+            leftBackDrive.setPower(motorSpeed);
+            rightBackDrive.setPower(motorSpeed);
+            theOpMode.telemetry.addData("degreeCount", degreeCount);
+            theOpMode.telemetry.addData("Current Angle", getAbsoluteAngle());
+            theOpMode.telemetry.addData("Target Angle", targetAngle);
+            theOpMode.telemetry.addData("Slope", pid.getLastSlope());
+            theOpMode.telemetry.addData("Power", motorSpeed);
+            theOpMode.telemetry.update();
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftBackDrive.setPower(0);
+        rightBackDrive.setPower(0);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     public void DriverControls() {
         if (theOpMode.gamepad1.y){
@@ -888,9 +959,9 @@ public class Drivetrain {
             ZeroPosition = AbsoluteValue;
 
         }
-        double y = theOpMode.gamepad1.left_stick_y; // Remember, this is reversed!
-        double x = -theOpMode.gamepad1.left_stick_x*1.1; // Counteract imperfect strafing
-        double rx = -theOpMode.gamepad1.right_stick_x;
+        double y = theOpMode.gamepad1.left_stick_y*.8; // Remember, this is reversed!
+        double x = -theOpMode.gamepad1.left_stick_x*.8; // Counteract imperfect strafing
+        double rx = -theOpMode.gamepad1.right_stick_x*.5;
 
         // Read inverse IMU heading, as the IMU heading is CW positive
 
