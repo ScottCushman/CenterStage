@@ -31,51 +31,66 @@ public class RedLeft_Meet2 extends LinearOpMode {
         waitForStart();
 
         driveTrain.encoderDrive(.7, 36, 3);
-        driveTrain.encoderDrive(.7, 36, 3);
-        driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(1, 72, 4);
-        driveTrain.strafeEncoderDrive(.7, -24, 3);
-        driveTrain.encoderDrive(.7, 12, 2);
-        //score_on_backdrop
-        driveTrain.strafeEncoderDrive(.7, 24, 3);
+        //score_on_spikemark
+        driveTrain.strafeEncoderDrive(.7,-24,3);
+        driveTrain.encoderDrive(.7,48,4);
+        driveTrain.turnToPID(90, 2);
+        driveTrain.encoderDrive(1, 120, 6);
+        driveTrain.encoderDrive(.7, 24, 3);
+        //score_on_spikemark
+        driveTrain.encoderDrive(.7, -12, 3);
         driveTrain.encoderDrive(.7, 24, 2);
+
+
+
+
 
 
         //Left Detection
-        driveTrain.encoderDrive(.7, 36, 3);
-        driveTrain.encoderDrive(.7, 36, 3);
+        driveTrain.encoderDrive(.7, 24, 3);
+        driveTrain.strafeEncoderDrive(.4, 6, 2);
+        driveTrain.encoderDrive(.7,-12, 2);
+        driveTrain.strafeEncoderDrive(.7, -12, 2);
+        driveTrain.encoderDrive(.7,48,4);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(1, 72, 4);
-        driveTrain.strafeEncoderDrive(.7, -24, 3);
-        driveTrain.encoderDrive(.7, 12, 2);
+        driveTrain.encoderDrive(1, 120, 6);
+        driveTrain.strafeEncoderDrive(.7, 12, 3);
+        driveTrain.encoderDrive(.7, 6, 2);
         //Rotate_arm 180°
         //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7, 24, 3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.strafeEncoderDrive(.7, -18, 3);
+        driveTrain.encoderDrive(.7, 12, 2);
+
 
         //Middle Detection
-        driveTrain.encoderDrive(.7, 36, 3);
-        driveTrain.encoderDrive(.7, 36, 3);
+        driveTrain.encoderDrive(.7, 24, 3);
+        driveTrain.encoderDrive(.7,-12, 2);
+        driveTrain.strafeEncoderDrive(.7, -12, 2);
+        driveTrain.encoderDrive(.7,48,4);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(1, 72, 4);
-        driveTrain.strafeEncoderDrive(.7, -24, 3);
-        driveTrain.encoderDrive(.7, 12, 2);
+        driveTrain.encoderDrive(1, 126, 6);
+        driveTrain.strafeEncoderDrive(.7, 12, 3);
+        driveTrain.encoderDrive(.7, 6, 2);
         //Rotate_arm 180°
         //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7, 24, 3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.strafeEncoderDrive(.7, -18, 3);
+        driveTrain.encoderDrive(.7, 12, 2);
 
-        //Right Detection
-        driveTrain.encoderDrive(.7, 36, 3);
-        driveTrain.encoderDrive(.7, 36, 3);
+
+        //RIght Detection
+        driveTrain.encoderDrive(.7, 24, 3);
+        driveTrain.strafeEncoderDrive(.4, -6, 2);
+        driveTrain.encoderDrive(.7,-12, 2);
+        driveTrain.strafeEncoderDrive(.7, -12, 2);
+        driveTrain.encoderDrive(.7,48,4);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(1, 72, 4);
-        driveTrain.strafeEncoderDrive(.7, -24, 3);
-        driveTrain.encoderDrive(.7, 12, 2);
+        driveTrain.encoderDrive(1, 114, 6);
+        driveTrain.strafeEncoderDrive(.7, 12, 3);
+        driveTrain.encoderDrive(.7, 6, 2);
         //Rotate_arm 180°
         //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7, 24, 3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.strafeEncoderDrive(.7, -18, 3);
+        driveTrain.encoderDrive(.7, 12, 2);
 
 
 
