@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 @Autonomous
 public class RedLeft_Meet2 extends LinearOpMode {
-//        ^RedLeft_Meet2.java^
+
     private int codePosition;
     private SpikeMarkDetection.spikeMarkPositions position;
 
@@ -26,12 +26,11 @@ public class RedLeft_Meet2 extends LinearOpMode {
         int counter = 0;
         position = spikeMarkDetection.detectPosition(true);
 
-
-
         waitForStart();
 
         driveTrain.encoderDrive(.7, 36, 3);
         //score_on_spikemark
+
         driveTrain.strafeEncoderDrive(.7,-24,3);
         driveTrain.encoderDrive(.7,48,4);
         driveTrain.turnToPID(90, 2);
@@ -91,6 +90,7 @@ public class RedLeft_Meet2 extends LinearOpMode {
         //Rotate_arm -180°
         driveTrain.strafeEncoderDrive(.7, -18, 3);
         driveTrain.encoderDrive(.7, 12, 2);
+
 
 
 

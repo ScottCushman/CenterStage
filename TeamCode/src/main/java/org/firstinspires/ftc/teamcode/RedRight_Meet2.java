@@ -18,12 +18,12 @@ public class RedRight_Meet2 extends LinearOpMode {
         liftHeights.add(3.0);
         liftHeights.add(16.5);
         Lift lift = new Lift(hardwareMap, this, 537.5, 1, 2, liftHeights);
-        Scanner scanner = new Scanner(hardwareMap, this);
+        //Scanner scanner = new Scanner(hardwareMap, this);
         Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
         Collection collection = new Collection(hardwareMap, this);
-        SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
+        //SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
         int counter = 0;
-        position = spikeMarkDetection.detectPosition(true);
+        //position = spikeMarkDetection.detectPosition(true);
 
 
 
