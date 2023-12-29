@@ -6,6 +6,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -69,12 +70,12 @@ public class Drivetrain {
         theOpMode.telemetry.addData("Running to", "here");
         theOpMode.telemetry.update();
         // theOpMode.sleep(2000);
-        leftDrive = hardwareMap.dcMotor.get("left_drive");
-        rightDrive = hardwareMap.dcMotor.get("right_drive");
-        leftBackDrive = hardwareMap.dcMotor.get("left_back_drive");
-        rightBackDrive = hardwareMap.dcMotor.get("right_back_drive");
+        leftDrive = hardwareMap.dcMotor.get("leftDrive");
+        rightDrive = hardwareMap.dcMotor.get("rightDrive");
+        leftBackDrive = hardwareMap.dcMotor.get("leftBackDrive");
+        rightBackDrive = hardwareMap.dcMotor.get("rightBackDrive");
 
-        distanceSensor = theOpMode.hardwareMap.get(DistanceSensor.class, "distanceSensor");
+      //  distanceSensor = theOpMode.hardwareMap.get(DistanceSensor.class, "distanceSensor");
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -106,7 +107,7 @@ public class Drivetrain {
 
     }
 
-    public void encoderDrive(double speed, double inches, double timeoutS) {
+    public void encoderDrive(double speed, double inches, int timeoutS) {
         int newLeftTarget;
         int newRightTarget;
         int newLeftBackTarget;
@@ -137,13 +138,7 @@ public class Drivetrain {
         leftBackDrive.setPower(Math.abs(speed));
         rightBackDrive.setPower(Math.abs(speed));
 
-        // keep looping while we are still active, and there is time left, and both motors are running.
-        // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-        // its target position, the motion will stop.  This is "safer" in the event that the robot will
-        // always end the motion as soon as possible.
-        // However, if you require that BOTH motors have finished their moves before the robot continues
-        // onto the next step, use (isBusy() || isBusy()) in the loop test.
-        while (((LinearOpMode) theOpMode).opModeIsActive() &&
+        while (((LinearOpMode)theOpMode).opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
                 (leftDrive.isBusy() && rightDrive.isBusy() && leftBackDrive.isBusy() && rightBackDrive.isBusy())) {
 
@@ -152,41 +147,7 @@ public class Drivetrain {
             theOpMode.telemetry.addData("Currently at", " at %7d :%7d, %7d, %7d",
                     leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition(), leftBackDrive.getCurrentPosition(), rightBackDrive.getCurrentPosition());
             theOpMode.telemetry.update();
-            if (rampUp) {
-                // Keep stepping up until we hit the max value.
-                speed += INCREMENT ;
-                if (speed >= MAX_FWD ) {
-                    speed = MAX_FWD;
-                    rampUp = !rampUp;   // Switch ramp direction
-                }
-            }
-            else {
-                // Keep stepping down until we hit the min value.
-                speed -= INCREMENT ;
-                if (speed <= MAX_REV ) {
-                    speed = MAX_REV;
-                    rampUp = !rampUp;  // Switch ramp direction
-                }
-            }
-
-            // Display the current value
-            theOpMode.telemetry.addData("Motor Power", "%5.2f", power);
-            theOpMode.telemetry.addData(">", "Press Stop to end test." );
-            theOpMode.telemetry.update();
-
-            // Set the motor to the new power and pause;
-            leftDrive.setPower((speed));
-            rightDrive.setPower((speed));
-            leftBackDrive.setPower((speed));
-            rightBackDrive.setPower((speed));
-
         }
-
-        // Turn off motor and signal done;
-        theOpMode.telemetry.addData(">", "Done");
-        theOpMode.telemetry.update();
-
-
 
         // Stop all motion;
         leftDrive.setPower(0);
@@ -194,20 +155,18 @@ public class Drivetrain {
         leftBackDrive.setPower(0);
         rightBackDrive.setPower(0);
 
+        // Turn off RUN_TO_POSITION
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        // Turn off RUN_TO_POSITION
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        theOpMode.telemetry.addData(">", "Done");
-        theOpMode.telemetry.update();
+
     }
-
-
     public void encoderDriveStart(double speed, double inches, double timeoutS) {
         int newLeftTarget;
         int newRightTarget;
@@ -789,7 +748,12 @@ public class Drivetrain {
     }
 
     void turnToPID(double targetAngle, double timeoutS) {
-        TurnPIDController pid = new TurnPIDController(targetAngle, 0.05, 0.00000019, 0.00001);
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.00000000008, 0.000001);
         //theOpMode.telemetry.setMsTransmissionInterval(50);
         double degreeCount = 0;
         runtime.reset();
@@ -799,10 +763,10 @@ public class Drivetrain {
                 degreeCount +=1;
             }
             double motorSpeed = pid.update(getAbsoluteAngle());
-            leftDrive.setPower(-motorSpeed);
-            rightDrive.setPower(motorSpeed);
-            leftBackDrive.setPower(-motorSpeed);
-            rightBackDrive.setPower(motorSpeed);
+            leftDrive.setPower(motorSpeed);
+            rightDrive.setPower(-motorSpeed);
+            leftBackDrive.setPower(motorSpeed);
+            rightBackDrive.setPower(-motorSpeed);
             theOpMode.telemetry.addData("degreeCount", degreeCount);
             theOpMode.telemetry.addData("Current Angle", getAbsoluteAngle());
             theOpMode.telemetry.addData("Target Angle", targetAngle);
@@ -826,7 +790,7 @@ public class Drivetrain {
         double degreeCount = 0;
         TurnPIDController pid = new TurnPIDController(targetAngle, 0.05, 0.00000019, 0.00001);
 
-        while (Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) {
+        if (Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) {
             if (Math.abs(targetAngle - getAbsoluteAngle()) < 1) {
                 degreeCount += 1;
             }
@@ -854,6 +818,77 @@ public class Drivetrain {
         leftBackDrive.setPower(0);
         rightBackDrive.setPower(0);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    void driveWithPID(double targetAngle, double timeoutS) {
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.00000000008, 0.000001);
+        //theOpMode.telemetry.setMsTransmissionInterval(50);
+        double degreeCount = 0;
+        runtime.reset();
+        // Checking lastSlope to make sure that it's not oscillating when it quits
+        while ((Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) && runtime.seconds() < timeoutS) {
+            if (Math.abs(targetAngle - getAbsoluteAngle()) < 1){
+                degreeCount +=1;
+            }
+            double motorSpeed = pid.update(getAbsoluteAngle());
+            leftDrive.setPower(motorSpeed);
+            rightDrive.setPower(motorSpeed);
+            leftBackDrive.setPower(motorSpeed);
+            rightBackDrive.setPower(motorSpeed);
+            theOpMode.telemetry.addData("degreeCount", degreeCount);
+            theOpMode.telemetry.addData("Current Angle", getAbsoluteAngle());
+            theOpMode.telemetry.addData("Target Angle", targetAngle);
+            theOpMode.telemetry.addData("Slope", pid.getLastSlope());
+            theOpMode.telemetry.addData("Power", motorSpeed);
+            theOpMode.telemetry.update();
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftBackDrive.setPower(0);
+        rightBackDrive.setPower(0);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     public void DriverControls() {
         if (theOpMode.gamepad1.y){
@@ -884,49 +919,49 @@ public class Drivetrain {
 
     }
     public void UpdateDriveTrain() {
-   /*angles = imu.getAngularOrientation
-           (AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
-   double speed = Math.hypot
-           (theOpMode.gamepad1.left_stick_x, theOpMode.gamepad1.left_stick_y);
-   double angle = Math.atan2
-           (theOpMode.gamepad1.left_stick_y, theOpMode.gamepad1.left_stick_x) - (Math.PI/4);
-   angle += angles.firstAngle - (Math.PI)/2 + STARTING_HEADING;
-   double turnPower = theOpMode.gamepad1.right_stick_x;
-   if(turnPower == 0){
-       if (count < 10) {
-           angleTest[count] = angle;
-           angleTest[count] = angle;
-           count++;
-       }
-       else {
-           average = (angleTest[1] + angleTest[2] + angleTest[3] + angleTest[4] + angleTest[0]
-                   + angleTest[5] + angleTest[6] + angleTest[7] + angleTest[8]
-                   + angleTest[9])/10;
-           if(average > angle){
-               correct = average - angle;
-               angle = angle + correct;
-           }
-           else if(angle > average){
-               correct = angle - average;
-               angle = angle - correct;
-           }
-           count = 0;
-       }
-   }
-   if (!autoTurnEnabled) {
-       leftDrive.setPower((((speed * -(Math.sin(angle)) + turnPower))) * drvTrnSpd);
-       leftBackDrive.setPower((((speed * -(Math.cos(angle)) + turnPower))) * drvTrnSpd);
-       rightDrive.setPower((((speed * (Math.cos(angle))) + turnPower)) * drvTrnSpd);
-       rightBackDrive.setPower((((speed * (Math.sin(angle))) + turnPower)) * drvTrnSpd);
-   }*/
+  /*angles = imu.getAngularOrientation
+          (AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+  double speed = Math.hypot
+          (theOpMode.gamepad1.left_stick_x, theOpMode.gamepad1.left_stick_y);
+  double angle = Math.atan2
+          (theOpMode.gamepad1.left_stick_y, theOpMode.gamepad1.left_stick_x) - (Math.PI/4);
+  angle += angles.firstAngle - (Math.PI)/2 + STARTING_HEADING;
+  double turnPower = theOpMode.gamepad1.right_stick_x;
+  if(turnPower == 0){
+      if (count < 10) {
+          angleTest[count] = angle;
+          angleTest[count] = angle;
+          count++;
+      }
+      else {
+          average = (angleTest[1] + angleTest[2] + angleTest[3] + angleTest[4] + angleTest[0]
+                  + angleTest[5] + angleTest[6] + angleTest[7] + angleTest[8]
+                  + angleTest[9])/10;
+          if(average > angle){
+              correct = average - angle;
+              angle = angle + correct;
+          }
+          else if(angle > average){
+              correct = angle - average;
+              angle = angle - correct;
+          }
+          count = 0;
+      }
+  }
+  if (!autoTurnEnabled) {
+      leftDrive.setPower((((speed * -(Math.sin(angle)) + turnPower))) * drvTrnSpd);
+      leftBackDrive.setPower((((speed * -(Math.cos(angle)) + turnPower))) * drvTrnSpd);
+      rightDrive.setPower((((speed * (Math.cos(angle))) + turnPower)) * drvTrnSpd);
+      rightBackDrive.setPower((((speed * (Math.sin(angle))) + turnPower)) * drvTrnSpd);
+  }*/
         AbsoluteValue = -imuCH.getAngularOrientation().firstAngle;
         if (theOpMode.gamepad1.b) {
             ZeroPosition = AbsoluteValue;
 
         }
-        double y = -theOpMode.gamepad1.left_stick_y; // Remember, this is reversed!
-        double x = theOpMode.gamepad1.left_stick_x*1.1; // Counteract imperfect strafing
-        double rx = theOpMode.gamepad1.right_stick_x;
+        double y = theOpMode.gamepad1.left_stick_y*.8; // Remember, this is reversed!
+        double x = -theOpMode.gamepad1.left_stick_x*.8; // Counteract imperfect strafing
+        double rx = -theOpMode.gamepad1.right_stick_x*.5;
 
         // Read inverse IMU heading, as the IMU heading is CW positive
 
@@ -953,20 +988,32 @@ public class Drivetrain {
 
 
     }
+    public void testDrivetrain() {
+        leftDrive.setPower(theOpMode.gamepad1.left_stick_y);
+        rightDrive.setPower(theOpMode.gamepad1.right_stick_y);
+        leftBackDrive.setPower(theOpMode.gamepad1.left_trigger);
+        rightBackDrive.setPower(theOpMode.gamepad1.right_trigger);
 
-       /*public void ResetHeading() {
-           if (theOpMode.gamepad1.b) {
-               angles = imu.getAngularOrientation
-                       (AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-               IMUReading = (-imu.getAngularOrientation().firstAngle);
-               startingHeadingInRadians = (Math.toRadians(IMUReading) + 3.14159);
-               theOpMode.telemetry.addData("Starting heading", startingHeadingInRadians);
-               theOpMode.telemetry.addData("IMUReading", IMUReading);
-               theOpMode.telemetry.update();
+    }
+    public void testDrivetrainAuto() {
+        while (((LinearOpMode) theOpMode).opModeIsActive()) {
+            rightBackDrive.setPower(.5);
+        }
+    }
+
+      /*public void ResetHeading() {
+          if (theOpMode.gamepad1.b) {
+              angles = imu.getAngularOrientation
+                      (AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+              IMUReading = (-imu.getAngularOrientation().firstAngle);
+              startingHeadingInRadians = (Math.toRadians(IMUReading) + 3.14159);
+              theOpMode.telemetry.addData("Starting heading", startingHeadingInRadians);
+              theOpMode.telemetry.addData("IMUReading", IMUReading);
+              theOpMode.telemetry.update();
 
 
-           }
-       }*/
+          }
+      }*/
     // https://www.youtube.com/watch?v=xm3YgoEiEDc
 
 }

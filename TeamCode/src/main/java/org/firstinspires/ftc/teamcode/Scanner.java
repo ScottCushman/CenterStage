@@ -36,10 +36,9 @@ public class Scanner {
         String signalPosition;
         int aprilID = 0;
 
-
         int cameraMonitorViewId = theOpMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id",
                 theOpMode.hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(theOpMode.hardwareMap.get(WebcamName.class,""),
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(theOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"),
                 cameraMonitorViewId);
         AprilTagDetectionPipeline aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
         webcam.setPipeline(aprilTagDetectionPipeline);
@@ -71,62 +70,10 @@ public class Scanner {
 
         }
         return aprilID;
-/*
-            if (!aprilTagDetectionPipeline.codePosition.equals("")) {
-                signalPosition = pipeline.codePosition;
-                counter = counter + 1;
-                counter = counter % 10000;
-                theOpMode.telemetry.addData("Count = ", counter);
-                theOpMode.telemetry.addData(signalPosition, null);
-                theOpMode.telemetry.update();
-            }
-//           counter = counter + 1;
-//           counter = counter % 10000;
-//            theOpMode.telemetry.addData("Count = ", counter);
-//            theOpMode.telemetry.update();
-//          theOpMode.telemetry.addData("opMode inInit is %b", theOpMode.opModeInInit());
-//          theOpMode.telemetry.addData(signalPosition, 3);
-//          theOpMode.telemetry.update();
-        }
-        theOpMode.telemetry.addData(signalPosition, null);
-        theOpMode.telemetry.update();
-        //  theOpMode.sleep(4000);
-//webcam.closeCameraDevice();
-        return signalPosition;
-    }
 
-
- */
-    }
-    public void detectColor() {
-        //    Imgproc.
     }
 }
 
-        /*
-    class ConvertToGreyPipeline extends OpenCvPipeline {
-        // Notice this is declared as an instance variable (and re-used), not a local variable
-        Mat grey = new Mat();
-        QRCodeDetector qrCodeDetector = new QRCodeDetector();
-        String codePosition = "";
-
-        Mat contrast = new Mat();
-
-
-        @Override
-        public Mat processFrame(Mat input) {
-
-            Imgproc.cvtColor(input, grey, Imgproc.COLOR_RGB2GRAY);
-            Imgproc.threshold(grey, contrast, 122, 255, Imgproc.THRESH_BINARY);
-            codePosition = qrCodeDetector.detectAndDecodeCurved(contrast);
-
-            return contrast;
-
-//Austin is stupid
-        }
-
-    }
-        */
 
 
 
