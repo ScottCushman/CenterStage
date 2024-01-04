@@ -95,7 +95,8 @@ public class Collection {
     }
     public boolean rotateArmCheck(double armPos, double timeoutS) {
         if (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {
-            rotatorServo.setPosition(armPos);
+            imGoingToDie.setPosition(armPos);
+            imAboutToDie.setPosition(armPos);
             return true;
         }
         rotateArmEnd();

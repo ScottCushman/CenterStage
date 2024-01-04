@@ -780,17 +780,17 @@ public class Drivetrain {
         rightBackDrive.setPower(0);
     }
 
-    void turnToPIDStart(double targetAngle) {
-        TurnPIDController pid = new TurnPIDController(targetAngle, 0.05, 0.00000019, 0.00001);
+    void turnToPIDStart(double targetAngle, double timeoutS) {
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.00000000008, 0.000001);
         //theOpMode.telemetry.setMsTransmissionInterval(50);
         double degreeCount = 0;
     }
 
-    public boolean turnToPIDCheck(double targetAngle) {
+    public boolean turnToPIDCheck(double targetAngle, double timeoutS) {
         double degreeCount = 0;
-        TurnPIDController pid = new TurnPIDController(targetAngle, 0.05, 0.00000019, 0.00001);
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.00000000008, 0.000001);
 
-        if (Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) {
+        if ((Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) && runtime.seconds() < timeoutS) {
             if (Math.abs(targetAngle - getAbsoluteAngle()) < 1) {
                 degreeCount += 1;
             }
@@ -839,7 +839,9 @@ public class Drivetrain {
 
 
 
-
+        public void driveWithPIDCorrection (double targetAngle, double speed, double inches, double timeoutS) {
+        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
 
 
 

@@ -100,9 +100,9 @@ public class R1AutoBlueRight extends LinearOpMode {
             driveTrain.strafeEncoderDrive(.2, -20.5, 2);
             driveTrain.encoderDrive(.1, 9, 2);
             collection.rotateArm(.86, 3);
-            sleep(2000);
+            sleep(1000);
             collection.rotateArm(.25, 3);
-            sleep(2000);
+            sleep(1000);
             driveTrain.encoderDrive(.1, -2, 2);
         }
 
@@ -128,17 +128,14 @@ public class R1AutoBlueRight extends LinearOpMode {
         while (opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || (givenCollection.rotateClawCheck(position, timeoutS)));
     }
 
-    public void armClawLift(double armPos, double position, double power, int target, double timeoutS, Collection givenCollection, Lift givenLift) {
+   public void armDrive(double armPos, double speed, double inches, double timeoutS, Collection givenCollection, Drivetrain givenDrivetrain) {
         givenCollection.rotateArmStart(armPos, timeoutS);
-        givenCollection.rotateClawStart(position, timeoutS);
-        givenLift.liftAutoStart(power, target, timeoutS);
-        while(opModeIsActive() && givenCollection.rotateArmCheck(position, timeoutS) || (givenCollection.rotateClawCheck(position, timeoutS)) ||
-                givenLift.liftAutoCheck(power, target, timeoutS));
-    }
-    public void rotateClaw(double armPos, double position, double timeoutS, Collection givenCollection) {
+        givenDrivetrain.encoderDriveStart(speed, inches, timeoutS);
+        while (opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || givenDrivetrain.encoderDriveCheck(speed, inches, timeoutS));
+   }
+   public void armStrafe(double armPos, double speed, double inches, double timeoutS, Collection givenCollection, Drivetrain givenDrivetrain) {
         givenCollection.rotateArmStart(armPos, timeoutS);
-        givenCollection.rotateClawStart(position, timeoutS);
-        while(opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || (givenCollection.rotateClawCheck(position, timeoutS)));
-    }
-
+        givenDrivetrain.encoderDriveStart(speed, inches, timeoutS);
+        while (opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || givenDrivetrain.strafeEncoderDriveCheck(speed, inches, timeoutS));
+   }
 }
