@@ -47,6 +47,7 @@ public class TestAuto extends LinearOpMode {
             // Something with collection arm I don't have a clue
             collection.moveClaw(.3, 2);
             //Maybe something like this, I still need to finish it
+            // We will see
             driveTrain.encoderDrive(.3, 48, 2);
             driveTrain.turnToPID(-90, 2);
             driveTrain.strafeToDistanceSensor(-.3, 8, 3);
