@@ -14,13 +14,12 @@ public class Teleop extends OpMode {
     Lift lift;
     Collection collection;
     ArrayList<Double> liftHeights = new ArrayList<Double>();
-    Test test;
 
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
         lift = new Lift(hardwareMap, this, 537.6, 1, 2, liftHeights);
-        test = new Test(hardwareMap, this);
+        //test = new Test(hardwareMap, this);
         liftHeights.add(1.0);
         liftHeights.add(7.0);
         liftHeights.add(15.0);

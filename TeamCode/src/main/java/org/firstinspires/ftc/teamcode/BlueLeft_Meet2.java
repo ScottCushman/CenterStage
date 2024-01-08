@@ -18,9 +18,9 @@ import java.util.ArrayList;
             liftHeights.add(16.5);
             liftHeights.add(3.0);
             liftHeights.add(16.5);
-            Lift lift = new Lift(hardwareMap, this, 537.5, 1, 2, liftHeights);
+            Lift lift = new Lift(hardwareMap, this, 145.1, 1, 2, liftHeights);
             Scanner scanner = new Scanner(hardwareMap, this);
-            Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
+            Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1.0, 4.0);
             Collection collection = new Collection(hardwareMap, this);
             SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
             // int counter = 0;
@@ -28,12 +28,6 @@ import java.util.ArrayList;
             waitForStart();
             driveTrain.encoderDrive(.7, 24, 3);
             driveTrain.turnToPID(90, 2);
-            driveTrain.encoderDrive(.7,36,3);
-            //score_on_backdrop
-            driveTrain.strafeEncoderDrive(.7,24,3);
-            driveTrain.encoderDrive(.7, 24, 2);
-
-
 
             //collection.moveClaw(.4, 3);
            /* if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
