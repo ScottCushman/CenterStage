@@ -29,6 +29,8 @@ import java.util.ArrayList;
             driveTrain.encoderDrive(.7, 24, 3);
             driveTrain.turnToPID(90, 2);
 
+            sleep(5000);
+
             //collection.moveClaw(.4, 3);
            /* if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
                 driveTrain.encoderDrive(.7, 24, 3);

@@ -36,6 +36,8 @@ public class BlueRight_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.7, -12, 3);
         driveTrain.encoderDrive(.7, 24, 2);
 
+        sleep(5000);
+
 
         /*
         //collection.moveClaw(.4, 3);

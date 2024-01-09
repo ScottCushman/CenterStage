@@ -27,21 +27,19 @@ public class RedLeft_Meet2 extends LinearOpMode {
         position = spikeMarkDetection.detectPosition(true);
 
         waitForStart();
-
-        driveTrain.encoderDrive(.7, 36, 3);
+//            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 22, 3);
         //score_on_spikemark
-
-        driveTrain.strafeEncoderDrive(.7,-24,3);
-        driveTrain.encoderDrive(.7,48,4);
-        driveTrain.turnToPID(90, 2);
-        driveTrain.encoderDrive(1, 120, 6);
-        driveTrain.encoderDrive(.7, 24, 3);
-        //score_on_spikemark
-        driveTrain.encoderDrive(.7, -12, 3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.turnToPID(270, 2);
+        driveTrain.encoderDrive(.3, 56, 6);
+        //score_on_backdrop
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,-12,2);
+        driveTrain.encoderDrive(.3, -12, 3);
+        driveTrain.encoderDrive(.3, 24, 2);
 
 
-
+        sleep(5000);
 
 
 

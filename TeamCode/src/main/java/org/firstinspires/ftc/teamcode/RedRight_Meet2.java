@@ -30,13 +30,17 @@ public class RedRight_Meet2 extends LinearOpMode {
         waitForStart();
 
 
-        driveTrain.encoderDrive(.7, 24, 3);
+        driveTrain.encoderDrive(.3, 12, 3);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(.7,36,3);
+        driveTrain.encoderDrive(.3,18,3);
         //score_on_backdrop
-        driveTrain.strafeEncoderDrive(.7,24,3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        sleep(1000);
+        driveTrain.encoderDrive(.3,-2,2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
 
+        waitForStart();
+        sleep(100000);
 
         //Left Detection
         driveTrain.encoderDrive(.7, 24, 3);
