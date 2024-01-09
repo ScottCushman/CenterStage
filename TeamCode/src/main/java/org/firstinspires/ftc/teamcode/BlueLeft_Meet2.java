@@ -25,9 +25,43 @@ import java.util.ArrayList;
             SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
             // int counter = 0;
             position = spikeMarkDetection.detectPosition(false);
+
+
+
+
+
+
             waitForStart();
-            driveTrain.encoderDrive(.7, 24, 3);
+
+            driveTrain.encoderDrive(.3, 12, 3);
             driveTrain.turnToPID(90, 2);
+            driveTrain.encoderDrive(.3,18,3);
+            //score_on_backdrop
+            sleep(1000);
+            driveTrain.encoderDrive(.3,-2,2);
+            driveTrain.strafeEncoderDrive(.3,-24,3);
+            driveTrain.encoderDrive(.3, 13, 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             //collection.moveClaw(.4, 3);
            /* if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {

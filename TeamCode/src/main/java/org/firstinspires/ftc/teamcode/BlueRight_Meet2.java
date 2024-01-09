@@ -24,17 +24,25 @@ public class BlueRight_Meet2 extends LinearOpMode {
         SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
         int counter = 0;
         position = spikeMarkDetection.detectPosition(false);
+
+
         waitForStart();
-        driveTrain.encoderDrive(.7, 36, 3);
+
+//            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 24, 3);
         //score_on_spikemark
-        driveTrain.strafeEncoderDrive(.7,-24,3);
-        driveTrain.encoderDrive(.7,48,4);
         driveTrain.turnToPID(90, 2);
-        driveTrain.encoderDrive(1, 120, 6);
-        driveTrain.encoderDrive(.7, 24, 3);
-        //score_on_spikemark
-        driveTrain.encoderDrive(.7, -12, 3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.encoderDrive(.3, 45.5, 6);
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,12,2);
+        driveTrain.encoderDrive(.3, 3, 3);
+        //score_on_backdrop
+        driveTrain.encoderDrive(.3, -2, 2);
+        driveTrain.strafeEncoderDrive(.3,-24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
+
+        sleep(5000);
+        waitForStart();
 
 
         /*
