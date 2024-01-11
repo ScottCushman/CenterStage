@@ -57,6 +57,49 @@ public class RedLeft_Meet2 extends LinearOpMode {
         waitForStart();
 
 
+        //Left Detection
+//            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 24, 3);
+        //score_on_spikemark
+        driveTrain.turnToPID(270, 2);
+        driveTrain.encoderDrive(.3, 45.5, 6);
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,-12,2);
+        driveTrain.encoderDrive(.3, 3, 3);
+        //score_on_backdrop
+        driveTrain.encoderDrive(.3, -2, 2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
+
+
+        //Middle Detection
+        //            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 24, 3);
+        //score_on_spikemark
+        driveTrain.turnToPID(270, 2);
+        driveTrain.encoderDrive(.3, 45.5, 6);
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,-12,2);
+        driveTrain.encoderDrive(.3, 3, 3);
+        //score_on_backdrop
+        driveTrain.encoderDrive(.3, -2, 2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
+
+
+        //Right Detection
+        //            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 24, 3);
+        //score_on_spikemark
+        driveTrain.turnToPID(270, 2);
+        driveTrain.encoderDrive(.3, 45.5, 6);
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,-12,2);
+        driveTrain.encoderDrive(.3, 3, 3);
+        //score_on_backdrop
+        driveTrain.encoderDrive(.3, -2, 2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
 
 
 
