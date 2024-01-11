@@ -44,6 +44,8 @@ public class BlueRight_Meet2 extends LinearOpMode {
         sleep(5000);
         waitForStart();
 
+        sleep(5000);
+
 
         /*
         //collection.moveClaw(.4, 3);

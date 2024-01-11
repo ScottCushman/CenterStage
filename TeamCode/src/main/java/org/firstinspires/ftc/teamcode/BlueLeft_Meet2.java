@@ -63,6 +63,8 @@ import java.util.ArrayList;
 
 
 
+            sleep(5000);
+
             //collection.moveClaw(.4, 3);
            /* if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
                 driveTrain.encoderDrive(.7, 24, 3);
