@@ -63,7 +63,7 @@ import java.util.ArrayList;
 
 
 
-            sleep(5000);
+
             waitForStart();
 
 
