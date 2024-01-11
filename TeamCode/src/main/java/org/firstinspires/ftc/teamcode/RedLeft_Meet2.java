@@ -64,51 +64,7 @@ public class RedLeft_Meet2 extends LinearOpMode {
 
 
 
-        //Left Detection
-        driveTrain.encoderDrive(.7, 24, 3);
-        driveTrain.strafeEncoderDrive(.4, 6, 2);
-        driveTrain.encoderDrive(.7,-12, 2);
-        driveTrain.strafeEncoderDrive(.7, -12, 2);
-        driveTrain.encoderDrive(.7,48,4);
-        driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(1, 120, 6);
-        driveTrain.strafeEncoderDrive(.7, 12, 3);
-        driveTrain.encoderDrive(.7, 6, 2);
-        //Rotate_arm 180°
-        //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7, -18, 3);
-        driveTrain.encoderDrive(.7, 12, 2);
 
-
-        //Middle Detection
-        driveTrain.encoderDrive(.7, 24, 3);
-        driveTrain.encoderDrive(.7,-12, 2);
-        driveTrain.strafeEncoderDrive(.7, -12, 2);
-        driveTrain.encoderDrive(.7,48,4);
-        driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(1, 126, 6);
-        driveTrain.strafeEncoderDrive(.7, 12, 3);
-        driveTrain.encoderDrive(.7, 6, 2);
-        //Rotate_arm 180°
-        //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7, -18, 3);
-        driveTrain.encoderDrive(.7, 12, 2);
-
-
-        //RIght Detection
-        driveTrain.encoderDrive(.7, 24, 3);
-        driveTrain.strafeEncoderDrive(.4, -6, 2);
-        driveTrain.encoderDrive(.7,-12, 2);
-        driveTrain.strafeEncoderDrive(.7, -12, 2);
-        driveTrain.encoderDrive(.7,48,4);
-        driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(1, 114, 6);
-        driveTrain.strafeEncoderDrive(.7, 12, 3);
-        driveTrain.encoderDrive(.7, 6, 2);
-        //Rotate_arm 180°
-        //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7, -18, 3);
-        driveTrain.encoderDrive(.7, 12, 2);
 
 
 

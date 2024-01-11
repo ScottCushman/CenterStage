@@ -64,6 +64,47 @@ import java.util.ArrayList;
 
 
             sleep(5000);
+            waitForStart();
+
+
+            //Left Detection
+            driveTrain.encoderDrive(.3, 24, 3);
+            driveTrain.strafeEncoderDrive(.3, -6, 2);
+            driveTrain.encoderDrive(.3, -4, 2);
+            driveTrain.strafeEncoderDrive(.3, 6, 2);
+            driveTrain.encoderDrive(.3, 4, 2);
+            driveTrain.turnToPID(90, 2);
+            driveTrain.encoderDrive(.3,18,3);
+            //score_on_backdrop
+            driveTrain.strafeEncoderDrive(.3,-24,3);
+            driveTrain.encoderDrive(.3, 24, 2);
+
+            sleep(20000);
+
+            //Middle Detection
+            driveTrain.encoderDrive(.3, 24, 3);
+            driveTrain.encoderDrive(.3, -4, 2);
+            driveTrain.strafeEncoderDrive(.3, 6, 2);
+            driveTrain.encoderDrive(.3, 4, 2);
+            driveTrain.turnToPID(90, 2);
+            driveTrain.encoderDrive(.3,12,3);
+            //score_on_backdrop
+            driveTrain.strafeEncoderDrive(.3,-24,3);
+            driveTrain.encoderDrive(.3, 24, 2);
+
+            sleep(20000);
+
+            //Right Detection
+            driveTrain.encoderDrive(.3, 24, 3);
+            driveTrain.strafeEncoderDrive(.3, 6, 2);
+            driveTrain.encoderDrive(.3, -4, 2);
+            driveTrain.strafeEncoderDrive(.3, 6, 2);
+            driveTrain.encoderDrive(.3, 4, 2);
+            driveTrain.turnToPID(90, 2);
+            driveTrain.encoderDrive(.3,12,3);
+            //score_on_backdrop
+            driveTrain.strafeEncoderDrive(.3,-24,3);
+            driveTrain.encoderDrive(.3, 24, 2);
 
             //collection.moveClaw(.4, 3);
            /* if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {

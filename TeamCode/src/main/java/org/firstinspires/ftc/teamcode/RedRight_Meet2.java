@@ -30,53 +30,69 @@ public class RedRight_Meet2 extends LinearOpMode {
         waitForStart();
 
 
-        driveTrain.encoderDrive(.7, 24, 3);
+        driveTrain.encoderDrive(.3, 24, 3);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(.7,36,3);
+        driveTrain.encoderDrive(.3,36,3);
         //score_on_backdrop
-        driveTrain.strafeEncoderDrive(.7,24,3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 24, 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        sleep(5000);
+        waitForStart();
+
 
 
         //Left Detection
-        driveTrain.encoderDrive(.7, 24, 3);
+        driveTrain.encoderDrive(.3, 24, 3);
+        driveTrain.strafeEncoderDrive(.3, 6, 2);
+        driveTrain.encoderDrive(.3, -4, 2);
+        driveTrain.strafeEncoderDrive(.3, -6, 2);
+        driveTrain.encoderDrive(.3, 4, 2);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(.7,36,3);
-        //Rotate_arm 180°
-        //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7,24,3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.encoderDrive(.3,18,3);
+        //score_on_backdrop
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 24, 2);
+
+        sleep(20000);
 
         //Middle Detection
-        driveTrain.encoderDrive(.7, 24, 3);
+        driveTrain.encoderDrive(.3, 24, 3);
+        driveTrain.encoderDrive(.3, -4, 2);
+        driveTrain.strafeEncoderDrive(.3, -6, 2);
+        driveTrain.encoderDrive(.3, 4, 2);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(.7,36,3);
-        //Rotate_arm 180°
-        //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7,24,3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.encoderDrive(.3,12,3);
+        //score_on_backdrop
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 24, 2);
+
+        sleep(20000);
 
         //Right Detection
-        driveTrain.encoderDrive(.7, 24, 3);
+        driveTrain.encoderDrive(.3, 24, 3);
+        driveTrain.strafeEncoderDrive(.3, -6, 2);
+        driveTrain.encoderDrive(.3, -4, 2);
+        driveTrain.strafeEncoderDrive(.3, -6, 2);
+        driveTrain.encoderDrive(.3, 4, 2);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(.7,36,3);
-        //Rotate_arm 180°
-        //Rotate_arm -180°
-        driveTrain.strafeEncoderDrive(.7,24,3);
-        driveTrain.encoderDrive(.7, 24, 2);
-
-
-
-
-
-
-
-
-
-
-
-
-
+        driveTrain.encoderDrive(.3,12,3);
+        //score_on_backdrop
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 24, 2);
 
 
         /*
