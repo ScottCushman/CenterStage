@@ -26,6 +26,16 @@ public class BlueRight_Meet2 extends LinearOpMode {
         position = spikeMarkDetection.detectPosition(false);
 
 
+
+
+
+
+
+
+
+
+
+
         waitForStart();
 
 //            This has a high value for a reason vv
@@ -44,7 +54,16 @@ public class BlueRight_Meet2 extends LinearOpMode {
         sleep(5000);
         waitForStart();
 
-        sleep(5000);
+
+
+
+
+
+
+
+
+
+
 
 
         /*

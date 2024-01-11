@@ -57,6 +57,13 @@ public class RedLeft_Meet2 extends LinearOpMode {
         waitForStart();
 
 
+
+
+
+
+
+
+
         //Left Detection
         driveTrain.encoderDrive(.7, 24, 3);
         driveTrain.strafeEncoderDrive(.4, 6, 2);
