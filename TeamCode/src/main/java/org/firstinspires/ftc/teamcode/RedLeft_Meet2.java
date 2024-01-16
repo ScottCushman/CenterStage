@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Disabled
 @Autonomous
 public class RedLeft_Meet2 extends LinearOpMode {
-//        ^RedLeft_Meet2.java^
+
     private int codePosition;
     private SpikeMarkDetection.spikeMarkPositions position;
 
@@ -19,25 +19,103 @@ public class RedLeft_Meet2 extends LinearOpMode {
         liftHeights.add(16.5);
         liftHeights.add(3.0);
         liftHeights.add(16.5);
-        Lift lift = new Lift(hardwareMap, this, 537.5, 1, 2, liftHeights);
+        Lift lift = new Lift(hardwareMap, this, 145.1, 1, 2, liftHeights);
         Scanner scanner = new Scanner(hardwareMap, this);
-        Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
+        Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1.0, 4.0);
         Collection collection = new Collection(hardwareMap, this);
         SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
         int counter = 0;
         position = spikeMarkDetection.detectPosition(true);
+
         waitForStart();
 
-        driveTrain.encoderDrive(.7, 36, 3);
+//            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 24, 3);
         //score_on_spikemark
-        driveTrain.encoderDrive(.7, 36, 3);
         driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(1, 72, 4);
-        driveTrain.strafeEncoderDrive(.7, -24, 3);
-        driveTrain.encoderDrive(.7, 12, 2);
+        driveTrain.encoderDrive(.3, 45.5, 6);
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,-12,2);
+        driveTrain.encoderDrive(.3, 3, 3);
         //score_on_backdrop
-        driveTrain.strafeEncoderDrive(.7, 24, 3);
-        driveTrain.encoderDrive(.7, 24, 2);
+        driveTrain.encoderDrive(.3, -2, 2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+        sleep(5000);
+        waitForStart();
+
+
+        //Left Detection
+//            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 24, 3);
+        //score_on_spikemark
+        driveTrain.turnToPID(270, 2);
+        driveTrain.encoderDrive(.3, 45.5, 6);
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,-12,2);
+        driveTrain.encoderDrive(.3, 3, 3);
+        //score_on_backdrop
+        driveTrain.encoderDrive(.3, -2, 2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
+
+
+        //Middle Detection
+        //            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 24, 3);
+        //score_on_spikemark
+        driveTrain.turnToPID(270, 2);
+        driveTrain.encoderDrive(.3, 45.5, 6);
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,-12,2);
+        driveTrain.encoderDrive(.3, 3, 3);
+        //score_on_backdrop
+        driveTrain.encoderDrive(.3, -2, 2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
+
+
+        //Right Detection
+        //            This has a high value for a reason vv
+        driveTrain.encoderDrive(.3, 24, 3);
+        //score_on_spikemark
+        driveTrain.turnToPID(270, 2);
+        driveTrain.encoderDrive(.3, 45.5, 6);
+        sleep(5000);
+        driveTrain.strafeEncoderDrive(.3,-12,2);
+        driveTrain.encoderDrive(.3, 3, 3);
+        //score_on_backdrop
+        driveTrain.encoderDrive(.3, -2, 2);
+        driveTrain.strafeEncoderDrive(.3,24,3);
+        driveTrain.encoderDrive(.3, 13, 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /*
         //collection.moveClaw(.4, 3);
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
