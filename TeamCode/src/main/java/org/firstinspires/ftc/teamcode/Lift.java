@@ -52,9 +52,13 @@ public class Lift {
             }
                 else if (!theOpMode.gamepad2.b && theOpMode.gamepad2.a) {
                     leftMotor.setPower(-.3);
-                    leftMotor.setTargetPosition(5);
+                    leftMotor.setTargetPosition(-80);
 
                 }
+                else if (theOpMode.gamepad2.y && ! theOpMode.gamepad2.b) {
+                    leftMotor.setPower(.3);
+                    leftMotor.setTargetPosition(60);
+            }
                 else {
                     leftMotor.setTargetPosition(leftMotor.getCurrentPosition());
             }
