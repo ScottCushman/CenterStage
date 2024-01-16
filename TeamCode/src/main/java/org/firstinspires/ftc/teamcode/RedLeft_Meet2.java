@@ -1,10 +1,11 @@
 
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.util.ArrayList;
-
+@Disabled
 @Autonomous
 public class RedLeft_Meet2 extends LinearOpMode {
 //        ^RedLeft_Meet2.java^
