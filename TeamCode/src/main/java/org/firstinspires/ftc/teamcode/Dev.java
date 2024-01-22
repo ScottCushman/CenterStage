@@ -20,6 +20,7 @@ public class Dev extends LinearOpMode {
         Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1, 4.0);
         waitForStart();
         driveTrain.encoderDrive2(.2,10,3);
+        driveTrain.encoderDrive2(.2,2,3);
 
     }
 
