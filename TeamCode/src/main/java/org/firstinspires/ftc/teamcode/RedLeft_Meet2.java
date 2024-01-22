@@ -32,7 +32,7 @@ public class RedLeft_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.3, 36, 4);
         driveTrain.turnToPID(90, 2);
         driveTrain.encoderDrive(.5, 50, 4);
-        driveTrain.strafeEncoderDrive(.3, 12, 4);
+        driveTrain.strafeEncoderDrive(.3, -12, 4);
         driveTrain.encoderDrive(.3, 3, 3);
         //lift_sliders
         //rotate_arm
@@ -52,7 +52,7 @@ public class RedLeft_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.3,12,3);
         driveTrain.turnToPID(90, 2);
         driveTrain.encoderDrive(.5, 54, 4);
-        driveTrain.strafeEncoderDrive(.3, 12, 4);
+        driveTrain.strafeEncoderDrive(.3, -12, 4);
         driveTrain.encoderDrive(.3, 3, 3);
         //lift_sliders
         //rotate_arm
@@ -71,7 +71,7 @@ public class RedLeft_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.3,13,2);
         driveTrain.turnToPID(90, 2);
         driveTrain.encoderDrive(.5, 44, 4);
-        driveTrain.strafeEncoderDrive(.3, 12, 4);
+        driveTrain.strafeEncoderDrive(.3, -12, 4);
         driveTrain.encoderDrive(.3, 3, 3);
         //lift_sliders
         //rotate_arm
@@ -91,7 +91,7 @@ public class RedLeft_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.3,13.5,3);
         driveTrain.turnToPID(90, 2);
         driveTrain.encoderDrive(.5, 54, 4);
-        driveTrain.strafeEncoderDrive(.3, 12, 4);
+        driveTrain.strafeEncoderDrive(.3, -12, 4);
         driveTrain.encoderDrive(.3, 3, 3);
         //lift_sliders
         //rotate_arm

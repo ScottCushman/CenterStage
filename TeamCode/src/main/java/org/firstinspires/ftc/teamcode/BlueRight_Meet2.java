@@ -95,7 +95,6 @@ public class BlueRight_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.3,13,3);
 
         //right_detection
-        //left_detection
         driveTrain.encoderDrive(.3, 24, 4);
         driveTrain.strafeEncoderDrive(.3,6, 2);
         driveTrain.encoderDrive(.3,-1.5,2);
