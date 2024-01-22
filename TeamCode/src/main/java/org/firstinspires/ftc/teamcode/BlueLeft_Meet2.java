@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+
 import java.util.ArrayList;
 @Disabled
     @Autonomous
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 
 
             waitForStart();
+            /*
 
             driveTrain.encoderDrive(.3, 24, 3);
             driveTrain.turnToPID(90, 3);
@@ -46,64 +48,81 @@ import java.util.ArrayList;
             driveTrain.encoderDrive(.3, -3, 3);
             driveTrain.strafeEncoderDrive(.3, 24, 3);
             driveTrain.strafeEncoderDrive(.3, 13, 3);
+             */
+
+            Intake.spin(1,1);
 
 
+            if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
+                //left_detection
+                driveTrain.encoderDrive(.3, 24, 3);
+                driveTrain.strafeEncoderDrive(.3, 6, 2);
+                driveTrain.encoderDrive(.3, 1.5, 2);
+                driveTrain.strafeEncoderDrive(.3, 12, 3);
+                driveTrain.encoderDrive(.3, 1.5, 2);
+                driveTrain.turnToPID(90, 3);
+                driveTrain.encoderDrive(.3, 18, 3);
+                //lift_sliders vv
+                //Lift.something
+                //rotate_arm to align with backdrop vv
+                Collection.rotateArm(.88,2);
+                //release the pixels* vv    *the setPosition values could be swapped i'm not sure
+                Collection.rotateClawStart(0,2);
+                //box_close vv
+                Collection.rotateClawStart(0.2,2);
+                //rotate_arm back down to align with bot vv
+                Collection.rotateArm(.18,2);
+                //lower_sliders vv
+                //Lift.something
+                driveTrain.encoderDrive(.3, -3, 3);
+                driveTrain.strafeEncoderDrive(.3, -24, 3);
+                driveTrain.strafeEncoderDrive(.3, 13, 3);
+
+            }
+
+            else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
 
 
-            //left_detection
-            driveTrain.encoderDrive(.3, 24, 3);
-            driveTrain.strafeEncoderDrive(.3, 6, 2);
-            driveTrain.encoderDrive(.3,1.5,2);
-            driveTrain.strafeEncoderDrive(.3,12,3);
-            driveTrain.encoderDrive(.3,1.5,2);
-            driveTrain.turnToPID(90, 3);
-            driveTrain.encoderDrive(.3, 18, 3);
-            //move_sliders
-            //rotate_arm
-            //box_release
-            //box_close
-            //rotate_arm
-            //move_sliders
-            driveTrain.encoderDrive(.3, -3, 3);
-            driveTrain.strafeEncoderDrive(.3, -24, 3);
-            driveTrain.strafeEncoderDrive(.3, 13, 3);
+                //middle_detection
+                driveTrain.encoderDrive(.3, 24, 3);
+                driveTrain.encoderDrive(.3, -3, 2);
+                driveTrain.strafeEncoderDrive(.3, 12, 2);
+                driveTrain.encoderDrive(.3, 3, 2);
+                driveTrain.turnToPID(90, 3);
+                driveTrain.encoderDrive(.3, 24, 3);
+                //move_sliders
+                //rotate_arm
+                //box_release
+                //box_close
+                //rotate_arm
+                //move_sliders
+                driveTrain.encoderDrive(.3, -3, 3);
+                driveTrain.strafeEncoderDrive(.3, -24, 3);
+                driveTrain.strafeEncoderDrive(.3, 13, 3);
+
+            }
+
+            else if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
 
 
-            //middle_detection
-            driveTrain.encoderDrive(.3, 24, 3);
-            driveTrain.encoderDrive(.3,-3,2);
-            driveTrain.strafeEncoderDrive(.3,12,2);
-            driveTrain.encoderDrive(.3,3,2);
-            driveTrain.turnToPID(90, 3);
-            driveTrain.encoderDrive(.3, 24, 3);
-            //move_sliders
-            //rotate_arm
-            //box_release
-            //box_close
-            //rotate_arm
-            //move_sliders
-            driveTrain.encoderDrive(.3, -3, 3);
-            driveTrain.strafeEncoderDrive(.3, -24, 3);
-            driveTrain.strafeEncoderDrive(.3, 13, 3);
-
-
-            //right_detection
-            driveTrain.encoderDrive(.3, 24, 3);
-            driveTrain.strafeEncoderDrive(.3, -6, 2);
-            driveTrain.encoderDrive(.3, -1.5,2);
-            driveTrain.strafeEncoderDrive(.3,12,2);
-            driveTrain.encoderDrive(.3,1.5,2);
-            driveTrain.turnToPID(90, 3);
-            driveTrain.encoderDrive(.3, 30, 3);
-            //move_sliders
-            //rotate_arm
-            //box_release
-            //box_close
-            //rotate_arm
-            //move_sliders
-            driveTrain.encoderDrive(.3, -3, 3);
-            driveTrain.strafeEncoderDrive(.3, -24, 3);
-            driveTrain.strafeEncoderDrive(.3, 13, 3);
+                //right_detection
+                driveTrain.encoderDrive(.3, 24, 3);
+                driveTrain.strafeEncoderDrive(.3, -6, 2);
+                driveTrain.encoderDrive(.3, -1.5, 2);
+                driveTrain.strafeEncoderDrive(.3, 12, 2);
+                driveTrain.encoderDrive(.3, 1.5, 2);
+                driveTrain.turnToPID(90, 3);
+                driveTrain.encoderDrive(.3, 30, 3);
+                //move_sliders
+                //rotate_arm
+                //box_release
+                //box_close
+                //rotate_arm
+                //move_sliders
+                driveTrain.encoderDrive(.3, -3, 3);
+                driveTrain.strafeEncoderDrive(.3, -24, 3);
+                driveTrain.strafeEncoderDrive(.3, 13, 3);
+            }
 
 
 
