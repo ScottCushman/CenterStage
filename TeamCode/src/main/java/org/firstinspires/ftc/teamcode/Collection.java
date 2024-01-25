@@ -71,7 +71,7 @@ public class Collection {
     }
 
     public void setCollectionPosition() {
-       // collectionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // collectionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         if (theOpMode.gamepad1.left_bumper || theOpMode.gamepad2.left_bumper) {
             rotatorServo.setPosition(0);
         } else if (theOpMode.gamepad1.right_bumper || theOpMode.gamepad2.right_bumper) {
@@ -97,8 +97,7 @@ public class Collection {
         }
 
 
-
-         // if (theOpMode.gamepad2.y) {
+        // if (theOpMode.gamepad2.y) {
             /*
            rotatorServo.setPosition(.5);
             collectionMotor.setPower(.7);
@@ -110,7 +109,7 @@ public class Collection {
 
              */
 
-          }
+    }
 //        else {
 //            collectionMotor.setTargetPosition(collectionMotor.getCurrentPosition());
 //
@@ -120,10 +119,6 @@ public class Collection {
 //            collectionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //            collectionMotor.setPower(.4);
 //        }
-
-
-
-
 
 
 //}
@@ -136,18 +131,20 @@ public class Collection {
         }
 
     }
+
     public void moveClawStart(double clawPos, double timeoutS) {
     }
+
     public boolean moveClawCheck(double clawPos, double timeoutS) {
         if (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS)) {
             rotatorServo.setPosition(clawPos);
             return true;
-        }
-        else {
+        } else {
             moveClawEnd();
             return false;
         }
     }
+
     public void moveClawEnd() {
 
     }
@@ -224,11 +221,12 @@ public class Collection {
 
     public boolean collectionArmCheck(int rotation, double power, double timeoutS) {
         if (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS && collectionMotor.isBusy()) {
-        return true;
+            return true;
         }
         collectionArmEnd();
         return false;
     }
+
     public void collectionArmEnd() {
         collectionMotor.setPower(0);
     }

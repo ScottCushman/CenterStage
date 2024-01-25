@@ -19,6 +19,7 @@ public class BlueRight_Meet2 extends LinearOpMode {
         liftHeights.add(16.5);
         Lift lift = new Lift(hardwareMap, this, 145.1, 1, 2, liftHeights);
         Scanner scanner = new Scanner(hardwareMap, this);
+        Intake intake = new Intake(hardwareMap);
         Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1.0, 4.0);
         Collection collection = new Collection(hardwareMap, this);
         SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
@@ -32,11 +33,12 @@ public class BlueRight_Meet2 extends LinearOpMode {
 
 
 
-
-
-
-
         waitForStart();
+
+        driveTrain.encoderDrive(.2,2,1);
+
+
+        /*
 
         driveTrain.encoderDrive(.3,36,3);
         driveTrain.turnToPID(270, 2);
@@ -52,6 +54,8 @@ public class BlueRight_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.3,-3,2);
         driveTrain.strafeEncoderDrive(.3,-24,3);
         driveTrain.encoderDrive(.3,13,3);
+
+         */
 
 
 
@@ -102,7 +106,7 @@ public class BlueRight_Meet2 extends LinearOpMode {
             driveTrain.encoderDrive(.3, 13, 3);
         }
 
-        else if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
+        else if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
 
                 //right_detection
                 driveTrain.encoderDrive(.3, 24, 4);

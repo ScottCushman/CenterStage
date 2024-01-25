@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.util.ArrayList;
-@Disabled
 @Autonomous
 public class RedRight_Meet2 extends LinearOpMode {
 
@@ -29,6 +28,7 @@ public class RedRight_Meet2 extends LinearOpMode {
 
 
         waitForStart();
+        /*
 
 
 
@@ -44,6 +44,7 @@ public class RedRight_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.3, -3, 3);
         driveTrain.strafeEncoderDrive(.3, -24, 3);
         driveTrain.strafeEncoderDrive(.3, 13, 3);
+         */
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
 
