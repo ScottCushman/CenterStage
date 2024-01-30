@@ -231,6 +231,7 @@ public class Collection {
         collectionMotor.setTargetPosition(rotation);
         collectionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         collectionMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //something or rather
     }
 
     public boolean collectionArmCheck(int rotation, double power, double timeoutS) {
@@ -244,5 +245,4 @@ public class Collection {
         collectionMotor.setPower(0);
     }
 }
-
 
