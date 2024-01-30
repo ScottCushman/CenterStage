@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.util.ArrayList;
-@Disabled
 @Autonomous
 public class RedLeft_Meet2 extends LinearOpMode {
 
@@ -28,6 +27,7 @@ public class RedLeft_Meet2 extends LinearOpMode {
         position = spikeMarkDetection.detectPosition(true);
 
         waitForStart();
+        /*
 
         driveTrain.encoderDrive(.3, 36, 4);
         driveTrain.turnToPID(90, 2);
@@ -43,6 +43,8 @@ public class RedLeft_Meet2 extends LinearOpMode {
         driveTrain.encoderDrive(.3,3,2);
         driveTrain.strafeEncoderDrive(.3, 24,3);
         driveTrain.encoderDrive(.3,13,3);
+
+         */
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
 
