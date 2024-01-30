@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -27,6 +28,7 @@ public class Lift {
     // Variables for PID control
     private double integral = 0;
     private double previousError = 0;
+   // private TouchSensor sensorTouch;
 
 
 
@@ -35,34 +37,34 @@ public class Lift {
         countsPerInch = (encoderTicksPerRev * gearRatio) / (wheelDiameter * 3.14);
         theOpMode = opMode;
         leftMotor = hardwareMap.get(DcMotor.class, "leftMotor");
-      //  rightMotor = hardwareMap.get(DcMotor.class, "right_motor");
+        rightMotor = hardwareMap.get(DcMotor.class, "rightMotor");
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
-      //  rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
      //   sensorRange = hardwareMap.get(DistanceSensor.class, "sensor_range");
-      //  rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+          rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // sensorTouch = hardwareMap.get(TouchSensor.class, "touchSensor");
     }
     public void teleLift() {
+        leftMotor.setPower(-theOpMode.gamepad2.right_stick_y * .6);
+        rightMotor.setPower(-theOpMode.gamepad2.right_stick_y * .6);
+        if (theOpMode.gamepad1.left_trigger > .1) {
+            leftMotor.setPower(-theOpMode.gamepad1.left_trigger);
+            rightMotor.setPower(-theOpMode.gamepad1.left_trigger);
 
-            if (theOpMode.gamepad2.b && !theOpMode.gamepad2.a) {
-                leftMotor.setPower(.7);
-                leftMotor.setTargetPosition(700);
-                leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            }
-                else if (!theOpMode.gamepad2.b && theOpMode.gamepad2.a) {
-                    leftMotor.setPower(-.3);
-                    leftMotor.setTargetPosition(-80);
-
-                }
-                else if (theOpMode.gamepad2.y && ! theOpMode.gamepad2.b) {
-                    leftMotor.setPower(.3);
-                    leftMotor.setTargetPosition(60);
-            }
-                else {
-                    leftMotor.setTargetPosition(leftMotor.getCurrentPosition());
-            }
+//        leftMotor.setPower(-theOpMode.gamepad1.left_trigger * .6);
+//        rightMotor.setPower(-theOpMode.gamepad1.left_trigger * .6);
+//        leftMotor.setPower(theOpMode.gamepad1.right_trigger * .3);
+//        rightMotor.setPower(theOpMode.gamepad1.right_trigger * .3);
+        }
+        if (theOpMode.gamepad1.right_trigger > .1) {
+            leftMotor.setPower(theOpMode.gamepad1.right_trigger);
+            rightMotor.setPower(theOpMode.gamepad1.right_trigger);
+        }
     }
+
+
     public void liftAuto(double power, int target, double timeoutS) {
         runtime.reset();
         leftMotor.setPower(Math.abs(power));
@@ -94,7 +96,11 @@ public class Lift {
     }
 
     public void liftAutoEnd() {
+      //  if (sensorTouch.isPressed()) {
+            leftMotor.setPower(0);
+            rightMotor.setPower(0);
 
+      //  }
     }
 
 

@@ -43,7 +43,6 @@ public class Teleop extends OpMode {
 //        if (gamepad2.a) {
 //            collection.imAboutToDie.setPosition(.5);
 //        }
-        collection.hangMotor.setPower(gamepad2.left_stick_y);
 
     }
 
