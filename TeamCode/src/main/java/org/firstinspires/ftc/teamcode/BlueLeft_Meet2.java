@@ -32,7 +32,9 @@ import java.util.ArrayList;
            //base_code:
 
 
+
             waitForStart();
+            sleep(4256);
             /*
 
             driveTrain.encoderDrive(.3, 24, 3);
