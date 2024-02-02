@@ -797,7 +797,7 @@ public class Drivetrain {
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.0000008, 0.000001);
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.1, 0.0000008, 0.000001);
         //theOpMode.telemetry.setMsTransmissionInterval(50);
         double degreeCount = 0;
         runtime.reset();
