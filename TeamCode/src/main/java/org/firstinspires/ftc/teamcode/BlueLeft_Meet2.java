@@ -24,12 +24,13 @@ import java.util.ArrayList;
             Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1.0, 4.0);
             Collection collection = new Collection(hardwareMap, this);
             SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
+
             int counter = 0;
             position = spikeMarkDetection.detectPosition(false);
 
 
 
-            waitForStart();
+
 
 
 

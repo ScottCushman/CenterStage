@@ -33,8 +33,8 @@ public class Collection {
         theOpMode = opMode;
         rotatorServo = hardwareMap.get(Servo.class, "rotatorServo");
         rotServo = hardwareMap.get(Servo.class, "rotServo");
-        imAboutToDie = hardwareMap.get(Servo.class, "armServo");
-        imGoingToDie = hardwareMap.get(Servo.class, "arm");
+        imAboutToDie = hardwareMap.get(Servo.class, "leftBox");
+        imGoingToDie = hardwareMap.get(Servo.class, "rightBox");
         hangMotor = hardwareMap.get(DcMotor.class, "hang");
         collectionMotor = hardwareMap.get(DcMotor.class, "collectionMotor");
         collectionMotor.setDirection(DcMotor.Direction.FORWARD);
@@ -71,30 +71,42 @@ public class Collection {
     }
 
     public void setCollectionPosition() {
-        // collectionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        if (theOpMode.gamepad1.left_bumper || theOpMode.gamepad2.left_bumper) {
-            rotatorServo.setPosition(0);
-        } else if (theOpMode.gamepad1.right_bumper || theOpMode.gamepad2.right_bumper) {
-            rotatorServo.setPosition(.2);
-        }
+       // collectionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        if (theOpMode.gamepad1.left_bumper || theOpMode.gamepad2.left_bumper) {
+//            rotatorServo.setPosition(0);
+//        } else if (theOpMode.gamepad1.right_bumper || theOpMode.gamepad2.right_bumper) {
+//            rotatorServo.setPosition(.2);
+//        }
 
-        if (theOpMode.gamepad2.dpad_left) {
-            rotServo.setPosition(0);
-        } else if (theOpMode.gamepad2.dpad_right) {
-            rotServo.setPosition(0.2);
+        if (theOpMode.gamepad2.dpad_left || theOpMode.gamepad1. dpad_left) {
+            rotServo.setPosition(.3);
+        } else if (theOpMode.gamepad2.dpad_right || theOpMode.gamepad1.dpad_right) {
+            rotServo.setPosition(0.6);
         }
-        if (theOpMode.gamepad2.dpad_up) {
-            imAboutToDie.setPosition(.88);
-            imGoingToDie.setPosition(.88);
-        } else if (theOpMode.gamepad2.dpad_down) {
-            imAboutToDie.setPosition(.18);
-            imGoingToDie.setPosition(.16);
+        if (theOpMode.gamepad2.dpad_up || theOpMode.gamepad1.dpad_up) {
+            imAboutToDie.setPosition(.8);
+            imGoingToDie.setPosition(.8);
+        } else if (theOpMode.gamepad2.dpad_down || theOpMode.gamepad1.dpad_down) {
+            imAboutToDie.setPosition(.55);
+            imGoingToDie.setPosition(.55);
         }
         collectionMotor.setPower(-theOpMode.gamepad2.right_stick_y * .5);
-        if (theOpMode.gamepad2.x) {
+        if (theOpMode.gamepad1.x) {
             imAboutToDie.setPosition(.74);
             imGoingToDie.setPosition(.74);
         }
+
+         if (theOpMode.gamepad1.right_bumper) {
+            hangMotor.setPower(-1);
+        }
+         else if (theOpMode.gamepad1.left_bumper) {
+             hangMotor.setPower(1);
+         }
+         else {
+             hangMotor.setPower(theOpMode.gamepad2.left_stick_y);
+         }
+
+
 
 
         // if (theOpMode.gamepad2.y) {
@@ -109,7 +121,7 @@ public class Collection {
 
              */
 
-    }
+          }
 //        else {
 //            collectionMotor.setTargetPosition(collectionMotor.getCurrentPosition());
 //
@@ -119,6 +131,10 @@ public class Collection {
 //            collectionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //            collectionMotor.setPower(.4);
 //        }
+
+
+
+
 
 
 //}
@@ -131,20 +147,18 @@ public class Collection {
         }
 
     }
-
     public void moveClawStart(double clawPos, double timeoutS) {
     }
-
     public boolean moveClawCheck(double clawPos, double timeoutS) {
         if (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS)) {
             rotatorServo.setPosition(clawPos);
             return true;
-        } else {
+        }
+        else {
             moveClawEnd();
             return false;
         }
     }
-
     public void moveClawEnd() {
 
     }
@@ -217,19 +231,18 @@ public class Collection {
         collectionMotor.setTargetPosition(rotation);
         collectionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         collectionMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //something or rather
     }
 
     public boolean collectionArmCheck(int rotation, double power, double timeoutS) {
         if (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS && collectionMotor.isBusy()) {
-            return true;
+        return true;
         }
         collectionArmEnd();
         return false;
     }
-
     public void collectionArmEnd() {
         collectionMotor.setPower(0);
     }
 }
-
 

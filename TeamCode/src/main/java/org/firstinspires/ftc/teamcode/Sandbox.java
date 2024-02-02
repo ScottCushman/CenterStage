@@ -10,7 +10,7 @@ public class Sandbox extends LinearOpMode {
     private int codePosition;
     private SpikeMarkDetection.spikeMarkPositions position;
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         //  String tempString = "";
         //ArrayList<Double> liftHeights = new ArrayList<>();
         //liftHeights.add(3.0);
@@ -18,13 +18,19 @@ public class Sandbox extends LinearOpMode {
         //liftHeights.add(3.0);
         //liftHeights.add(16.5);
         //Lift lift = new Lift(hardwareMap, this, 145.1, 1, 2, liftHeights);
-        //Intake intake = new Intake(hardwareMap);
+        Intake intake = new Intake(hardwareMap);
         //Scanner scanner = new Scanner(hardwareMap, this);
         Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1.0, 4.0);
-        //Collection collection = new Collection(hardwareMap, this);
+        Collection collection = new Collection(hardwareMap, this);
         //SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
         // int counter = 0;
         //position = spikeMarkDetection.detectPosition(false);
+
+        waitForStart();
+
+        intake.spin(2,true);
+        intake.spin(5,false);
+
 
 
        /* waitForStart();
@@ -144,7 +150,7 @@ public class Sandbox extends LinearOpMode {
 
         //RedLeft_Meet2
         //Middle_detection
-        waitForStart();
+        /*waitForStart();
         driveTrain.encoderDrive(.1, -26.5, 3);
         driveTrain.encoderDrive(.1,8,2);
         driveTrain.turnToPID(45,2);
@@ -159,6 +165,8 @@ public class Sandbox extends LinearOpMode {
         driveTrain.encoderDrive(.1,-27,3);
         driveTrain.turnToPID(90,3);
         driveTrain.encoderDrive(.1,8,3);
+
+         */
         //insert delivery
 
 
