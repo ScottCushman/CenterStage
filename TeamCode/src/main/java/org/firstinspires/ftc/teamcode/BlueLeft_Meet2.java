@@ -50,7 +50,41 @@ import java.util.ArrayList;
             driveTrain.strafeEncoderDrive(.3, 13, 3);
              */
 
-
+            driveTrain.encoderDrive(.3, 24, 3);
+            driveTrain.turnToPID(90, 3);
+            driveTrain.encoderDrive(.3, 36, 3);
+            //lift_sliders
+            //rotate_arm
+            //box_release
+            //box_close
+            //rotate_arm
+            //lower_sliders
+            driveTrain.encoderDrive(.3, -3, 3);
+            driveTrain.strafeEncoderDrive(.3, 24, 3);
+            driveTrain.strafeEncoderDrive(.3, 13, 3);
+             */
+                driveTrain.encoderDrive(.3, 24, 3);
+                driveTrain.strafeEncoderDrive(.3, 6, 2);
+                driveTrain.encoderDrive(.3, 1.5, 2);
+                driveTrain.strafeEncoderDrive(.3, 12, 3);
+                driveTrain.encoderDrive(.3, 1.5, 2);
+                driveTrain.turnToPID(90, 3);
+                driveTrain.encoderDrive(.3, 18, 3);
+                //lift_sliders vv
+                lift.liftAutoStart(0.2,1,1);
+                //rotate_arm to align with backdrop vv
+                collection.rotateArm(.88,2);
+                //release the pixels* vv    *the setPosition values could be swapped i'm not sure
+                collection.rotateClawStart(0,2);
+                //box_close vv
+                collection.rotateClawStart(0.2,2);
+                //rotate_arm back down to align with bot vv
+                collection.rotateArm(.18,2);
+                //lower_sliders vv
+                lift.liftAutoStart(0.2,0,1);
+                driveTrain.encoderDrive(.3, -3, 3);
+                driveTrain.strafeEncoderDrive(.3, -24, 3);
+                driveTrain.strafeEncoderDrive(.3, 13, 3);
 
 
 

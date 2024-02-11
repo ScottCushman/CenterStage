@@ -26,18 +26,65 @@ public class RedRight_Meet2 extends LinearOpMode {
         //position = spikeMarkDetection.detectPosition(true);
 
 
+
         waitForStart();
+        /*
+
+
+
+        driveTrain.encoderDrive(.3, 24, 3);
+        driveTrain.turnToPID(270, 3);
+        driveTrain.encoderDrive(.3, 36, 3);
+        //move_sliders
+        //rotate_arm
+        //box_release
+        //box_close
+        //rotate_arm
+        //move_sliders
+        driveTrain.encoderDrive(.3, -3, 3);
+        driveTrain.strafeEncoderDrive(.3, -24, 3);
+        driveTrain.strafeEncoderDrive(.3, 13, 3);
+         */
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
 
             //left_detection
-
+            driveTrain.encoderDrive(.3, 24, 3);
+            driveTrain.strafeEncoderDrive(.3, 6, 2);
+            driveTrain.encoderDrive(.3, -1.5, 2);
+            driveTrain.strafeEncoderDrive(.3, -12, 2);
+            driveTrain.encoderDrive(.3, 1.5, 2);
+            driveTrain.turnToPID(270, 3);
+            driveTrain.encoderDrive(.3, 30, 3);
+            //move_sliders
+            //rotate_arm
+            //box_release
+            //box_close
+            //rotate_arm
+            //move_sliders
+            driveTrain.encoderDrive(.3, -3, 3);
+            driveTrain.strafeEncoderDrive(.3, -24, 3);
+            driveTrain.strafeEncoderDrive(.3, 13, 3);
         }
 
         else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
 
             //middle_detection
-
+            driveTrain.encoderDrive(.3, 24, 3);
+            driveTrain.encoderDrive(.3, -3, 2);
+            driveTrain.strafeEncoderDrive(.3, -12, 2);
+            driveTrain.encoderDrive(.3, 3, 2);
+            driveTrain.turnToPID(270, 3);
+            driveTrain.encoderDrive(.3, 24, 3);
+            //move_sliders
+            //rotate_arm
+            //box_release
+            //box_close
+            //rotate_arm
+            //move_sliders
+            driveTrain.encoderDrive(.3, -3, 3);
+            driveTrain.strafeEncoderDrive(.3, -24, 3);
+            driveTrain.strafeEncoderDrive(.3, 13, 3);
 
         }
 
@@ -45,7 +92,22 @@ public class RedRight_Meet2 extends LinearOpMode {
 
 
             //right_detection
-
+            driveTrain.encoderDrive(.3, 24, 3);
+            driveTrain.strafeEncoderDrive(.3, -6, 2);
+            driveTrain.encoderDrive(.3, 1.5, 2);
+            driveTrain.strafeEncoderDrive(.3, -12, 3);
+            driveTrain.encoderDrive(.3, 1.5, 2);
+            driveTrain.turnToPID(270, 3);
+            driveTrain.encoderDrive(.3, 18, 3);
+            //move_sliders
+            //rotate_arm
+            //box_release
+            //box_close
+            //rotate_arm
+            //move_sliders
+            driveTrain.encoderDrive(.3, -3, 3);
+            driveTrain.strafeEncoderDrive(.3, -24, 3);
+            driveTrain.strafeEncoderDrive(.3, 13, 3);
 
         }
 
