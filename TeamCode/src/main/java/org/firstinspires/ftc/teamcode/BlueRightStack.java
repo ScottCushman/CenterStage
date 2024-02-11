@@ -7,7 +7,7 @@ import java.util.ArrayList;
 @Disabled
 
 @Autonomous
-public class R1AutoBlueRight2 extends LinearOpMode {
+public class BlueRightStack extends LinearOpMode {
 
     private int codePosition;
     private SpikeMarkDetection.spikeMarkPositions position;

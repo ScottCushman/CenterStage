@@ -1062,7 +1062,7 @@ public class Drivetrain {
 
 
 
-    void driveWithPID(double targetAngle, double timeoutS) {
+    void driveWithPID(double targetAngle, double inches, double timeoutS) {
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -1094,17 +1094,6 @@ public class Drivetrain {
         leftBackDrive.setPower(0);
         rightBackDrive.setPower(0);
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public void DriverControls() {
         if (theOpMode.gamepad1.y){

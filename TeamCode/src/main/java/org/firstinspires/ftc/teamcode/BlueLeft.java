@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.util.ArrayList;
     @Autonomous
-    public class BlueLeft_Meet2 extends LinearOpMode {
+    public class BlueLeft extends LinearOpMode {
 
         private int codePosition;
         private SpikeMarkDetection.spikeMarkPositions position;
@@ -62,7 +62,7 @@ import java.util.ArrayList;
             driveTrain.encoderDrive(.3, -3, 3);
             driveTrain.strafeEncoderDrive(.3, 24, 3);
             driveTrain.strafeEncoderDrive(.3, 13, 3);
-             */
+
                 driveTrain.encoderDrive(.3, 24, 3);
                 driveTrain.strafeEncoderDrive(.3, 6, 2);
                 driveTrain.encoderDrive(.3, 1.5, 2);
