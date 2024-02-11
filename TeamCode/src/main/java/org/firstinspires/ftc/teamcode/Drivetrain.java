@@ -197,11 +197,10 @@ public class Drivetrain {
         }
 
         // Stop all motion;
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        leftBackDrive.setPower(0);
-        rightBackDrive.setPower(0);
-
+        leftDrive.setPower(-speed);
+        rightDrive.setPower(-speed);
+        leftBackDrive.setPower(-speed);
+        rightBackDrive.setPower(-speed);
         // Turn off RUN_TO_POSITION
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -212,6 +211,10 @@ public class Drivetrain {
         rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftBackDrive.setPower(0);
+        rightBackDrive.setPower(0);
 
     }
     public void encoderDriveStart(double speed, double inches, double timeoutS) {
@@ -310,10 +313,10 @@ public class Drivetrain {
 
         // reset the timeout time and start motion.
         runtime.reset();
-        leftDrive.setPower(Math.abs(speed));
-        rightDrive.setPower(Math.abs(speed));
-        leftBackDrive.setPower(Math.abs(-speed));
-        rightBackDrive.setPower(Math.abs(-speed));
+        leftDrive.setPower(Math.abs(speed) * .9);
+        rightDrive.setPower(Math.abs(speed) * .9);
+        leftBackDrive.setPower(Math.abs(-speed) * 1.2);
+        rightBackDrive.setPower(Math.abs(-speed) * 1.2);
 
         while (((LinearOpMode) theOpMode).opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
@@ -797,7 +800,7 @@ public class Drivetrain {
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.0000008, 0.000001);
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.1, 0.0000008, 0.0001);
         //theOpMode.telemetry.setMsTransmissionInterval(50);
         double degreeCount = 0;
         runtime.reset();
@@ -809,8 +812,8 @@ public class Drivetrain {
             double motorSpeed = pid.update(getAbsoluteAngle());
             leftDrive.setPower(motorSpeed);
             rightDrive.setPower(-motorSpeed);
-            leftBackDrive.setPower(motorSpeed);
-            rightBackDrive.setPower(-motorSpeed);
+            leftBackDrive.setPower(motorSpeed * 1.1);
+            rightBackDrive.setPower(-motorSpeed * 1.1);
             theOpMode.telemetry.addData("degreeCount", degreeCount);
             theOpMode.telemetry.addData("Current Angle", getAbsoluteAngle());
             theOpMode.telemetry.addData("Target Angle", targetAngle);
@@ -863,6 +866,173 @@ public class Drivetrain {
         rightBackDrive.setPower(0);
     }
 
+
+
+        public void strafeWithPID(double speed, double inches, double targetAngle, double timeoutS) {
+            int newLeftTarget;
+            int newRightTarget;
+            int newLeftBackTarget;
+            int newRightBackTarget;
+
+
+            // Determine new target position, and pass to motor controller
+            newLeftTarget = leftDrive.getCurrentPosition() - (int) (inches * countsPerInch);
+            newLeftBackTarget = (leftBackDrive.getCurrentPosition() + (int) (inches * countsPerInch));
+            newRightTarget = (rightDrive.getCurrentPosition() + (int) (inches * countsPerInch));
+            newRightBackTarget = (rightBackDrive.getCurrentPosition() - (int) (inches * countsPerInch));
+
+            leftDrive.setTargetPosition(newLeftTarget);
+            rightDrive.setTargetPosition(newRightTarget);
+            leftBackDrive.setTargetPosition(newLeftBackTarget);
+            rightBackDrive.setTargetPosition(newRightBackTarget);
+
+            // Turn On RUN_TO_POSITION
+            leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            double sensorReading = Double.MAX_VALUE;
+            runtime.reset();
+            leftDrive.setPower(-speed);
+            rightDrive.setPower(speed);
+            leftBackDrive.setPower(speed);
+            rightBackDrive.setPower(-speed);
+            TurnPIDController pid = new TurnPIDController(targetAngle, 0.04, 0.00000000008, 0.000001);
+            //theOpMode.telemetry.setMsTransmissionInterval(50);
+            double degreeCount = 0;
+            runtime.reset();
+            // Checking lastSlope to make sure that it's not oscillating when it quits
+            while ((Math.abs(targetAngle - getAbsoluteAngle()) > 1 || pid.getLastSlope() > 1.25 || degreeCount < 4) && runtime.seconds() < timeoutS) {
+                if (Math.abs(targetAngle - getAbsoluteAngle()) < 1){
+                    degreeCount +=1;
+                }
+                double motorSpeed = pid.update(getAbsoluteAngle());
+                leftDrive.setPower(-motorSpeed);
+                rightDrive.setPower(motorSpeed);
+                leftBackDrive.setPower(motorSpeed);
+                rightBackDrive.setPower(-motorSpeed);
+                theOpMode.telemetry.addData("degreeCount", degreeCount);
+                theOpMode.telemetry.addData("Current Angle", getAbsoluteAngle());
+                theOpMode.telemetry.addData("Target Angle", targetAngle);
+                theOpMode.telemetry.addData("Slope", pid.getLastSlope());
+                theOpMode.telemetry.addData("Power", motorSpeed);
+                theOpMode.telemetry.update();
+            }
+            leftDrive.setPower(0);
+            rightDrive.setPower(0);
+            leftBackDrive.setPower(0);
+            rightBackDrive.setPower(0);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            public void awDrive(double leftDrives, double rightDrives, double leftBackDrives, double rightBackDrives, double inches, int timeoutS) {
+                int newLeftTarget;
+                int newRightTarget;
+                int newLeftBackTarget;
+                int newRightBackTarget;
+
+
+                // Determine new target position, and pass to motor controller
+                newLeftTarget = leftDrive.getCurrentPosition() + (int) (inches * countsPerInch);
+                newLeftBackTarget = leftBackDrive.getCurrentPosition() + (int) (inches * countsPerInch);
+                newRightTarget = rightDrive.getCurrentPosition() + (int) (inches * countsPerInch);
+                newRightBackTarget = rightBackDrive.getCurrentPosition() + (int) (inches * countsPerInch);
+
+                leftDrive.setTargetPosition(newLeftTarget);
+                rightDrive.setTargetPosition(newRightTarget);
+                leftBackDrive.setTargetPosition(newLeftBackTarget);
+                rightBackDrive.setTargetPosition(newRightBackTarget);
+
+                // Turn On RUN_TO_POSITION
+                leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                leftBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                rightBackDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                // reset the timeout time and start motion.
+                runtime.reset();
+                leftDrive.setPower(Math.abs(leftDrives));
+                rightDrive.setPower(Math.abs(rightDrives));
+                leftBackDrive.setPower(Math.abs(leftBackDrives));
+                rightBackDrive.setPower(Math.abs(rightBackDrives));
+
+                while (((LinearOpMode)theOpMode).opModeIsActive() &&
+                        (runtime.seconds() < timeoutS) &&
+                        (leftDrive.isBusy() && rightDrive.isBusy() && leftBackDrive.isBusy() && rightBackDrive.isBusy())) {
+
+                    // Display it for the driver.
+                    theOpMode.telemetry.addData("Running to", " %7d :%7d, %7d, %7d", newLeftTarget, newRightTarget, newLeftBackTarget, newRightBackTarget);
+                    theOpMode.telemetry.addData("Currently at", " at %7d :%7d, %7d, %7d",
+                            leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition(), leftBackDrive.getCurrentPosition(), rightBackDrive.getCurrentPosition());
+                    theOpMode.telemetry.update();
+                }
+
+                // Stop all motion;
+                leftDrive.setPower(-leftDrives);
+                rightDrive.setPower(-rightDrives);
+                leftBackDrive.setPower(-leftBackDrives);
+                rightBackDrive.setPower(-rightBackDrives);
+                // Turn off RUN_TO_POSITION
+                leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+                leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
+                leftBackDrive.setPower(0);
+                rightBackDrive.setPower(0);
+
+            }
 
 
 
@@ -1003,7 +1173,7 @@ public class Drivetrain {
             ZeroPosition = AbsoluteValue;
 
         }
-        double y = theOpMode.gamepad1.left_stick_y*.8; // Remember, this is reversed!
+        double y = theOpMode.gamepad1.left_stick_y; // Remember, this is reversed!
         double x = -theOpMode.gamepad1.left_stick_x; // Counteract imperfect strafing
         double rx = -theOpMode.gamepad1.right_stick_x*.8;
 

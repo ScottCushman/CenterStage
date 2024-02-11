@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,7 @@ public class Teleop extends OpMode {
     Lift lift;
     Collection collection;
     ArrayList<Double> liftHeights = new ArrayList<Double>();
+    DistanceSensor distanceSensor;
 
     @Override
     public void init() {
@@ -40,7 +43,14 @@ public class Teleop extends OpMode {
         collection.collectionTeleop();
         collection.setCollectionPosition();
         lift.teleLift();
-
+        if (collection.imAboutToDie.getPosition() > .7 && distanceSensor.getDistance(DistanceUnit.INCH) < 5 && distanceSensor.getDistance(DistanceUnit.INCH) >= 3) {
+            collection.imAboutToDie.setPosition(.9);
+            collection.imGoingToDie.setPosition(.9);
+        }
+        else if (collection.imAboutToDie.getPosition() > .7 && distanceSensor.getDistance(DistanceUnit.INCH) < 3) {
+            collection.imAboutToDie.setPosition(.8);
+            collection.imGoingToDie.setPosition(.8);
+        }
 
     }
 
