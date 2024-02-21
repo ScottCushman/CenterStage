@@ -91,39 +91,43 @@ public class Collection {
             rotServo.setPosition(0.22);
         }
         if (theOpMode.gamepad2.dpad_up || theOpMode.gamepad1.dpad_up) {
-            imAboutToDie.setPosition(.8);
-            imGoingToDie.setPosition(.8);
+            imAboutToDie.setPosition(.86);
+            imGoingToDie.setPosition(.86);
         } else if (theOpMode.gamepad2.dpad_down || theOpMode.gamepad1.dpad_down) {
-            imAboutToDie.setPosition(.54);
-            imGoingToDie.setPosition(.54);
+            imAboutToDie.setPosition(.58);
+            imGoingToDie.setPosition(.58);
         }
         collectionMotor.setPower(-theOpMode.gamepad2.right_stick_y * .5);
         if (theOpMode.gamepad1.x) {
             imAboutToDie.setPosition(1);
             imGoingToDie.setPosition(1);
+
+        }
+        if (theOpMode.gamepad1.ps) {
+            rotServo.setPosition(.22);
         }
 
          if (theOpMode.gamepad1.right_bumper) {
-            hangMotor.setPower(-1);
+            hangMotor.setPower(-.7);
         }
          else if (theOpMode.gamepad1.left_bumper) {
-             hangMotor.setPower(1);
+             hangMotor.setPower(.7);
          }
          else {
-             hangMotor.setPower(theOpMode.gamepad2.left_stick_y);
+             hangMotor.setPower(theOpMode.gamepad2.left_stick_y * .7);
          }
          collectionMotor.setPower(-theOpMode.gamepad2.right_trigger);
          if (theOpMode.gamepad2.left_trigger > .1) {
              collectionMotor.setPower(theOpMode.gamepad2.left_trigger);
          }
          if (theOpMode.gamepad2.y) {
-             rotatorServo.setPosition(.5);
+             rotatorServo.setPosition(.54);
          }
          else if (theOpMode.gamepad2.a) {
              rotatorServo.setPosition(.85);
          }
          else if (theOpMode.gamepad2.b) {
-             rotatorServo.setPosition(0);
+             rotatorServo.setPosition(0.01);
          }
          if (theOpMode.gamepad2.x) {
              hangServo.setPosition(0);
@@ -273,13 +277,15 @@ public class Collection {
         collectionMotor.setPower(0);
     }
     public void collection(double power, double rotations, double timeoutS) {
+        runtime.reset();
         hangMotor.setPower(power);
-        while (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS) {
+        while (((LinearOpMode) theOpMode).opModeIsActive() && runtime.seconds() < timeoutS && collectionMotor.isBusy()) {
 
         }
         hangMotor.setPower(0);
     }
     public void collectionStart(double power, double rotations, double timeoutS) {
+        runtime.reset();
         hangMotor.setPower(power);
     }
     public boolean collectionCheck(double power, double rotations, double timeoutS) {

@@ -21,6 +21,8 @@ public class Teleop extends OpMode {
     public void init() {
         drivetrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
         lift = new Lift(hardwareMap, this, 537.6, 1, 2, liftHeights);
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "deliveryDistanceSensor");
+
         //test = new Test(hardwareMap, this);
         liftHeights.add(1.0);
         liftHeights.add(7.0);
@@ -43,14 +45,23 @@ public class Teleop extends OpMode {
         collection.collectionTeleop();
         collection.setCollectionPosition();
         lift.teleLift();
-        if (collection.imAboutToDie.getPosition() > .7 && distanceSensor.getDistance(DistanceUnit.INCH) < 5 && distanceSensor.getDistance(DistanceUnit.INCH) >= 3) {
+        /*
+        if (collection.imAboutToDie.getPosition() > .7 && distanceSensor.getDistance(DistanceUnit.INCH) <= 8 && distanceSensor.getDistance(DistanceUnit.INCH) >= 6) {
             collection.imAboutToDie.setPosition(.9);
             collection.imGoingToDie.setPosition(.9);
         }
-        else if (collection.imAboutToDie.getPosition() > .7 && distanceSensor.getDistance(DistanceUnit.INCH) < 3) {
+        else if (collection.imAboutToDie.getPosition() > .7 && distanceSensor.getDistance(DistanceUnit.INCH) < 6) {
             collection.imAboutToDie.setPosition(.8);
             collection.imGoingToDie.setPosition(.8);
         }
+        else if (collection.imAboutToDie.getPosition() > .7 && distanceSensor.getDistance(DistanceUnit.INCH) > 8) {
+            collection.imAboutToDie.setPosition(.8);
+            collection.imGoingToDie.setPosition(.8);
+        }
+        telemetry.addData("Current Distance", distanceSensor.getDistance(DistanceUnit.INCH));
+        telemetry.update();
+
+         */
 
     }
 

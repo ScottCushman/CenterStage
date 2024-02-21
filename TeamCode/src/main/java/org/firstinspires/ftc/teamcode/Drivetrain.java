@@ -30,9 +30,9 @@ public class Drivetrain {
     private OpMode theOpMode;
     private DistanceSensor leftSensorRange;
     private DistanceSensor rightSensorRange;
-    private ModernRoboticsI2cRangeSensor rangeSensor;
+     ModernRoboticsI2cRangeSensor rangeSensor;
     private ModernRoboticsI2cGyro gyroSensor;
-    private DistanceSensor distanceSensor;
+    private DistanceSensor distanceSensor1;
     NormalizedColorSensor colorSensor;
     static final double WHITE_THRESHOLD = 0.5;  // spans between 0.0 - 1.0 from dark to light
     static final double APPROACH_SPEED = 0.25;
@@ -75,7 +75,10 @@ public class Drivetrain {
         leftBackDrive = hardwareMap.dcMotor.get("leftBackDrive");
         rightBackDrive = hardwareMap.dcMotor.get("rightBackDrive");
 
-        distanceSensor = theOpMode.hardwareMap.get(DistanceSensor.class, "distanceSensor");
+        distanceSensor1 = theOpMode.hardwareMap.get(DistanceSensor.class, "distanceSensor1");
+        colorSensor = theOpMode.hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+        rangeSensor = theOpMode.hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
+
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -104,6 +107,12 @@ public class Drivetrain {
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         imuCH = opMode.hardwareMap.get(BNO055IMU.class, "imu");
         imuCH.initialize(parameters);
+        if (!leftDrive.isBusy()) {
+            leftDrive.setTargetPosition(leftDrive.getCurrentPosition());
+            rightDrive.setTargetPosition(rightDrive.getCurrentPosition());
+            leftBackDrive.setTargetPosition(leftBackDrive.getCurrentPosition());
+            rightBackDrive.setTargetPosition(rightBackDrive.getCurrentPosition());
+        }
 
     }
 
@@ -127,6 +136,9 @@ public class Drivetrain {
         leftBackDrive.setTargetPosition(newLeftBackTarget);
         rightBackDrive.setTargetPosition(newRightBackTarget);
 
+        double error = newLeftTarget - leftDrive.getCurrentPosition();
+
+
         // Sets the motors' mode to RUN_TO_POSITION
         leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -137,21 +149,42 @@ public class Drivetrain {
         runtime.reset();
 
         // Starts motion
-        leftDrive.setPower(Math.abs(speed));
-        rightDrive.setPower(Math.abs(speed));
-        leftBackDrive.setPower(Math.abs(speed));
-        rightBackDrive.setPower(Math.abs(speed));
+        leftDrive.setPower(Math.abs(error));
+        rightDrive.setPower(Math.abs(error));
+        leftBackDrive.setPower(Math.abs(error));
+        rightBackDrive.setPower(Math.abs(error));
 
         while (((LinearOpMode)theOpMode).opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
                 (leftDrive.isBusy() && rightDrive.isBusy() && leftBackDrive.isBusy() && rightBackDrive.isBusy())) {
+            leftDrive.setPower(Math.abs(error));
+            rightDrive.setPower(Math.abs(error));
+            leftBackDrive.setPower(Math.abs(error));
+            rightBackDrive.setPower(Math.abs(error));
+
             //as far as I can tell, this is purely for display
             theOpMode.telemetry.addData("Currently at", " at %7d :%7d, %7d, %7d",
                     leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition(), leftBackDrive.getCurrentPosition(), rightBackDrive.getCurrentPosition());
+            theOpMode.telemetry.addData("Current Error", error);
             theOpMode.telemetry.update();
 
         }
 
+
+        // Turn off RUN_TO_POSITION
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftBackDrive.setPower(0);
+        rightBackDrive.setPower(0);
     }
 
     public void encoderDrive(double speed, double inches, int timeoutS) {
@@ -412,6 +445,11 @@ public class Drivetrain {
 
 
     public void driveToDistanceSensor(double APPROACH_SPEED, double inches, double timeoutS) {
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         double sensorReading = Double.MAX_VALUE;
         runtime.reset();
         leftDrive.setPower(APPROACH_SPEED);
@@ -419,7 +457,7 @@ public class Drivetrain {
         leftBackDrive.setPower(APPROACH_SPEED);
         rightBackDrive.setPower(APPROACH_SPEED);
         while (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS) && sensorReading > inches) {
-            sensorReading = distanceSensor.getDistance(DistanceUnit.INCH);
+            sensorReading = distanceSensor1.getDistance(DistanceUnit.INCH);
             theOpMode.telemetry.addData("Seconds vs timeout", " %.2f < %.4f", runtime.seconds(), timeoutS);
             theOpMode.telemetry.addData("Running to", " %.2f", inches);
             theOpMode.telemetry.addData("Currently at", " at %.2f", sensorReading);
@@ -431,9 +469,33 @@ public class Drivetrain {
         leftBackDrive.setPower(0);
         rightBackDrive.setPower(0);
     }
+    public void driveToRangeSensor(double APPROACH_SPEED, double inches, double timeoutS) {
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        double sensorReading = Double.MAX_VALUE;
+        runtime.reset();
+        leftDrive.setPower(APPROACH_SPEED);
+        rightDrive.setPower(APPROACH_SPEED);
+        leftBackDrive.setPower(APPROACH_SPEED);
+        rightBackDrive.setPower(APPROACH_SPEED);
+        while (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS) && sensorReading > inches) {
+            sensorReading = rangeSensor.getDistance(DistanceUnit.INCH);
+            theOpMode.telemetry.addData("Seconds vs timeout", " %.2f < %.4f", runtime.seconds(), timeoutS);
+            theOpMode.telemetry.addData("Running to", " %.2f", inches);
+            theOpMode.telemetry.addData("Currently at", " at %.2f", sensorReading);
+            theOpMode.telemetry.update();
+
+        }
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftBackDrive.setPower(0);
+        rightBackDrive.setPower(0);
+    }
     public void driveToDistanceSensorBackwards(double APPROACH_SPEED, double inches, double timeoutS) {
-        double sensorReading = distanceSensor.getDistance(DistanceUnit.INCH);
+        double sensorReading = distanceSensor1.getDistance(DistanceUnit.INCH);
         runtime.reset();
         leftDrive.setPower(APPROACH_SPEED);
         rightDrive.setPower(APPROACH_SPEED);
@@ -441,7 +503,7 @@ public class Drivetrain {
         rightBackDrive.setPower(APPROACH_SPEED);
         while (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS) && sensorReading < inches) {
 
-            sensorReading = distanceSensor.getDistance(DistanceUnit.INCH);
+            sensorReading = distanceSensor1.getDistance(DistanceUnit.INCH);
             theOpMode.telemetry.addData("Seconds vs timeout", " %.2f < %.4f", runtime.seconds(), timeoutS);
             theOpMode.telemetry.addData("Running to", " %.2f", inches);
             theOpMode.telemetry.addData("Currently at", " at %.2f", sensorReading);
@@ -466,7 +528,7 @@ public class Drivetrain {
         leftBackDrive.setPower(APPROACH_SPEED);
         rightBackDrive.setPower(-APPROACH_SPEED);
         while (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS) && sensorReading < inches) {
-            sensorReading = distanceSensor.getDistance(DistanceUnit.INCH);
+            sensorReading = distanceSensor1.getDistance(DistanceUnit.INCH);
             theOpMode.telemetry.addData("Seconds vs timeout", " %.2f < %.4f", runtime.seconds(), timeoutS);
             theOpMode.telemetry.addData("Running to", " %.2f", inches);
             theOpMode.telemetry.addData("Currently at", " at %.2f", sensorReading);
@@ -493,7 +555,7 @@ public class Drivetrain {
 
     public boolean driveToDistanceSensorCheck(double APPROACH_SPEED, double inches, boolean isRed, double timeoutS) {
         double sensorReading = 5001;
-        sensorReading = distanceSensor.getDistance(DistanceUnit.INCH);
+        sensorReading = distanceSensor1.getDistance(DistanceUnit.INCH);
         if (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS) && sensorReading > inches) {
 
             //  theOpMode.telemetry.addData("Seconds vs timeout", " %.2f < %.4f", runtime.seconds(), timeoutS);
@@ -521,7 +583,7 @@ public class Drivetrain {
         leftBackDrive.setPower(APPROACH_SPEED);
         rightBackDrive.setPower(-APPROACH_SPEED);
         while (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS) && sensorReading > inches) {
-            sensorReading = distanceSensor.getDistance(DistanceUnit.INCH);
+            sensorReading = distanceSensor1.getDistance(DistanceUnit.INCH);
             theOpMode.telemetry.addData("Seconds vs timeout", " %.2f < %.4f", runtime.seconds(), timeoutS);
             theOpMode.telemetry.addData("Running to", " %.2f", inches);
             theOpMode.telemetry.addData("Currently at", " at %.2f", sensorReading);
@@ -555,7 +617,7 @@ public class Drivetrain {
 
         double sensorReading = 5001;
         if (((LinearOpMode) theOpMode).opModeIsActive() && (runtime.seconds() < timeoutS) && sensorReading > inches) {
-            sensorReading = distanceSensor.getDistance(DistanceUnit.INCH);
+            sensorReading = distanceSensor1.getDistance(DistanceUnit.INCH);
 //            theOpMode.telemetry.addData("Seconds vs timeout", " %.2f < %.4f", runtime.seconds(), timeoutS);
 //            theOpMode.telemetry.addData("Running to", " %.2f", inches);
 //            theOpMode.telemetry.addData("Currently at", " at %.2f", sensorReading);
@@ -677,9 +739,12 @@ public class Drivetrain {
 
 
     public void driveToColorSensor(double APPROACH_SPEED, boolean isRed, double timeoutS) {
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        runtime.reset();
         double sensorReading = 0.0;
-        colorSensor = theOpMode.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
-        colorSensor.setGain(70f);
 
 
         // run until the white line is seen OR the driver presses STOP;
@@ -687,9 +752,10 @@ public class Drivetrain {
         rightDrive.setPower(APPROACH_SPEED);
         leftBackDrive.setPower(APPROACH_SPEED);
         rightBackDrive.setPower(APPROACH_SPEED);
+        colorSensor.setGain(70f);
 
         //   while (theOpMode.opModeIsActive() && (getBrightness() < WHITE_THRESHOLD)) {
-        while (((LinearOpMode) theOpMode).opModeIsActive() && sensorReading < 0.55) {
+        while (((LinearOpMode) theOpMode).opModeIsActive() && sensorReading < 0.46 && runtime.seconds() < timeoutS) {
 
             if (isRed) {
                 sensorReading = colorSensor.getNormalizedColors().red;
@@ -697,8 +763,7 @@ public class Drivetrain {
                 sensorReading = colorSensor.getNormalizedColors().blue;
             }
             // Send telemetry message to signify robot waiting;
-            theOpMode.telemetry.addData("Status", "Ready to drive to white line.");    //
-            theOpMode.telemetry.update();
+
             // Display the light level while we are waiting to start
             getBrightness();
         }
@@ -800,7 +865,7 @@ public class Drivetrain {
         leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        TurnPIDController pid = new TurnPIDController(targetAngle, 0.1, 0.0000008, 0.0001);
+        TurnPIDController pid = new TurnPIDController(targetAngle, 0.05, 0.00000008, 0.0001);
         //theOpMode.telemetry.setMsTransmissionInterval(50);
         double degreeCount = 0;
         runtime.reset();
@@ -1033,6 +1098,50 @@ public class Drivetrain {
                 rightBackDrive.setPower(0);
 
             }
+
+    public void aDrive(double leftDrives, double rightDrives, double leftBackDrives, double rightBackDrives, double timeoutS) {
+
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // reset the timeout time and start motion.
+        runtime.reset();
+        leftDrive.setPower((leftDrives));
+        rightDrive.setPower((rightDrives));
+        leftBackDrive.setPower((leftBackDrives));
+        rightBackDrive.setPower((rightBackDrives));
+
+        while (((LinearOpMode)theOpMode).opModeIsActive() &&
+                (runtime.seconds() < timeoutS)) {
+
+            // Display it for the driver.
+
+        }
+
+        // Stop all motion;
+        leftDrive.setPower(-leftDrives);
+        rightDrive.setPower(-rightDrives);
+        leftBackDrive.setPower(-leftBackDrives);
+        rightBackDrive.setPower(-rightBackDrives);
+        // Turn off RUN_TO_POSITION
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftBackDrive.setPower(0);
+        rightBackDrive.setPower(0);
+
+    }
+
+
 
 
 
