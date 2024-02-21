@@ -22,7 +22,6 @@ public class R2RedRight extends LinearOpMode {
         Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1, 4.0);
         Collection collection = new Collection(hardwareMap, this);
         SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
-        //   int counter = 0;
         position = spikeMarkDetection.detectPosition(true);
         collection.imAboutToDie.setPosition(.55);
         collection.imGoingToDie.setPosition(.55);

@@ -98,14 +98,9 @@ public class TestAuto extends LinearOpMode {
         givenDrivetrain.encoderDriveStart(speed, inches, timeoutS);
         while (opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || givenDrivetrain.strafeEncoderDriveCheck(speed, inches, timeoutS));
     }
-    /*
-    public void rotateDrive(int rotation, double power, double speed, double inches, double timeoutS, Collection givenCollection, Drivetrain givenDrivetrain) {
-        givenCollection.collectionArmStart(rotation, power, timeoutS);
-        givenDrivetrain.encoderDriveStart(speed, inches, timeoutS);
-        while (opModeIsActive() && givenCollection.collectionArmCheck(rotation, power, timeoutS) || givenDrivetrain.encoderDriveCheck(speed, inches, timeoutS));
-    }
 
-     */
+
+
     /*
     public void rotateStrafeSense(int rotation, double power, double APPROACH_SPEED, double inches, double timeoutS, Collection givenCollection, Drivetrain givenDrivetrain) {
         givenCollection.collectionArmStart(rotation, power, timeoutS);

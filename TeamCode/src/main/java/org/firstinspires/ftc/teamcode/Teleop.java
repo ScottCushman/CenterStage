@@ -60,7 +60,6 @@ public class Teleop extends OpMode {
         }
         telemetry.addData("Current Distance", distanceSensor.getDistance(DistanceUnit.INCH));
         telemetry.update();
-
          */
 
     }
