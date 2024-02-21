@@ -78,7 +78,6 @@ public class Collection {
     }
 
     public void setCollectionPosition() {
-       // collectionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        if (theOpMode.gamepad1.left_bumper || theOpMode.gamepad2.left_bumper) {
 //            rotatorServo.setPosition(0);
 //        } else if (theOpMode.gamepad1.right_bumper || theOpMode.gamepad2.right_bumper) {

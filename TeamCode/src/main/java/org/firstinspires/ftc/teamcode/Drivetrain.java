@@ -69,7 +69,6 @@ public class Drivetrain {
         theOpMode = opMode;
         theOpMode.telemetry.addData("Running to", "here");
         theOpMode.telemetry.update();
-        // theOpMode.sleep(2000);
         leftDrive = hardwareMap.dcMotor.get("leftDrive");
         rightDrive = hardwareMap.dcMotor.get("rightDrive");
         leftBackDrive = hardwareMap.dcMotor.get("leftBackDrive");
