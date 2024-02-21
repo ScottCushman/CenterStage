@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.util.ArrayList;
@@ -25,62 +24,84 @@ public class R1AutoRedRight extends LinearOpMode {
         SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
         //   int counter = 0;
         position = spikeMarkDetection.detectPosition(true);
-        collection.imAboutToDie.setPosition(.55);
-        collection.imGoingToDie.setPosition(.55);
-
         waitForStart();
-        if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
-            driveTrain.encoderDrive(.4, -10, 2);
-            driveTrain.turnToPID(30, 2);
-            //driveTrain.encoderDrive(.4, -6, 2);
-            sleep(200);
-            driveTrain.encoderDrive(.3, -3, 2);
-            driveCollect(.4, 4, .3, 200, 2, driveTrain, collection);
-            driveTrain.turnToPID(0, 1);
-            driveTrain.encoderDrive(.3, -19, 2);
-            driveTrain.turnToPID(95, 2);
-            driveTrain.driveToDistanceSensor(-.28, 7, 3);
-            collection.rotatorServo.setPosition(.75);
-            sleep(500);
-            collection.hangMotor.setPower(-1);
-            sleep(2000);
-            collection.hangMotor.setPower(0);
-            collection.rotServo.setPosition(0.22);
-            sleep(1000);
-            driveTrain.encoderDrive(.4, 65, 5);
-            driveTrain.turnToPID(55, 3);
-            driveTrain.encoderDrive(.3, 14, 3);
-            driveTrain.turnToPID(90, 3);
-            driveTrain.encoderDrive(.1, 8, 3);
-            liftBox(.5, 350, .8, 2, lift, collection);
-            collection.rotServo.setPosition(0);
-            sleep(1000);
-        }
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
 
+            // collectArmDrive(.3,-6 , -.4, .3, 9.5, 3, collection, driveTrain);
+            driveTrain.encoderDrive(.3, 11.6, 2);
+            collection.collectionArm(-100, -.4, 3);
+            //  collection.rotateArm(.3, 2);
+            driveTrain.turnToPID(85, 2);
+            // driveTrain.encoderDrive(.3, 6, 2);
+            armDrive(.3, .3, 4.5, 2, collection, driveTrain);
+            sleep(500);
+            driveTrain.encoderDrive(.3, -11, 2);
+            driveTrain.turnToPID(-89, 2);
+            driveTrain.encoderDrive(.3, 8.2, 2);
+            sleep(500);
+            driveTrain.strafeEncoderDrive(.3, 16.5, 3);
+            //collectArmDrive(-6, -.5, .3, 12, 2, collection, driveTrain);
+            driveTrain.encoderDrive(.3, 3, 2);
+            collection.rotateArm(.86, 3);
+            sleep(800);
+            armDrive(.209, .2, -3, 2, collection, driveTrain);
+            driveTrain.turnToPID(-90, 1);
+            driveTrain.strafeToDistanceSensorBackwards(.49, 9, 3);
+            driveTrain.strafeEncoderDrive(.45, 8, 3);
+            driveTrain.turnToPID(-89.5, 1);
+            driveTrain.encoderDrive(.3, 10, 2);
+
+
+
+        }
+        else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
+            //driveTrain.encoderDrive(.3, 15.5, 2);
+            armDrive(.2, .3, 15.5, 2, collection, driveTrain);
+            sleep(500);
+            armDrive(.2, .3, -5.2, 2, collection, driveTrain);
+            driveTrain.strafeEncoderDrive(.3, -5, 2);
+            driveTrain.turnToPID(-90, 1.5);
+            collection.collectionArm(-30, .4, 1);
+            driveTrain.encoderDrive(.3, 18, 2);
+            sleep(500);
+            driveTrain.strafeEncoderDrive(.4, 15, 2);
+            sleep(500);
+            driveTrain.encoderDrive(.3, 3, 2);
+            collection.rotateArm(.86, 3);
+            sleep(1000);
+            armDrive(.209, .3, -2, 2, collection, driveTrain);
+            driveTrain.turnToPID(-90, 1);
+            driveTrain.strafeToDistanceSensorBackwards(.49, 9, 3);
+            driveTrain.strafeEncoderDrive(.45, 2, 3);
+            driveTrain.encoderDrive(.4, 7, 2);
+            driveTrain.turnToPID(-89.5, 1);
+
+
+        }
+        else if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
+
+            driveTrain.encoderDrive(.4, 6.5, 2);
+            driveTrain.strafeEncoderDrive(.4, -12, 3);
+            driveTrain.encoderDrive(.4, 8, 2);
+            collection.collectionArm(-135, -.4, 3);
+            collection.rotateArm(.3, 2);
+            driveTrain.encoderDrive(.3, -5.5, 2);
+            driveTrain.turnToPID(-82, 1.5);
+            driveTrain.encoderDrive(.3, 15, 2);
+            sleep(500);
+            driveTrain.turnToPID(-90, 1);
+            driveTrain.strafeEncoderDrive(.3, 7, 2);
+            driveTrain.encoderDrive(.3, 2, 2);
+            collection.rotateArm(.86, 3);
+            sleep(800);
+            armDrive(.209, .3, -2, 2, collection, driveTrain);
+            driveTrain.turnToPID(-90, 1);
+            driveTrain.strafeEncoderDrive(.45, -15, 3);
+            driveTrain.encoderDrive(.4, 14, 2);
+            driveTrain.turnToPID(-89.5, 1);
         }
 
 
-
-
-        driveTrain.encoderDrive(.1, -15, 3);
-        driveTrain.turnToPID(45,2);
-        driveTrain.encoderDrive(.1, -7, 2);
-        driveTrain.encoderDrive(.1,15,2);
-        driveTrain.turnToPID(0,2);
-        driveTrain.encoderDrive(.1,-10,2);
-        driveTrain.turnToPID(90,2);
-        sleep(250);
-        driveTrain.encoderDrive(.2,22,3);
-        //insert delivery
-        sleep(2000);
-        driveTrain.encoderDrive(.2,-7,2);
-        driveTrain.turnToPID(178,2);
-        driveTrain.encoderDrive(.1,-18,3);
-        driveTrain.turnToPID(230,2);
-        driveTrain.encoderDrive(.1,-6,3);
-        driveTrain.turnToPID(250,2);
-        driveTrain.encoderDrive(.1,-6,4);
     }
 
     public void driveScan(double speed, double inches, double timeoutS, Drivetrain givenDriveTrain, Scanner givenScanner) {
@@ -136,15 +157,5 @@ public class R1AutoRedRight extends LinearOpMode {
         givenCollection.collectionArmStart(rotation, power, timeoutS);
         givenDrivetrain.encoderDriveStart(speed, inches, timeoutS);
         while (opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || givenCollection.collectionArmCheck(rotation, power, timeoutS) || givenDrivetrain.encoderDriveCheck(speed, inches,timeoutS));
-    }
-    public void liftBox(double power, int target, double armPos, double timeoutS, Lift givenLift, Collection givenCollection) {
-        givenLift.liftAutoStart(power, target, timeoutS);
-        givenCollection.rotateArmStart(armPos, timeoutS);
-        while (opModeIsActive() && givenLift.liftAutoCheck(power, target, timeoutS) || givenCollection.rotateArmCheck(armPos, timeoutS));
-    }
-    public void driveCollect(double speed, double inches, double power, double rotations, double timeoutS, Drivetrain givenDrivetrain, Collection givenCollection) {
-        givenDrivetrain.encoderDriveStart(speed, inches, timeoutS);
-        givenCollection.collectionStart(power, rotations, timeoutS);
-        while (opModeIsActive() && givenDrivetrain.encoderDriveCheck(speed, inches, timeoutS) || givenCollection.collectionCheck(power, rotations, timeoutS));
     }
 }
