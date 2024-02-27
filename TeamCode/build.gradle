@@ -29,4 +29,5 @@ dependencies {
 }
 dependencies {
     implementation 'org.openftc:opencv-repackaged-bundled-dylibs:4.7.0-A'
+    implementation 'org.ftclib.ftclib:core:2.0.1'
 }

@@ -16,12 +16,15 @@ public class Teleop extends OpMode {
     Collection collection;
     ArrayList<Double> liftHeights = new ArrayList<Double>();
     DistanceSensor distanceSensor;
+    PIDFLift pidfLift;
 
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
         lift = new Lift(hardwareMap, this, 537.6, 1, 2, liftHeights);
         distanceSensor = hardwareMap.get(DistanceSensor.class, "deliveryDistanceSensor");
+        pidfLift = new PIDFLift(hardwareMap, this, 145.1, 1.0, 2.0);
+
 
         //test = new Test(hardwareMap, this);
         liftHeights.add(1.0);
@@ -44,7 +47,9 @@ public class Teleop extends OpMode {
       //  drivetrain.testDrivetrain();
         collection.collectionTeleop();
         collection.setCollectionPosition();
+        //pidfLift.teleLift();
         lift.teleLift();
+
         /*
         if (collection.imAboutToDie.getPosition() > .7 && distanceSensor.getDistance(DistanceUnit.INCH) <= 8 && distanceSensor.getDistance(DistanceUnit.INCH) >= 6) {
             collection.imAboutToDie.setPosition(.9);
