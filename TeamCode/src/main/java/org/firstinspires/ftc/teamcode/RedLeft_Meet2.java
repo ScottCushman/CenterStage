@@ -27,28 +27,38 @@ public class RedLeft_Meet2 extends LinearOpMode {
         collection.imGoingToDie.setPosition(.55);
 
         waitForStart();
+        //driveTrain.driveToRangeSensor(.1,5,3);
         //delivery testing
-        liftBox(.8, 500, .84, 2, lift, collection);
+        /*liftBox(.8, 500, .84, 2, lift, collection);
         collection.rotServo.setPosition(0);
         driveTrain.encoderDrive(.1,-4,2);
         liftBox(-.3, -300, .55, 2, lift, collection);
         sleep(250);
+        liftBox(-.3, -300, .55, 2, lift, collection);*/
+
+
+        //left detection
+        driveTrain.awDrive(.1, .85, .1, .85, -13, 2);
+        sleep(1000);
+        driveTrain.encoderDrive(.1,-6,2);
+        driveTrain.encoderDrive(.1,13.5,3);
+        driveTrain.turnToPID(0,2);
+        driveTrain.encoderDrive(.2,-26.5,2);
+        driveTrain.turnToPID(270,2);
+        driveTrain.encoderDrive(.25,-45,2);
+        driveTrain.turnToPID(0,2);
+        driveTrain.encoderDrive(.1,16.5,2);
+        driveTrain.turnToPID(90,2);
+        driveTrain.encoderDrive(.1,0.1,2);
+        driveTrain.driveToDistanceSensor(.2,2,4);
+        liftBox(.8, 500, .84, 2, lift, collection);
+        collection.rotServo.setPosition(0);
+        liftBox(-.3, -300, .55, 2, lift, collection);
+        driveTrain.encoderDrive(.1,-4,2);
+        sleep(250);
         liftBox(-.3, -300, .55, 2, lift, collection);
 
-        /*
-        //left detection
-        driveTrain.awDrive(.15, .45, .15, .45, -15, 2);
-        sleep(500);
-        driveTrain.encoderDrive(.1,11.5,2);
-        driveTrain.turnToPID(0,2);
-        driveTrain.encoderDrive(.2,-28,2);
-        driveTrain.turnToPID(270,2);
-        driveTrain.encoderDrive(.25,-30,2);
-        driveTrain.turnToPID(45,2);
-        driveTrain.encoderDrive(.1,18,2);
-        driveTrain.turnToPID(90,2);
 
-         */
         /*
         driveTrain.encoderDrive(.25,-55,5);
         driveTrain.turnToPID(0,2);
@@ -85,54 +95,47 @@ public class RedLeft_Meet2 extends LinearOpMode {
             driveTrain.encoderDrive(.1,10,2);
         }
         else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
-            driveTrain.awDrive(.45, .15, .45, .15, -15, 2);
             driveTrain.encoderDrive(.2,-17,3);
-            driveTrain.encoderDrive(.2,-1.5,2);
+            driveTrain.encoderDrive(.2,3.5,2);
             driveTrain.turnToPID(45,2);
             driveTrain.encoderDrive(.1,-10,2);
             driveTrain.turnToPID(-45,2);
             driveTrain.encoderDrive(.1,-10,2);
-            driveTrain.turnToPID(90,2);
+            driveTrain.turnToPID(-90,2);
             driveTrain.encoderDrive(.25,55,5);
             driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,14,2);
-            driveTrain.turnToPID(270,2);
-            driveTrain.encoderDrive(.1,4,2);
+            driveTrain.encoderDrive(.1,18,2);
+            driveTrain.turnToPID(90,2);
+            driveTrain.encoderDrive(.1,0.1,2);
+            driveTrain.driveToDistanceSensor(.2,2,4);
             liftBox(.8, 500, .84, 2, lift, collection);
             collection.rotServo.setPosition(0);
-            sleep(1000);
             liftBox(-.3, -300, .55, 2, lift, collection);
-            driveTrain.encoderDrive(.2,4,2);
-            driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,-19,2);
-            driveTrain.turnToPID(270,2);
-            driveTrain.encoderDrive(.1,10,2);
+            driveTrain.encoderDrive(.1,-4,2);
+            sleep(250);
+            liftBox(-.3, -300, .55, 2, lift, collection);
 
 
         }
         if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
             driveTrain.awDrive(.45, .15, .45, .15, -15, 2);
-            driveTrain.encoderDrive(.2,-13,3);
-            driveTrain.turnToPID(-45,2);
-            driveTrain.encoderDrive(.2,-1.5,2);
-            driveTrain.encoderDrive(.1,3,2);
+            sleep(500);
+            driveTrain.encoderDrive(.1,11.5,2);
             driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.2,-12,2);
-            driveTrain.turnToPID(90,2);
-            driveTrain.encoderDrive(.25,55,5);
-            driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,17,2);
+            driveTrain.encoderDrive(.2,-26.5,2);
             driveTrain.turnToPID(270,2);
-            driveTrain.encoderDrive(.1,4,2);
+            driveTrain.encoderDrive(.25,-45,2);
+            driveTrain.turnToPID(0,2);
+            driveTrain.encoderDrive(.1,22,2);
+            driveTrain.turnToPID(90,2);
+            driveTrain.encoderDrive(.1,0.1,2);
+            driveTrain.driveToDistanceSensor(.2,2,4);
             liftBox(.8, 500, .84, 2, lift, collection);
             collection.rotServo.setPosition(0);
-            sleep(1000);
             liftBox(-.3, -300, .55, 2, lift, collection);
-            driveTrain.encoderDrive(.2,4,2);
-            driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,-22,2);
-            driveTrain.turnToPID(270,2);
-            driveTrain.encoderDrive(.1,10,2);
+            driveTrain.encoderDrive(.1,-4,2);
+            sleep(250);
+            liftBox(-.3, -300, .55, 2, lift, collection);
 
 
         }

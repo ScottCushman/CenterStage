@@ -34,99 +34,61 @@ public class BlueRight_Meet2 extends LinearOpMode {
 
 
         waitForStart();
+        //right detection
+        driveTrain.awDrive(.15, .45, .15, .45, -15, 2);
+        sleep(500);
+        driveTrain.encoderDrive(.1,11.5,2);
+        driveTrain.turnToPID(0,2);
+        driveTrain.encoderDrive(.2,-26.5,2);
+        driveTrain.turnToPID(90,2);
+        driveTrain.encoderDrive(.25,-45,2);
+        driveTrain.turnToPID(0,2);
+        driveTrain.encoderDrive(.1,22,2);
+        driveTrain.turnToPID(270,2);
+        driveTrain.encoderDrive(.1,0.1,2);
+        driveTrain.driveToDistanceSensor(.2,2,4);
+        liftBox(.8, 500, .84, 2, lift, collection);
+        collection.rotServo.setPosition(0);
+        liftBox(-.3, -300, .55, 2, lift, collection);
+        driveTrain.encoderDrive(.1,-4,2);
+        sleep(250);
+        liftBox(-.3, -300, .55, 2, lift, collection);
 
-        driveTrain.encoderDrive(.2,2,1);
-
-
-        /*
-
-        driveTrain.encoderDrive(.3,36,3);
-        driveTrain.turnToPID(270, 2);
-        driveTrain.encoderDrive(.3,50,3);
-        driveTrain.strafeEncoderDrive(.3,12,3);
-        driveTrain.encoderDrive(.3,3,2);
-        //lift_sliders
-        //rotate_arm
-        //box_release
-        //box_close
-        //rotate_arm
-        //lower_sliders
-        driveTrain.encoderDrive(.3,-3,2);
-        driveTrain.strafeEncoderDrive(.3,-24,3);
-        driveTrain.encoderDrive(.3,13,3);
-
-         */
 
 
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
 
 
-            //left_detection
-            driveTrain.encoderDrive(.3, 24, 4);
-            driveTrain.strafeEncoderDrive(.3, 6, 3);
-            driveTrain.encoderDrive(.3, -1.5, 2);
-            driveTrain.strafeEncoderDrive(.3, -10, 3);
-            driveTrain.encoderDrive(.3, 13.5, 3);
-            driveTrain.turnToPID(90, 2);
-            driveTrain.encoderDrive(.5, 54, 4);
-            driveTrain.strafeEncoderDrive(.3, 12, 4);
-            driveTrain.encoderDrive(.3, 3, 3);
-            //lift_sliders
-            //rotate_arm
-            //box_release
-            //box_close
-            //rotate_arm
-            //lower_sliders
-            driveTrain.encoderDrive(.3, -3, 2);
-            driveTrain.strafeEncoderDrive(.3, 24, 3);
-            driveTrain.encoderDrive(.3, 13, 3);
 
         }
 
         else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
 
-            //middle_detection
-            driveTrain.encoderDrive(.3, 24, 4);
-            driveTrain.encoderDrive(.3, -1.5, 2);
-            driveTrain.strafeEncoderDrive(.3, 6, 2);
-            driveTrain.encoderDrive(.3, 13.5, 3);
-            driveTrain.turnToPID(90, 2);
-            driveTrain.encoderDrive(.5, 44, 4);
-            driveTrain.strafeEncoderDrive(.3, 12, 4);
-            driveTrain.encoderDrive(.3, 3, 3);
-            //lift_sliders
-            //rotate_arm
-            //box_release
-            //box_close
-            //rotate_arm
-            //lower_sliders
-            driveTrain.encoderDrive(.3, -3, 2);
-            driveTrain.strafeEncoderDrive(.3, 24, 3);
-            driveTrain.encoderDrive(.3, 13, 3);
+
         }
 
         else if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
+            driveTrain.awDrive(.45, .15, .45, .15, -15, 2);
+            sleep(500);
+            driveTrain.encoderDrive(.1,11.5,2);
+            driveTrain.turnToPID(0,2);
+            driveTrain.encoderDrive(.2,-26.5,2);
+            driveTrain.turnToPID(90,2);
+            driveTrain.encoderDrive(.25,-45,2);
+            driveTrain.turnToPID(0,2);
+            driveTrain.encoderDrive(.1,14,2);
+            driveTrain.turnToPID(270,2);
+            driveTrain.encoderDrive(.1,0.1,2);
+            driveTrain.driveToDistanceSensor(.2,2,4);
+            liftBox(.8, 500, .84, 2, lift, collection);
+            collection.rotServo.setPosition(0);
+            liftBox(-.3, -300, .55, 2, lift, collection);
+            driveTrain.encoderDrive(.1,-4,2);
+            sleep(250);
+            liftBox(-.3, -300, .55, 2, lift, collection);
 
-                //right_detection
-                driveTrain.encoderDrive(.3, 24, 4);
-                driveTrain.strafeEncoderDrive(.3, 6, 2);
-                driveTrain.encoderDrive(.3, -1.5, 2);
-                driveTrain.strafeEncoderDrive(.3, -10, 2);
-                driveTrain.encoderDrive(.3, 12, 3);
-                driveTrain.turnToPID(270, 2);
-                driveTrain.encoderDrive(.5, 54, 4);
-                driveTrain.strafeEncoderDrive(.3, 12, 4);
-                driveTrain.encoderDrive(.3, 3, 3);
-                //lift_sliders
-                //rotate_arm
-                //box_release
-                //box_close
-                //rotate_arm
-                //lower_sliders
-                driveTrain.encoderDrive(.3, -3, 2);
-                driveTrain.strafeEncoderDrive(.3, 24, 3);
-                driveTrain.encoderDrive(.3, 13, 3);
+
 
             }
 
@@ -147,33 +109,20 @@ public class BlueRight_Meet2 extends LinearOpMode {
 
     }
 
-    public void driveScan(double speed, double inches, double timeoutS, Drivetrain givenDriveTrain, Scanner givenScanner) {
-        givenDriveTrain.strafeEncoderDriveStart(speed, inches, timeoutS);
-        givenScanner.scanSignal();
-        while(opModeIsActive() && givenDriveTrain.strafeEncoderDriveCheck(speed, inches, timeoutS)) {
-            codePosition = givenScanner.scanSignal();
-            if (codePosition >= 3) {
-            }
-        }
-    }
-    public void rotateArmClaw(double armPos, double position, double timeoutS, Collection givenCollection) {
-        givenCollection.rotateArmStart(armPos, timeoutS);
-        givenCollection.rotateClawStart(position, timeoutS);
-        while (opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || (givenCollection.rotateClawCheck(position, timeoutS)));
-    }
-
-    public void armClawLift(double armPos, double position, double power, int target, double timeoutS, Collection givenCollection, Lift givenLift) {
-        givenCollection.rotateArmStart(armPos, timeoutS);
-        givenCollection.rotateClawStart(position, timeoutS);
+    public void liftBox(double power, int target, double armPos, double timeoutS, Lift givenLift, Collection givenCollection) {
         givenLift.liftAutoStart(power, target, timeoutS);
-        while(opModeIsActive() && givenCollection.rotateArmCheck(position, timeoutS) || (givenCollection.rotateClawCheck(position, timeoutS)) ||
-                givenLift.liftAutoCheck(power, target, timeoutS));
-    }
-    public void rotateClaw(double armPos, double position, double timeoutS, Collection givenCollection) {
         givenCollection.rotateArmStart(armPos, timeoutS);
-        givenCollection.rotateClawStart(position, timeoutS);
-        while(opModeIsActive() && givenCollection.rotateArmCheck(armPos, timeoutS) || (givenCollection.rotateClawCheck(position, timeoutS)));
+        while (opModeIsActive() && givenLift.liftAutoCheck(power, target, timeoutS) || givenCollection.rotateArmCheck(armPos, timeoutS));
     }
-
-
+    public void driveRotate(double speed, double inches, double clawPos, double timeoutS, Drivetrain givenDrivetrain, Collection givenCollection) {
+        givenDrivetrain.encoderDriveStart(speed, inches, timeoutS);
+        givenCollection.moveClawStart(clawPos, timeoutS);
+        while (opModeIsActive() && givenDrivetrain.encoderDriveCheck(speed, inches, timeoutS) || givenCollection.moveClawCheck(clawPos, timeoutS));
+    }
+    public void driveRotateSpin(double speed, double inches, double clawPos, double power, double rotations, double timeoutS, Drivetrain givenDrivetrain, Collection givenCollection) {
+        givenDrivetrain.encoderDriveStart(speed, inches, timeoutS);
+        givenCollection.moveClawStart(clawPos, timeoutS);
+        givenCollection.collectionStart(power, rotations, timeoutS);
+        while (opModeIsActive() && givenDrivetrain.encoderDriveCheck(speed, inches, timeoutS) || givenCollection.moveClawCheck(clawPos, timeoutS) || givenCollection.collectionCheck(power, rotations, timeoutS));
+    }
 }
