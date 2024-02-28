@@ -6,6 +6,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -115,7 +116,7 @@ public class Drivetrain {
 
     }
 
-    public void encoderDrive2(double speed, double inches, int timeoutS) {
+    public void encoderDrive2(double speed, double inches, double timeoutS) {
 
         // Target values for wheels (motors)
         int newLeftTarget;
@@ -186,7 +187,7 @@ public class Drivetrain {
         rightBackDrive.setPower(0);
     }
 
-    public void encoderDrive(double speed, double inches, int timeoutS) {
+    public void encoderDrive(double speed, double inches, double timeoutS) {
         int newLeftTarget;
         int newRightTarget;
         int newLeftBackTarget;
@@ -345,8 +346,8 @@ public class Drivetrain {
 
         // reset the timeout time and start motion.
         runtime.reset();
-        leftDrive.setPower(Math.abs(speed) * .9);
-        rightDrive.setPower(Math.abs(speed) * .9);
+        leftDrive.setPower(Math.abs(speed) * .7);
+        rightDrive.setPower(Math.abs(speed) * .7);
         leftBackDrive.setPower(Math.abs(-speed) * 1.2);
         rightBackDrive.setPower(Math.abs(-speed) * 1.2);
 
@@ -754,7 +755,7 @@ public class Drivetrain {
         colorSensor.setGain(70f);
 
         //   while (theOpMode.opModeIsActive() && (getBrightness() < WHITE_THRESHOLD)) {
-        while (((LinearOpMode) theOpMode).opModeIsActive() && sensorReading < 0.46 && runtime.seconds() < timeoutS) {
+        while (((LinearOpMode) theOpMode).opModeIsActive() && sensorReading < 0.38 && runtime.seconds() < timeoutS) {
 
             if (isRed) {
                 sensorReading = colorSensor.getNormalizedColors().red;
@@ -1282,8 +1283,8 @@ public class Drivetrain {
 
         }
         double y = theOpMode.gamepad1.left_stick_y; // Remember, this is reversed!
-        double x = -theOpMode.gamepad1.left_stick_x*.8; // Counteract imperfect strafing
-        double rx = -theOpMode.gamepad1.right_stick_x*.5;
+        double x = -theOpMode.gamepad1.left_stick_x; // Counteract imperfect strafing
+        double rx = -theOpMode.gamepad1.right_stick_x*.7;
 
         // Read inverse IMU heading, as the IMU heading is CW positive
 
@@ -1303,9 +1304,9 @@ public class Drivetrain {
         double backRightPower = (rotY + rotX - rx) / denominator;
 
 
-        leftDrive.setPower(frontLeftPower*drvTrnSpd);
+        leftDrive.setPower(frontLeftPower*drvTrnSpd * .9);
         leftBackDrive.setPower(backLeftPower*drvTrnSpd);
-        rightDrive.setPower(frontRightPower*drvTrnSpd);
+        rightDrive.setPower(frontRightPower*drvTrnSpd * .9);
         rightBackDrive.setPower(backRightPower*drvTrnSpd);
 
 

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -46,16 +47,16 @@ public class Lift {
        // sensorTouch = hardwareMap.get(TouchSensor.class, "touchSensor");
     }
     public void teleLift() {
-            leftMotor.setPower(-theOpMode.gamepad2.right_stick_y);
-            rightMotor.setPower(-theOpMode.gamepad2.right_stick_y);
+            leftMotor.setPower(theOpMode.gamepad2.right_stick_y * .7);
+            rightMotor.setPower(theOpMode.gamepad2.right_stick_y * .7);
 
         if (theOpMode.gamepad1.left_trigger > .05) {
-            leftMotor.setPower(-theOpMode.gamepad1.left_trigger);
-            rightMotor.setPower(-theOpMode.gamepad1.left_trigger);
+            leftMotor.setPower(theOpMode.gamepad1.left_trigger);
+            rightMotor.setPower(theOpMode.gamepad1.left_trigger);
         }
         if (theOpMode.gamepad1.right_trigger > .05) {
-            leftMotor.setPower(theOpMode.gamepad1.right_trigger);
-            rightMotor.setPower(theOpMode.gamepad1.right_trigger);
+            leftMotor.setPower(-theOpMode.gamepad1.right_trigger);
+            rightMotor.setPower(-theOpMode.gamepad1.right_trigger);
         }
     }
 

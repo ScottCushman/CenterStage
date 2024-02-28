@@ -5,46 +5,50 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import java.util.ArrayList;
 
 @Autonomous
-public class BlueRight_Meet2 extends LinearOpMode {
+public class RedLeft extends LinearOpMode {
 
     private int codePosition;
     private SpikeMarkDetection.spikeMarkPositions position;
 
     public void runOpMode() {
-        String tempString = "";
+        //  String tempString = "";
         ArrayList<Double> liftHeights = new ArrayList<Double>();
         liftHeights.add(3.0);
         liftHeights.add(16.5);
         liftHeights.add(3.0);
         liftHeights.add(16.5);
-        Lift lift = new Lift(hardwareMap, this, 145.1, 1, 2, liftHeights);
+        Lift lift = new Lift(hardwareMap, this, 537.5, 1, 2, liftHeights);
         Scanner scanner = new Scanner(hardwareMap, this);
-        Intake intake = new Intake(hardwareMap);
-        Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1.0, 4.0);
+        Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1, 4.0);
         Collection collection = new Collection(hardwareMap, this);
         SpikeMarkDetection spikeMarkDetection = new SpikeMarkDetection(hardwareMap, this);
-        int counter = 0;
-        position = spikeMarkDetection.detectPosition(false);
-
-
-
-
-
-
-
+        position = spikeMarkDetection.detectPosition(true);
+        collection.imAboutToDie.setPosition(.55);
+        collection.imGoingToDie.setPosition(.55);
 
         waitForStart();
-        //right detection
-        driveTrain.awDrive(.15, .45, .15, .45, -15, 2);
-        sleep(500);
-        driveTrain.encoderDrive(.1,11.5,2);
+        //driveTrain.driveToRangeSensor(.1,5,3);
+        //delivery testing
+        /*liftBox(.8, 500, .84, 2, lift, collection);
+        collection.rotServo.setPosition(0);
+        driveTrain.encoderDrive(.1,-4,2);
+        liftBox(-.3, -300, .55, 2, lift, collection);
+        sleep(250);
+        liftBox(-.3, -300, .55, 2, lift, collection);*/
+
+
+        //left detection
+        driveTrain.awDrive(.1, .85, .1, .85, -13, 2);
+        sleep(1000);
+        driveTrain.encoderDrive(.1,-6,2);
+        driveTrain.encoderDrive(.1,13.5,3);
         driveTrain.turnToPID(0,2);
         driveTrain.encoderDrive(.2,-26.5,2);
-        driveTrain.turnToPID(90,2);
+        driveTrain.turnToPID(270,2);
         driveTrain.encoderDrive(.25,-45,2);
         driveTrain.turnToPID(0,2);
-        driveTrain.encoderDrive(.1,22,2);
-        driveTrain.turnToPID(270,2);
+        driveTrain.encoderDrive(.1,16.5,2);
+        driveTrain.turnToPID(90,2);
         driveTrain.encoderDrive(.1,0.1,2);
         driveTrain.driveToDistanceSensor(.2,2,4);
         liftBox(.8, 500, .84, 2, lift, collection);
@@ -55,30 +59,53 @@ public class BlueRight_Meet2 extends LinearOpMode {
         liftBox(-.3, -300, .55, 2, lift, collection);
 
 
+        /*
+        driveTrain.encoderDrive(.25,-55,5);
+        driveTrain.turnToPID(0,2);
+        driveTrain.encoderDrive(.1,30,2);
+        driveTrain.turnToPID(90,2);
+
+         */
+
+        sleep(123456);
 
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
-
-
-
-        }
-
-        else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
-
-
-        }
-
-        else if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
             driveTrain.awDrive(.45, .15, .45, .15, -15, 2);
-            sleep(500);
-            driveTrain.encoderDrive(.1,11.5,2);
+            driveTrain.encoderDrive(.2,-13,3);
+            driveTrain.turnToPID(45,2);
+            driveTrain.encoderDrive(.2,-1.5,2);
+            driveTrain.encoderDrive(.1,3,2);
             driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.2,-26.5,2);
+            driveTrain.encoderDrive(.2,-12,2);
             driveTrain.turnToPID(90,2);
-            driveTrain.encoderDrive(.25,-45,2);
+            driveTrain.encoderDrive(.25,55,5);
             driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,14,2);
+            driveTrain.encoderDrive(.1,11,2);
             driveTrain.turnToPID(270,2);
+            driveTrain.encoderDrive(.1,4,2);
+            liftBox(.8, 500, .84, 2, lift, collection);
+            collection.rotServo.setPosition(0);
+            sleep(1000);
+            liftBox(-.3, -300, .55, 2, lift, collection);
+            driveTrain.encoderDrive(.2,4,2);
+            driveTrain.turnToPID(0,2);
+            driveTrain.encoderDrive(.1,-16,2);
+            driveTrain.turnToPID(270,2);
+            driveTrain.encoderDrive(.1,10,2);
+        }
+        else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
+            driveTrain.encoderDrive(.2,-17,3);
+            driveTrain.encoderDrive(.2,3.5,2);
+            driveTrain.turnToPID(45,2);
+            driveTrain.encoderDrive(.1,-10,2);
+            driveTrain.turnToPID(-45,2);
+            driveTrain.encoderDrive(.1,-10,2);
+            driveTrain.turnToPID(-90,2);
+            driveTrain.encoderDrive(.25,55,5);
+            driveTrain.turnToPID(0,2);
+            driveTrain.encoderDrive(.1,18,2);
+            driveTrain.turnToPID(90,2);
             driveTrain.encoderDrive(.1,0.1,2);
             driveTrain.driveToDistanceSensor(.2,2,4);
             liftBox(.8, 500, .84, 2, lift, collection);
@@ -89,25 +116,32 @@ public class BlueRight_Meet2 extends LinearOpMode {
             liftBox(-.3, -300, .55, 2, lift, collection);
 
 
+        }
+        if (position == (SpikeMarkDetection.spikeMarkPositions.RIGHT)) {
+            driveTrain.awDrive(.45, .15, .45, .15, -15, 2);
+            sleep(500);
+            driveTrain.encoderDrive(.1,11.5,2);
+            driveTrain.turnToPID(0,2);
+            driveTrain.encoderDrive(.2,-26.5,2);
+            driveTrain.turnToPID(270,2);
+            driveTrain.encoderDrive(.25,-45,2);
+            driveTrain.turnToPID(0,2);
+            driveTrain.encoderDrive(.1,22,2);
+            driveTrain.turnToPID(90,2);
+            driveTrain.encoderDrive(.1,0.1,2);
+            driveTrain.driveToDistanceSensor(.2,2,4);
+            liftBox(.8, 500, .84, 2, lift, collection);
+            collection.rotServo.setPosition(0);
+            liftBox(-.3, -300, .55, 2, lift, collection);
+            driveTrain.encoderDrive(.1,-4,2);
+            sleep(250);
+            liftBox(-.3, -300, .55, 2, lift, collection);
 
-            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
     }
+
 
     public void liftBox(double power, int target, double armPos, double timeoutS, Lift givenLift, Collection givenCollection) {
         givenLift.liftAutoStart(power, target, timeoutS);
