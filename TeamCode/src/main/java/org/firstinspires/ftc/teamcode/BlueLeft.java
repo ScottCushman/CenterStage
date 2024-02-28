@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.util.ArrayList;
     @Autonomous
-    public class BlueLeft_Meet2 extends LinearOpMode {
+    public class BlueLeft extends LinearOpMode {
 
         private int codePosition;
         private SpikeMarkDetection.spikeMarkPositions position;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
             liftHeights.add(3.0);
             liftHeights.add(16.5);
             Lift lift = new Lift(hardwareMap, this, 145.1, 1, 2, liftHeights);
-            Intake intake = new Intake(hardwareMap);
             Scanner scanner = new Scanner(hardwareMap, this);
             Drivetrain driveTrain = new Drivetrain(hardwareMap, this, 145.1, 1.0, 4.0);
             Collection collection = new Collection(hardwareMap, this);
