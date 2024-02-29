@@ -16,14 +16,14 @@ public class Teleop extends OpMode {
     Collection collection;
     ArrayList<Double> liftHeights = new ArrayList<Double>();
     DistanceSensor distanceSensor;
-    PIDFLift pidfLift;
+    //PIDFLift pidfLift;
 
     @Override
     public void init() {
         drivetrain = new Drivetrain(hardwareMap, this, 537.6, 1.0, 4.0);
         lift = new Lift(hardwareMap, this, 537.6, 1, 2, liftHeights);
         distanceSensor = hardwareMap.get(DistanceSensor.class, "deliveryDistanceSensor");
-        pidfLift = new PIDFLift(hardwareMap, this, 145.1, 1.0, 2.0);
+        //pidfLift = new PIDFLift(hardwareMap, this, 145.1, 1.0, 2.0);
 
 
         //test = new Test(hardwareMap, this);
@@ -68,6 +68,7 @@ public class Teleop extends OpMode {
          */
 
     }
+
 
     @Override
     public void stop() {

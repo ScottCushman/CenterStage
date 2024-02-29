@@ -27,6 +27,8 @@ public class RedLeftInside extends LinearOpMode {
         collection.imAboutToDie.setPosition(.55);
         collection.imGoingToDie.setPosition(.55);
 
+        //everything is just an outline.
+
         waitForStart();
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {

@@ -52,7 +52,7 @@ public class RedLeft extends LinearOpMode {
 
 
         //the middle detection was being extremely weird.
-        // it was going the same distance no on both sides, but both sides had different distance inputs
+        // it was going the same distance on both sides, but both sides had different distance inputs
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
             driveTrain.awDrive(.1, .85, .1, .85, -13, 2);

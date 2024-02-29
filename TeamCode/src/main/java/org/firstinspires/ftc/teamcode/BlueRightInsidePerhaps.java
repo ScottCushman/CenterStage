@@ -1,3 +1,5 @@
+//this is just an outline. nothing has been tested.
+//Also, delete this class if this work has already been done.
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -5,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import java.util.ArrayList;
 
 @Autonomous
-public class BlueRight extends LinearOpMode {
+public class BlueRightInsidePerhaps extends LinearOpMode {
 
     private int codePosition;
     private SpikeMarkDetection.spikeMarkPositions position;
@@ -27,30 +29,8 @@ public class BlueRight extends LinearOpMode {
         collection.imGoingToDie.setPosition(.55);
 
         waitForStart();
-        //middle detection
-        /*driveTrain.encoderDrive(.2,-22,3);
-        driveTrain.encoderDrive(.2,4,2);
-        sleep(250);
-        driveTrain.turnToPID(-45,2);
-        driveTrain.encoderDrive(.1,-12,2);
-        driveTrain.turnToPID(0,2);
-        driveTrain.encoderDrive(.1,-26.5,2);
-        driveTrain.turnToPID(270,2);
-        driveTrain.encoderDrive(.25,67,5);
-        driveTrain.turnToPID(0,2);
-        //The line of code under this comment may need to be changed to 22 inches.
-        // 22 inches should work, but it doesn't.
-        driveTrain.encoderDrive(.1,14.5,2);
-        driveTrain.turnToPID(-90,2);
-        driveTrain.encoderDrive(.1,0.1,2);
-        driveTrain.driveToDistanceSensor(.25,2,4);
-        liftBox(.8, 500, .84, 2, lift, collection);
-        collection.rotServo.setPosition(0);
-        sleep(250);
-        liftBox(-.3, -300, .55, 2, lift, collection);
-        driveTrain.encoderDrive(.1,-4,2);
-        sleep(250);
-        liftBox(-.3, -300, .55, 2, lift, collection);*/
+        //everything is an outline
+
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
             driveTrain.encoderDrive(.1,-10,3);
@@ -58,11 +38,11 @@ public class BlueRight extends LinearOpMode {
             driveTrain.encoderDrive(.1,-7,2);
             driveTrain.encoderDrive(.1,5,2);
             driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.2,-22,2);
-            driveTrain.turnToPID(86.5,2);
+            driveTrain.encoderDrive(.2,5,2);
+            driveTrain.turnToPID(90,2);
             driveTrain.encoderDrive(.25,-45,2);
             driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,15,2);
+            driveTrain.encoderDrive(.1,5,2);
             driveTrain.turnToPID(272,2);
             driveTrain.encoderDrive(.1,0.1,2);
             driveTrain.driveToDistanceSensor(.25,3,5);
@@ -76,16 +56,12 @@ public class BlueRight extends LinearOpMode {
         }
         else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
             driveTrain.encoderDrive(.2,-22,3);
-            driveTrain.encoderDrive(.2,4,2);
+            driveTrain.encoderDrive(.2,20,2);
             sleep(250);
-            driveTrain.turnToPID(-45,2);
-            driveTrain.encoderDrive(.1,-12,2);
+            driveTrain.turnToPID(90,2);
+            driveTrain.encoderDrive(.25,-45,5);
             driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,-26.5,2);
-            driveTrain.turnToPID(270,2);
-            driveTrain.encoderDrive(.25,60,5);
-            driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,9.5,2);
+            driveTrain.encoderDrive(.1,9,2);
             driveTrain.turnToPID(-90,2);
             driveTrain.encoderDrive(.1,0.1,2);
             driveTrain.driveToDistanceSensor(.25,2,4);
@@ -101,14 +77,9 @@ public class BlueRight extends LinearOpMode {
             driveTrain.awDrive(.85, .1, .85, .1, -13, 2);
             sleep(1000);
             driveTrain.encoderDrive(.1,-8,2);
-            driveTrain.encoderDrive(.1,12,3);
-            driveTrain.turnToPID(0,2);
-            driveTrain.encoderDrive(.1,-24,3);
-            driveTrain.turnToPID(-10,2);
-            driveTrain.encoderDrive(.1,-13,2);
-            driveTrain.turnToPID(86,2);
+            driveTrain.turnToPID(90,2);
             driveTrain.encoderDrive(.25,-45,2);
-            driveTrain.turnToPID(2,2);
+            driveTrain.turnToPID(0,2);
             driveTrain.encoderDrive(.1,15,2);
             driveTrain.turnToPID(272,2);
             driveTrain.encoderDrive(.1,0.1,2);
