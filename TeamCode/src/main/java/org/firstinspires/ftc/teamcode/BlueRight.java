@@ -27,6 +27,7 @@ public class BlueRight extends LinearOpMode {
         collection.imGoingToDie.setPosition(.55);
 
         waitForStart();
+        //middle detection
         driveTrain.encoderDrive(.2,-22,3);
         driveTrain.encoderDrive(.2,4,2);
         sleep(250);
@@ -35,7 +36,7 @@ public class BlueRight extends LinearOpMode {
         driveTrain.turnToPID(0,2);
         driveTrain.encoderDrive(.1,-26.5,2);
         driveTrain.turnToPID(270,2);
-        driveTrain.encoderDrive(.25,60,5);
+        driveTrain.encoderDrive(.25,67,5);
         driveTrain.turnToPID(0,2);
         //The line of code under this comment may need to be changed to 22 inches.
         // 22 inches should work, but it doesn't.

@@ -27,7 +27,8 @@ public class RedLeft extends LinearOpMode {
         collection.imGoingToDie.setPosition(.55);
 
         waitForStart();
-        driveTrain.encoderDrive(.2,-22,3);
+        //middle detection
+        /*driveTrain.encoderDrive(.2,-22,3);
         driveTrain.encoderDrive(.2,4,2);
         sleep(250);
         driveTrain.turnToPID(45,2);
@@ -35,7 +36,7 @@ public class RedLeft extends LinearOpMode {
         driveTrain.turnToPID(0,2);
         driveTrain.encoderDrive(.1,-13,2);
         driveTrain.turnToPID(-270,2);
-        driveTrain.encoderDrive(.25,70,5);
+        driveTrain.encoderDrive(.25,67,5);
         driveTrain.turnToPID(0,2);
         driveTrain.encoderDrive(.1,22,3);
         driveTrain.turnToPID(90,2);
@@ -47,7 +48,11 @@ public class RedLeft extends LinearOpMode {
         liftBox(-.3, -300, .55, 2, lift, collection);
         driveTrain.encoderDrive(.1,-4,2);
         sleep(250);
-        liftBox(-.3, -300, .55, 2, lift, collection);
+        liftBox(-.3, -300, .55, 2, lift, collection);*/
+
+
+        //the middle detection was being extremely weird.
+        // it was going the same distance no on both sides, but both sides had different distance inputs
 
         if (position == (SpikeMarkDetection.spikeMarkPositions.LEFT)) {
             driveTrain.awDrive(.1, .85, .1, .85, -13, 2);
@@ -72,7 +77,7 @@ public class RedLeft extends LinearOpMode {
             liftBox(-.3, -300, .55, 2, lift, collection);
         }
         else if (position == (SpikeMarkDetection.spikeMarkPositions.MIDDLE)) {
-            driveTrain.encoderDrive(.2,-20.5,3);
+            driveTrain.encoderDrive(.2,-22,3);
             driveTrain.encoderDrive(.2,4,2);
             sleep(250);
             driveTrain.turnToPID(45,2);
